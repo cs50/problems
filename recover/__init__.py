@@ -75,7 +75,7 @@ def first_image():
     """recovers 000.jpg correctly"""
     check50.run("./recover card.raw").exit(0, timeout=10)
     if check50.hash("000.jpg") != HASHES[0]:
-        raise Fail("recovered image does not match")
+        raise check50.Fail("recovered image does not match")
 
 @check50.check(compiles)
 def middle_images():
@@ -83,11 +83,11 @@ def middle_images():
     check50.run("./recover card.raw").exit(0, timeout=10)
     for i, hash in enumerate(HASHES[1:-1], 1):
         if hash != check50.hash("{:03d}.jpg".format(i)):
-            raise Fail("recovered image does not match")
+            raise check50.Fail("recovered image does not match")
 
 @check50.check(compiles)
 def last_image():
     """recovers 049.jpg correctly"""
     check50.run("./recover card.raw").exit(0, timeout=10)
     if check50.hash("049.jpg") != HASHES[-1]:
-        raise Fail("recovered image does not match")
+        raise check50.Fail("recovered image does not match")

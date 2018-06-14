@@ -19,7 +19,7 @@ def prints_hello():
     expected = "[Hh]ello, world!?\n"
     actual = check50.run("./hello").stdout()
     if not re.match(expected, actual):
-        err = Mismatch("hello, world\n", actual)
+        err = check50.Mismatch("hello, world\n", actual)
         if re.match(expected[:-1], actual):
             err.helpers = "Did you forget a newline (\"\\n\") at the end of your printf string?"
         raise err
