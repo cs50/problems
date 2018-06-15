@@ -1,0 +1,7 @@
+*
+!*.c
+!*.h
+!Makefile
+#dictionary.c
+#dictionary.h
+#Makefile
