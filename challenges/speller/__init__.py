@@ -6,11 +6,10 @@ import attr
 
 import check50
 import check50.c
-import check50.api
 import check50.internal
 
 @attr.s(slots=True)
-class Timing:
+class Time:
     load = attr.ib(default=0.0)
     check = attr.ib(default=0.0)
     size = attr.ib(default=0.0)
@@ -61,13 +60,13 @@ def qualifies():
 
     # Clear log to avoid clutter.
     finally:
-        check50.api._log.clear()
+        check50._log.clear()
 
 @check50.check(qualifies)
 def benchmark():
     """passes benchmarking"""
 
-    timing = Timing()
+    time = Time()
 
     for text in os.listdir("texts"):
         out = check50.run("./speller dictionaries/large texts/{} 1".format(text)).stdout(timeout=20)
@@ -78,12 +77,12 @@ def benchmark():
             raise check50.Fail("program has unexpected output or runtime error",
                                 help="If your hash function is causing an integer overflow error, "
                                      "try removing -fsanitize=integer from CFLAGS in your Makefile!")
-        timing.load += load
-        timing.check += check
-        timing.size += size
-        timing.unload += unload
+        time.load += load
+        time.check += check
+        time.size += size
+        time.unload += unload
 
-    timing.total = sum(attr.astuple(timing))
+    time.total = sum(attr.astuple(time))
 
     # Memory data.
     memory = Memory()
@@ -100,4 +99,4 @@ def benchmark():
             elif stack_match:
                 memory.stack = max(memory.stack, int(stack_match.groups()[0]))
 
-    check50.internal.data(timing=attr.asdict(timing), memory=attr.asdict(memory))
+    check50.internal.data(time=attr.asdict(time), memory=attr.asdict(memory))
