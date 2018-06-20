@@ -1,0 +1,15 @@
+prints_hello:
+  - run: python hello.py
+    stdin: david
+    stdout: hello david
+    exit: 0
+  - run: python hello.py
+    stdin: david
+    stdout: hello david
+
+prints:
+  - run: python hello.py
+    stdout:
+      - one
+      - two
+    exit: 2
