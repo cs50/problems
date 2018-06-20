@@ -1,5 +1,4 @@
-import check50
-less = check50.import_module("../less")
+less = __import__("check50").import_checks("../less")
 from less import *
 
 @check50.check(less.compiles)
