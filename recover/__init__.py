@@ -63,7 +63,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """recover.c compiles."""
-    check50.c.compile("recover.c")
+    check50.c.compile("recover.c", lcs50=True)
 
 @check50.check(compiles)
 def test_noimage():

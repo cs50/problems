@@ -9,7 +9,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """caesar.c compiles."""
-    check50.c.compile("caesar.c")
+    check50.c.compile("caesar.c", lcs50=True)
 
 @check50.check(compiles)
 def encrypts_a_as_b():

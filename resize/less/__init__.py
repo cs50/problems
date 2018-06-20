@@ -76,7 +76,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """resize.c compiles."""
-    check50.c.compile("resize.c")
+    check50.c.compile("resize.c", lcs50=True)
 
 @check50.check(compiles)
 def small_1():
