@@ -50,10 +50,9 @@ def test420():
     expected = "18\n"
     actual = check50.run("./cash").stdin("4.2").stdout()
     if not re.search(coins(18), actual):
+        help = None
         if re.search(coins(22), actual):
-            help = "Did you forget to round your input to the nearest cent?"
-        else:
-            help = None
+            help = "did you forget to round your input to the nearest cent?"
         raise Mismatch(expected, actual, help=help)
 
 

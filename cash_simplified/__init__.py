@@ -50,10 +50,9 @@ def test420():
     expected = "18\n"
     actual = check50.run("./cash").stdin("4.2").stdout()
     if not re.search("^18\n", actual):
+        help = None
         if re.search("^22\n", actual):
-            help = "Did you forget to round your input to the nearest cent?"
-        else:
-            help = None
+            help = "did you forget to round your input to the nearest cent?"
         raise Mismatch(expected, actual, help=help)
 
 
@@ -73,7 +72,3 @@ def test_reject_foo():
 def test_reject_empty():
     """rejects a non-numeric input of "" """
     check50.run("./cash").stdin("").reject()
-
-
-def coins(num):
-    return fr"(^|[^\d]){num}(?!\d)"
