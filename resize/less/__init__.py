@@ -61,7 +61,7 @@ def check_bmps(expected_filename, actual_filename):
         elif actual_byte is None:
             raise check50.Failure("Image has more bytes than expected.")
         elif expected_byte != actual_byte:
-            raise check50.Failure(f"Byte {i} of pixel data doesn't match. Expected 0x{expected_byte.hex()}, not 0x{actual_byte.hex()}")
+            raise check50.Failure(f"Byte {i} of pixel data doesn't match. Expected {hex(expected_byte)}, not {hex(actual_byte)}")
 
 
 @check50.check()
