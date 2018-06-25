@@ -52,16 +52,16 @@ def check_bmps(expected_filename, actual_filename):
     check50.log(f"checking {actual_filename} header...")
     for (field, expected_field), (_, actual_field) in zip(expected_header, actual_header):
         if expected_field != actual_field:
-            raise check50.Fail(f"Header field {field} doesn't match. Expected {expected_field}, not {actual_field}")
+            raise check50.Failure(f"Header field {field} doesn't match. Expected {expected_field}, not {actual_field}")
 
     check50.log(f"checking {actual_filename} pixel data...")
     for i, (expected_byte, actual_byte) in enumerate(zip_longest(expected_bytes, actual_bytes), 1):
         if expected_byte is None:
-            raise check50.Fail("Image has fewer bytes than expected.")
+            raise check50.Failure("Image has fewer bytes than expected.")
         elif actual_byte is None:
-            raise check50.Fail("Image has more bytes than expected.")
+            raise check50.Failure("Image has more bytes than expected.")
         elif expected_byte != actual_byte:
-            raise check50.Fail(f"Byte {i} of pixel data doesn't match. Expected 0x{expected_byte.hex()}, not 0x{actual_byte.hex()}")
+            raise check50.Failure(f"Byte {i} of pixel data doesn't match. Expected 0x{expected_byte.hex()}, not 0x{actual_byte.hex()}")
 
 
 @check50.check()
