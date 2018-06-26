@@ -6,7 +6,6 @@ import attr
 
 import check50
 import check50.c
-import check50.internal
 
 @attr.s(slots=True)
 class Time:
@@ -21,18 +20,18 @@ class Memory:
     stack = attr.ib(default=0)
     heap = attr.ib(default=0)
 
-@check50.check()
+@check()
 def exists():
     """dictionary.c and dictionary.h exist"""
     check50.exists("dictionary.c", "dictionary.h", "Makefile")
     check50.include("speller.c", "dictionaries", "texts", "sols")
 
-@check50.check(exists)
+@check(exists)
 def compiles():
     """speller compiles"""
     check50.run("make").exit(0)
 
-@check50.check(compiles)
+@check(compiles)
 def qualifies():
     """qualifies for Big Board"""
     try:
@@ -62,7 +61,7 @@ def qualifies():
     finally:
         check50._log.clear()
 
-@check50.check(qualifies)
+@check(qualifies)
 def benchmark():
     """passes benchmarking"""
 
@@ -99,4 +98,4 @@ def benchmark():
             elif stack_match:
                 memory.stack = max(memory.stack, int(stack_match.groups()[0]))
 
-    check50.internal.data(time=attr.asdict(time), memory=attr.asdict(memory))
+    check50.data(time=attr.asdict(time), memory=attr.asdict(memory))
