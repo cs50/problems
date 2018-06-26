@@ -48,15 +48,15 @@ def qualifies():
 
         # check for canary
         if canary != actual[-1]:
-            raise check50.Fail("Your Makefile doesn't seem to have compiled speller.c")
+            raise check50.Failure("Your Makefile doesn't seem to have compiled speller.c")
         del actual[-1]
 
         # Compare output line for line.
         if len(actual) != len(expected):
-            raise check50.Fail("{} lines expected, not {}".format(len(expected), len(actual)))
+            raise check50.Failure("{} lines expected, not {}".format(len(expected), len(actual)))
         for actual_line, expected_line in zip(actual, expected):
             if actual_line != expected_line:
-                raise check50.Fail("expected {}, not {}".format(expected_line, actual_line))
+                raise check50.Failure("expected {}, not {}".format(expected_line, actual_line))
 
     # Clear log to avoid clutter.
     finally:
@@ -74,9 +74,9 @@ def benchmark():
             load, check, size, unload = map(float, out.split())
         except ValueError:
             check50.log(out)
-            raise check50.Fail("program has unexpected output or runtime error",
-                                help="If your hash function is causing an integer overflow error, "
-                                     "try removing -fsanitize=integer from CFLAGS in your Makefile!")
+            raise check50.Failure("program has unexpected output or runtime error",
+                                  help="If your hash function is causing an integer overflow error, "
+                                       "try removing -fsanitize=integer from CFLAGS in your Makefile!")
         time.load += load
         time.check += check
         time.size += size

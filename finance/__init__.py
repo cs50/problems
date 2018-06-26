@@ -189,10 +189,10 @@ class Finance(check50.flask.App):
         except StopIteration:
             pass
         else:
-            raise check50.Fail(f"expected to find {field_tag} field with name \"{missing}\", but none found")
+            raise check50.Failure(f"expected to find {field_tag} field with name \"{missing}\", but none found")
 
         if content.find("button", type="submit") is None:
-            raise check50.Fail("expected button to submit form, but none was found")
+            raise check50.Failure("expected button to submit form, but none was found")
 
         return self
 
