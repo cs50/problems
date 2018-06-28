@@ -10,8 +10,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Usage: is_rest LINE\n");
         return 2;
     }
-    char *line = argv[1];
 
     // Check output of to_rest
-    return is_rest(line) ? 0 : 1;
+    return is_rest(argv[1]);
 }

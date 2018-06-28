@@ -2,23 +2,11 @@ import check50
 import check50.c
 
 @check50.check()
-def exists():
-    """bday.txt and helpers.c exist"""
+def bday_exists():
+    """bday.txt exists"""
+    check50.exists("bday.txt")
 
-    # Ensure student files exist
-    check50.exists("bday.txt", "helpers.c")
-
-    # Include distribution code
-    check50.include("helpers.h", "wav.h", "wav.c")
-
-@check50.check(exists)
-def compiles():
-    """helpers.c compiles"""
-    check50.c.compile("is_rest.c", "wav.c", "helpers.c", lcs50=True)
-    check50.c.compile("duration.c", "wav.c", "helpers.c", lcs50=True)
-    check50.c.compile("frequency.c", "wav.c", "helpers.c", lcs50=True)
-
-@check50.check(exists)
+@check50.check(bday_exists)
 def bday():
     """bday.txt is correct"""
     solution = ["D4@1/8", "D4@1/8", "E4@1/4", "D4@1/4", "G4@1/4", "F#4@1/2",
@@ -42,10 +30,25 @@ def bday():
         if expected != actual:
             raise check50.Failure(f"incorrect note on line {note}")
 
+
+@check50.check()
+def helpers_exists():
+    """helpers.c exists"""
+    check50.exists("helpers.c")
+    check50.include("helpers.h", "wav.h", "wav.c", "is_rest.c", "duration.c", "frequency.c")
+
+@check50.check(helpers_exists)
+def compiles():
+    """helpers.c compiles"""
+    check50.c.compile("is_rest.c", "wav.c", "helpers.c", lcs50=True)
+    check50.c.compile("duration.c", "wav.c", "helpers.c", lcs50=True)
+    check50.c.compile("frequency.c", "wav.c", "helpers.c", lcs50=True)
+
+
 @check50.check(compiles)
 def is_rest_true():
     """is_rest identifies "" as a rest"""
-    check50.run("./is_rest ''").exit(0)
+    check50.run("./is_rest ''").exit(1)
 
 @check50.check(compiles)
 def is_rest_false():
