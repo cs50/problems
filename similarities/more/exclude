@@ -1,0 +1,7 @@
+*.pyc
+__pycache__/
+application.py
+requirements.txt
+#helpers.py
+#templates/index.html
+#templates/matrix.html

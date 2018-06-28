@@ -1,84 +1,85 @@
 import check50
+import check50.py
 import check50.flask
 
 
-@check()
+@check50.check()
 def exists():
     """application.py exists"""
     check50.exists("application.py")
     check50.include("lookup.py")
-    check50.append_code("helpers.py", "lookup.py")
+    check50.py.append_code("helpers.py", "lookup.py")
 
 
-@check(exists)
+@check50.check(exists)
 def startup():
     """application starts up"""
     Finance().get("/").status(200)
 
 
-@check(startup)
+@check50.check(startup)
 def register_page():
     """register page has all required elements"""
     Finance().validate_form("/register", ["username", "password", "confirmation"])
 
 
-@check(register_page)
+@check50.check(register_page)
 def simple_register():
     """registering user succeeds"""
     Finance().register("cs50", "ohHai28!", "ohHai28!").status(200)
 
 
-@check(register_page)
+@check50.check(register_page)
 def register_empty_field_fails():
     """registration with an empty field fails"""
     for user in [("", "crimson", "crimson"), ("jharvard", "crimson", ""), ("jharvard", "", "")]:
         Finance().register(*user).status(400)
 
 
-@check(register_page)
+@check50.check(register_page)
 def register_password_mismatch_fails():
     """registration with password mismatch fails"""
     Finance().register("check50user1", "thisiscs50", "crimson").status(400)
 
 
-@check(register_page)
+@check50.check(register_page)
 def register_reject_duplicate_username():
     """registration rejects duplicate username"""
     user = ["elfie", "Doggo28!", "Doggo28!"]
     Finance().register(*user).status(200).register(*user).status(400)
 
 
-@check(startup)
+@check50.check(startup)
 def login_page():
     """login page has all required elements"""
     Finance().validate_form("/login", ["username", "password"])
 
 
-@check(simple_register)
+@check50.check(simple_register)
 def can_login():
     """logging in as registered user succceeds"""
     Finance().login("cs50", "ohHai28!").status(200).get("/", follow_redirects=False).status(200)
 
 
-@check(can_login)
+@check50.check(can_login)
 def quote_page():
     """quote page has all required elements"""
     Finance().login("cs50", "ohHai28!").validate_form("/quote", "symbol")
 
 
-@check(quote_page)
+@check50.check(quote_page)
 def quote_handles_invalid():
     """quote handles invalid ticker symbol"""
     Finance().login("cs50", "ohHai28!").quote("ZZZ").status(400)
 
 
-@check(quote_page)
+@check50.check(quote_page)
 def quote_handles_blank():
     """quote handles blank ticker symbol"""
     Finance().login("cs50", "ohHai28!").quote("").status(400)
 
 
-@check(quote_page)
+@check50.check(quote_page)
 def quote_handles_valid():
     """quote handles valid ticker symbol"""
     (Finance().login("cs50", "ohHai28!")
@@ -87,19 +88,19 @@ def quote_handles_valid():
               .content(r"28\.00", "28.00", name="body"))
 
 
-@check(can_login)
+@check50.check(can_login)
 def buy_page():
     """buy page has all required elements"""
     Finance().login("cs50", "ohHai28!").validate_form("/buy", ["shares", "symbol"])
 
 
-@check(buy_page)
+@check50.check(buy_page)
 def buy_handles_invalid():
     """buy handles invalid ticker symbol"""
     Finance().login("cs50", "ohHai28!").transaction("/buy", "ZZZZ", "2").status(400)
 
 
-@check(buy_page)
+@check50.check(buy_page)
 def buy_handles_incorrect_shares():
     """buy handles fractional, negative, and non-numeric shares"""
     (Finance().login("cs50", "ohHai28!")
@@ -108,7 +109,7 @@ def buy_handles_incorrect_shares():
               .transaction("/buy", "AAAA", "foo").status(400))
 
 
-@check(buy_page)
+@check50.check(buy_page)
 def buy_handles_valid():
     """buy handles valid purchase"""
     (Finance().login("cs50", "ohHai28!")
@@ -117,7 +118,7 @@ def buy_handles_valid():
               .content(r"9,?888\.00", "9,888.00"))
 
 
-@check(buy_handles_valid)
+@check50.check(buy_handles_valid)
 def sell_page():
     """sell page has all required elements"""
     (Finance().login("cs50", "ohHai28!")
@@ -125,13 +126,13 @@ def sell_page():
               .validate_form("/sell", ["symbol"], field_tag="select"))
 
 
-@check(buy_handles_valid)
+@check50.check(buy_handles_valid)
 def sell_handles_invalid():
     """sell handles invalid number of shares"""
     Finance().login("cs50", "ohHai28!").transaction("/sell", "AAAA", "8").status(400)
 
 
-@check(buy_handles_valid)
+@check50.check(buy_handles_valid)
 def sell_handles_valid():
     """sell handles valid sale"""
     (Finance().login("cs50", "ohHai28!")

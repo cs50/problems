@@ -20,18 +20,18 @@ class Memory:
     stack = attr.ib(default=0)
     heap = attr.ib(default=0)
 
-@check()
+@check50.check()
 def exists():
     """dictionary.c and dictionary.h exist"""
     check50.exists("dictionary.c", "dictionary.h", "Makefile")
     check50.include("speller.c", "dictionaries", "texts", "sols")
 
-@check(exists)
+@check50.check(exists)
 def compiles():
     """speller compiles"""
     check50.run("make").exit(0)
 
-@check(compiles)
+@check50.check(compiles)
 def qualifies():
     """qualifies for Big Board"""
     try:
@@ -61,7 +61,7 @@ def qualifies():
     finally:
         check50._log.clear()
 
-@check(qualifies)
+@check50.check(qualifies)
 def benchmark():
     """passes benchmarking"""
 

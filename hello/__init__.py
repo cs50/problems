@@ -1,17 +1,17 @@
 import check50
 import check50.c
 
-@check()
+@check50.check()
 def exists():
     """hello.c exists."""
     check50.exists("hello.c")
 
-@check(exists)
+@check50.check(exists)
 def compiles():
     """hello.c compiles."""
     check50.c.compile("hello.c", lcs50=True)
 
-@check(compiles)
+@check50.check(compiles)
 def prints_hello():
     """prints "hello, world\\n" """
     from re import match

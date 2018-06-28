@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+.*
+#application.py
+#mashup.db
+#static/scripts.js

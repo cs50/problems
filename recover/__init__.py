@@ -54,30 +54,30 @@ HASHES = [
     "3510482b20a5b93eb8e8558227fa80f8460581f71e433932d11bac989e9d17fc"   # 049.jpg
 ]
 
-@check()
+@check50.check()
 def exists():
     """recover.c exists."""
     check50.include("card.raw")
     check50.exists("recover.c")
 
-@check(exists)
+@check50.check(exists)
 def compiles():
     """recover.c compiles."""
     check50.c.compile("recover.c", lcs50=True)
 
-@check(compiles)
+@check50.check(compiles)
 def test_noimage():
     """handles lack of forensic image"""
     check50.run("./recover").exit(1)
 
-@check(compiles)
+@check50.check(compiles)
 def first_image():
     """recovers 000.jpg correctly"""
     check50.run("./recover card.raw").exit(0, timeout=10)
     if check50.hash("000.jpg") != HASHES[0]:
         raise check50.Failure("recovered image does not match")
 
-@check(compiles)
+@check50.check(compiles)
 def middle_images():
     """recovers middle images correctly"""
     check50.run("./recover card.raw").exit(0, timeout=10)
@@ -85,7 +85,7 @@ def middle_images():
         if hash != check50.hash("{:03d}.jpg".format(i)):
             raise check50.Failure("recovered image does not match")
 
-@check(compiles)
+@check50.check(compiles)
 def last_image():
     """recovers 049.jpg correctly"""
     check50.run("./recover card.raw").exit(0, timeout=10)
