@@ -4,7 +4,7 @@ import check50.c
 @check50.check()
 def exists():
     """vigenere.c exists."""
-    check50.exists("vigenere.c")
+    check50.exists("vigenere.py")
 
 @check50.check(exists)
 def aa():

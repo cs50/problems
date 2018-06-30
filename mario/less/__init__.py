@@ -20,7 +20,7 @@ def test_reject_negative():
 @check50.check(compiles)
 def test0():
     """handles a height of 0 correctly"""
-    check50.run("./mario").stdin("0").stdout(EOF).exit(0)
+    check50.run("./mario").stdin("0").stdout(check50.EOF).exit(0)
 
 @check50.check(compiles)
 def test1():
@@ -44,7 +44,7 @@ def test23():
 def test24():
     """rejects a height of 24, and then accepts a height of 2"""
     (check50.run("./mario").stdin("24").reject()
-            .stdin("2").stdout(open("2.txt")).exit(0))
+            .stdin("2", prompt=False).stdout(open("2.txt")).exit(0))
 
 @check50.check(compiles)
 def test_reject_foo():
@@ -64,11 +64,11 @@ def check_pyramid(output, correct):
     output = output.splitlines()
     correct = correct.splitlines()
 
-    if len(output) != len(correct):
-        help = None
-    elif all(ol.rstrip() == cl for ol, cl in zip(output, correct)):
-        help = "Did you add too much trailing whitespace to the end of your pyramid?"
-    elif all(ol[1:] == cl for ol, cl in zip(output, correct)):
-        help = "Are you printing an additional character at the beginning of each line?"
+    help = None
+    if len(output) == len(correct):
+        if all(ol.rstrip() == cl for ol, cl in zip(output, correct)):
+            help = "Did you add too much trailing whitespace to the end of your pyramid?"
+        elif all(ol[1:] == cl for ol, cl in zip(output, correct)):
+            help = "Are you printing an additional character at the beginning of each line?"
 
-    raise Mismatch(correct, output, help=help)
+    raise check50.Mismatch(correct, output, help=help)

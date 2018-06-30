@@ -45,7 +45,7 @@ def test420():
 
 @check50.check(exists)
 def test_reject_negative():
-    """rejects a negative input like -.1"""
+    """rejects a negative input like -1"""
     check50.run("python3 cash.py").stdin("-1").reject()
 
 @check50.check(exists)

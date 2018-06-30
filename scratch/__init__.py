@@ -127,9 +127,9 @@ def uses_sound():
 
 def project_contains_keywords(project, keywords):
     """Returns True if project contains at least one of the keywords."""
-    return any(any(contains(script, keyword)
+    return any(any(contains(script, keywords)
                    for script in child.get("scripts", []))
-               for child in itertools.chain(project["children"], [project])
+               for child in itertools.chain(project["children"], [project]))
 
 
 def contains(script, keywords):
