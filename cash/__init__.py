@@ -47,11 +47,12 @@ def test230():
 @check50.check(compiles)
 def test420():
     """input of 4.2 yields output of 18"""
+    from re import search
     expected = "18\n"
     actual = check50.run("./cash").stdin("4.2").stdout()
-    if not re.search(coins(18), actual):
+    if not search(coins(18), actual):
         help = None
-        if re.search(coins(22), actual):
+        if search(coins(22), actual):
             help = "did you forget to round your input to the nearest cent?"
         raise check50.Mismatch(expected, actual, help=help)
 
