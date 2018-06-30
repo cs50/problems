@@ -141,7 +141,7 @@ def sell_handles_valid():
               .content(r"9,?944\.00", "9,944.00"))
 
 
-class Finance(check50.flask.App):
+class Finance(check50.flask.app):
     """Extension of flask.App class that adds Finance-specific functions"""
 
     APP_NAME = "application.py"
