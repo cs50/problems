@@ -67,8 +67,8 @@ def check_pyramid(output, correct):
     help = None
     if len(output) == len(correct):
         if all(ol.rstrip() == cl for ol, cl in zip(output, correct)):
-            help = "Did you add too much trailing whitespace to the end of your pyramid?"
+            help = "did you add too much trailing whitespace to the end of your pyramid?"
         elif all(ol[1:] == cl for ol, cl in zip(output, correct)):
-            help = "Are you printing an additional character at the beginning of each line?"
+            help = "are you printing an additional character at the beginning of each line?"
 
     raise check50.Mismatch(correct, output, help=help)
