@@ -1,2 +1,13 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*.pyc"
+    - __pycache__/
+  require: &req
+    - application.py
+    - finance.db
+    - helpers.py
+    - requirements.txt
+
+submit50:
+  exclude: *exc
+  require: *req

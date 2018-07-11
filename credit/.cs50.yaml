@@ -1,2 +1,10 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!credit.c"
+  require: &req
+    - credit.c
+
+submit50:
+  exclude: *exc
+  require: *req

@@ -1,2 +1,12 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!*.c"
+    - "!*.h"
+    - Makefile
+  require: &req
+    - crack.c
+
+submit50:
+  exclude: *exc
+  require: *req

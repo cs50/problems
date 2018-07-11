@@ -1,2 +1,10 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!Makefile"
+  require: &req
+    - resize.c
+
+submit50:
+  exclude: *exc
+  require: *req

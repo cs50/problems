@@ -1,2 +1,7 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!*.sb2"
+
+submit50:
+  exclude: *exc

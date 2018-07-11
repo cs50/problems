@@ -1,2 +1,10 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!*.py"
+  require: &req
+    - cash.py
+
+submit50:
+  exclude: *exc
+  require: *req

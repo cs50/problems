@@ -1,2 +1,13 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*.pyc"
+    - __pycache__/
+    - requirements.txt
+  require: &req
+    - helpers.py
+    - templates/index.html
+    - templates/matrix.html
+
+submit50:
+  exclude: *exc
+  require: *req

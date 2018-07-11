@@ -1,7 +1,0 @@
-*.pyc
-__pycache__/
-Makefile
-application.py
-compare
-#helpers.py
-#templates/index.html

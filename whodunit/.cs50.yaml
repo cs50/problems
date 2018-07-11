@@ -1,2 +1,11 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!Makefile"
+  require: &req
+    - README.md
+    - whodunit.c
+
+submit50:
+  exclude: *exc
+  require: *req

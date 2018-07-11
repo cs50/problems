@@ -1,2 +1,13 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*.pyc"
+    - __pycache__/
+    - ".*"
+  require: &req
+    - application.py
+    - mashup.db
+    - static/scripts.js
+
+submit50:
+  exclude: *exc
+  require: *req

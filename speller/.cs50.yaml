@@ -1,2 +1,17 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!*.c"
+    - "!*.h"
+    - "!*.md"
+    - "!Makefile"
+    - speller.c
+  require: &req
+    - dictionary.c
+    - dictionary.h
+    - Makefile
+    - README.md
+
+submit50:
+  exclude: *exc
+  require: *req

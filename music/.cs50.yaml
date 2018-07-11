@@ -1,2 +1,8 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!bday.txt"
+    - "!helpers.c"
+
+submit50:
+  exclude: *exc

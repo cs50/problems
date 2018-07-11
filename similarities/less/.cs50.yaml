@@ -1,2 +1,14 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*.pyc"
+    - __pycache__/
+    - Makefile
+    - application.py
+    - compare
+  require: &req
+    - helpers.py
+    - templates/index.html
+
+submit50:
+  exclude: *exc
+  require: *req

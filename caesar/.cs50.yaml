@@ -1,2 +1,10 @@
-check50: true
-submit50: true
+check50: 
+  exclude: &exc
+    - "*"
+    - "!caesar.c"
+  require: &req
+    - caesar.c
+
+submit50:
+  exclude: *exc
+  require: *req
