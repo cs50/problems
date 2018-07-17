@@ -1,10 +1,8 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!*.py"
-  require: &req
-    - credit.py
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !require credit.py
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

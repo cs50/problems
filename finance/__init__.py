@@ -14,7 +14,7 @@ def exists():
 @check50.check(exists)
 def startup():
     """application starts up"""
-    Finance().get("/").status(200)
+    print(Finance().get("/").status(200).raw_content())
 
 
 @check50.check(startup)
@@ -165,7 +165,7 @@ class Finance(check50.flask.app):
 
     def transaction(self, route, symbol, shares):
         """Send request to `route` ("/buy" or "/sell") to perform the relevant transaction"""
-        return self.post("{}".format(route), data={"symbol": symbol, "shares": shares})
+        return self.post(route, data={"symbol": symbol, "shares": shares})
 
     def validate_form(self, route, fields, field_tag="input"):
         """Make sure HTML form at `route` has input fields given by `fields`"""

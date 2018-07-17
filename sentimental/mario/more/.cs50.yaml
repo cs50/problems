@@ -1,10 +1,8 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!*.py"
-  require: &req
-    - mario.py
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !require mario.py
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

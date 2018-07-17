@@ -38,7 +38,7 @@ def test23():
 def test24():
     """rejects a height of 24, and then accepts a height of 2"""
     (check50.run("python3 mario.py").stdin("24").reject()
-            .stdin("2", prompt=False).stdout(open("2.txt")).exit(0))
+            .stdin("2").stdout(open("2.txt")).exit(0))
 
 @check50.check(exists)
 def test_reject_foo():

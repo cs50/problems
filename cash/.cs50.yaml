@@ -1,10 +1,7 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!cash.c"
-  require: &req
-    - cash.c
+  files: &check50_files
+    - !exclude "*"
+    - !require cash.c
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

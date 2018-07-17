@@ -1,11 +1,8 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!Makefile"
-  require: &req
-    - README.md
-    - whodunit.c
-
+  files: &check50_files
+    - !exclude "*"
+    - !include Makefile
+    - !require README.md
+    - !require whodunit.c
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

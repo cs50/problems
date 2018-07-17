@@ -1,10 +1,7 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!mario.c"
-  require: &req
-    - mario.c
+  files: &check50_files
+    - !exclude "*"
+    - !require mario.c
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

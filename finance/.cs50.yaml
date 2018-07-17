@@ -1,13 +1,11 @@
 check50: 
-  exclude: &exc
-    - "*.pyc"
-    - __pycache__/
-  require: &req
-    - application.py
-    - finance.db
-    - helpers.py
-    - requirements.txt
+  files: &check50_files
+    - !exclude "*.pyc"
+    - !exclude __pycache__
+    - !require application.py
+    - !require finance.db
+    - !require helpers.py
+    - !require requirements.txt
 
-submit50:
-  exclude: *exc
-  require: *req
+submit50: 
+  files: *check50_files

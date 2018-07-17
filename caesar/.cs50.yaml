@@ -1,10 +1,7 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!caesar.c"
-  require: &req
-    - caesar.c
+  files: &check50_files
+    - !exclude "*"
+    - !require caesar.c
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

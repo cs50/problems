@@ -16,10 +16,10 @@ def prints_hello():
     """prints "hello, world\\n" """
     from re import match
 
-    expected = "[Hh]ello, world!?\n"
+    expected = _("[Hh]ello, world!?\n")
     actual = check50.run("./hello").stdout()
     if not match(expected, actual):
         help = None
         if match(expected[:-1], actual):
-            help = r"did you forget a newline ('\n') at the end of your printf string?"
-        raise check50.Mismatch("hello, world\n", actual, help=help)
+            help = _(r"did you forget a newline ('\n') at the end of your printf string?")
+        raise check50.Mismatch(_("hello, world\n"), actual, help=help)

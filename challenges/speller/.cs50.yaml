@@ -1,13 +1,11 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!*.c"
-    - "!*.h"
-  require: &req
-    - dictionary.c
-    - dictionary.h
-    - Makefile
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.c"
+    - !include "*.h"
+    - !require dictionary.c
+    - !require dictionary.h
+    - !require Makefile
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

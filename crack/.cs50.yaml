@@ -1,12 +1,10 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!*.c"
-    - "!*.h"
-    - Makefile
-  require: &req
-    - crack.c
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.c"
+    - !include "*.h"
+    - !include Makefile
+    - !require cash.c
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

@@ -1,9 +1,7 @@
 check50: 
-  exclude: &exc
-    - "*"
-  require: &req
-    - vigenere.c
+  files: &check50_files
+    - !exclude "*"
+    - !require vigenere.c
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

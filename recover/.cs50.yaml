@@ -1,11 +1,8 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!Makefile"
-    - "!recover.c"
-  require: &req
-    - recover.c
+  files: &check50_files
+    - !exclude "*"
+    - !include Makefile
+    - !require recover.c
 
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files

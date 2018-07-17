@@ -1,8 +1,8 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!bday.txt"
-    - "!helpers.c"
+  files: &check50_files
+    - !exclude "*"
+    - !include "bday.txt"
+    - !include "helpers.c"
 
 submit50:
-  exclude: *exc
+  files: *check50_files

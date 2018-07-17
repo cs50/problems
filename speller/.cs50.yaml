@@ -1,17 +1,14 @@
 check50: 
-  exclude: &exc
-    - "*"
-    - "!*.c"
-    - "!*.h"
-    - "!*.md"
-    - "!Makefile"
-    - speller.c
-  require: &req
-    - dictionary.c
-    - dictionary.h
-    - Makefile
-    - README.md
-
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.c"
+    - !include ".h"
+    - !include "*.md"
+    - !include Makefile
+    - !exclude speller.c
+    - !require dictionary.c
+    - !require dictionary.h
+    - !require Makefile
+    - !require README.md
 submit50:
-  exclude: *exc
-  require: *req
+  files: *check50_files
