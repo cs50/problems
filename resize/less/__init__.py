@@ -56,9 +56,9 @@ def check_bmps(expected_filename, actual_filename):
 
     check50.log(f"checking {actual_filename} pixel data...")
     for i, (expected_byte, actual_byte) in enumerate(zip_longest(expected_bytes, actual_bytes), 1):
-        if expected_byte is None:
+        if actual_byte is None:
             raise check50.Failure("image has fewer bytes than expected.")
-        elif actual_byte is None:
+        elif expected_byte is None:
             raise check50.Failure("image has more bytes than expected.")
         elif expected_byte != actual_byte:
             raise check50.Failure(f"expected {hex(expected_byte)}, not {hex(actual_byte)} in byte {i} of pixel data")
