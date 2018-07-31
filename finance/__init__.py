@@ -14,7 +14,7 @@ def exists():
 @check50.check(exists)
 def startup():
     """application starts up"""
-    print(Finance().get("/").status(200).raw_content())
+    Finance().get("/").status(200)
 
 
 @check50.check(startup)
