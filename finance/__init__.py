@@ -137,7 +137,7 @@ def sell_handles_valid():
     """sell handles valid sale"""
     (Finance().login("cs50", "ohHai28!")
               .transaction("/sell", "AAAA", "2")
-              .content("56\.00", "56.00")
+              .content(r"56\.00", "56.00")
               .content(r"9,?944\.00", "9,944.00"))
 
 
