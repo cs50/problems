@@ -16,7 +16,7 @@ def prints_hello():
     """prints "hello, world\\n" """
     from re import match
 
-    expected = _("[Hh]ello, world!?\n")
+    expected = "[Hh]ello, world!?\n"
     actual = check50.run("./hello").stdout()
     if not match(expected, actual):
         help = None
