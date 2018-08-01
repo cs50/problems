@@ -1,0 +1,6 @@
+check50:
+  files: &check50_files
+    - !include "*"
+
+submit50:
+  files: *check50_files
