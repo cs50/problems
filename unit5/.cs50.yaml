@@ -1,6 +1,2 @@
-check50:
-  files: &check50_files
-    - !include "*"
-
-submit50:
-  files: *check50_files
+check50: true
+submit50: true
