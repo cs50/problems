@@ -21,5 +21,5 @@ def prints_hello():
     if not match(expected, actual):
         help = None
         if match(expected[:-1], actual):
-            help = _(r"did you forget a newline ('\n') at the end of your printf string?")
-        raise check50.Mismatch(_("hello, world\n"), actual, help=help)
+            help = r"did you forget a newline ('\n') at the end of your printf string?"
+        raise check50.Mismatch("hello, world\n", actual, help=help)
