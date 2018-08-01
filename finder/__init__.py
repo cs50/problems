@@ -4,6 +4,7 @@ import check50.c
 @check50.check()
 def exists():
     """finder.c exists."""
+    check50.include("FOO", "BAR", "this", "CATS.txt", "DOGS.txt")
     check50.exists("finder.c")
 
 @check50.check(exists)
@@ -24,41 +25,39 @@ def test_handles_too_many_arguments():
 @check50.check(compiles)
 def test_cats():
     """finds cats in cats.txt"""
-    check50.include("FOO", "BAR", "THIS", "CATS.txt", "DOGS.txt", "001.txt")
-    check50.run("./finder cats").stdout()
-    check_output(open("found.txt").read(), open("001.txt").read())
+    check_found("cats", expected="001.txt")
 
 @check50.check(compiles)
 def test_foo1():
     """finds foo with argc == 2"""
-    check50.include("FOO", "BAR", "THIS", "CATS.txt", "DOGS.txt", "002.txt")
-    check50.run("./finder foo").stdout()
-    check_output(open("found.txt").read(), open("002.txt").read())
+    check_found("foo", expected="002.txt")
 
 @check50.check(compiles)
 def test_foo2():
     """finds foo with argc == 3"""
-    check50.include("FOO", "BAR", "THIS", "CATS.txt", "DOGS.txt", "003.txt")
-    check50.run("./finder foo ./").stdout()
-    check_output(open("found.txt").read(), open("003.txt").read())
+    check_found("foo", "./", expected="003.txt")
 
 @check50.check(compiles)
 def test_foo3():
     """finds foo in foo/"""
-    check50.include("FOO", "BAR", "THIS", "CATS.txt", "DOGS.txt", "004.txt")
-    check50.run("./finder foo FOO/").stdout()
-    check_output(open("found.txt").read(), open("004.txt").read())
+    check_found("foo", "FOO/", expected="004.txt")
 
 @check50.check(compiles)
 def test_common():
     """finds common starting at ./"""
-    check50.include("FOO", "BAR", "this", "CATS.txt", "DOGS.txt", "005.txt")
-    check50.run("./finder common").stdout()
-    check_output(open("found.txt").read(), open("005.txt").read())
+    check_found("common", expected="005.txt")
 
 
-def check_output(output, correct):
-    if output == correct:
-        return
+def check_found(*args, expected=None):
+    check50.run(f"./finder {' '.join(args)}").exit(0)
+    check50.exists("found.txt")
 
-    raise check50.Mismatch(correct, output)
+    with open("found.txt") as f:
+        actual_found = f.read()
+
+    check50.include(expected)
+    with open(expected) as f:
+        expected_found = f.read()
+
+    if actual_found != expected_found:
+        raise check50.Mismatch(expected_found, actual_found)
