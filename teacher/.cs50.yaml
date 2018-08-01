@@ -1,0 +1,10 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.txt"
+    - !include "*.doc"
+    - !include "*.docx"
+    - !include "*.pdf"
+
+submit50:
+  files: *check50_files
