@@ -1,0 +1,4 @@
+Hello, world! This is cs50.
+
+Find words in common among the given files and
+make sure your program can find them all!

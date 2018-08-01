@@ -1,0 +1,1 @@
+Use this text file to search for the string foo!
