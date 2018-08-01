@@ -52,4 +52,4 @@ def test_reject_empty_string():
     check50.run("./fahrenheit").stdin("").reject()
 
 def number(num):
-    return "(^|[^\d]){}[^\d]".format(num)
+    return fr"(?<!\d){num}(?!\d)"
