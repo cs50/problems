@@ -13,13 +13,13 @@ def compiles():
 
 @check50.check(compiles)
 def test_hello_world():
-    """prints "Hello, world!" if argv[1] is "world" """
-    check50.run("./hello world").stdout("Hello, world!\n", "Hello, world!").exit(0)
+    """prints "Hello, world!\n" if argv[1] is "world" """
+    check50.run("./hello world").stdout("Hello, world!\n").exit(0)
 
 @check50.check(compiles)
 def test_hello_elphie():
-    """prints "Hello, elphie!" if argv[1] is "elphie" """
-    check50.run("./hello elphie").stdout("Hello, elphie!\n", "Hello, elphie!").exit(0)
+    """prints "Hello, elphie!\n" if argv[1] is "elphie" """
+    check50.run("./hello elphie").stdout("Hello, elphie!\n").exit(0)
 
 @check50.check(compiles)
 def test_lack_of_arguments():
