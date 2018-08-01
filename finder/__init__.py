@@ -58,12 +58,7 @@ def test_common():
 
 
 def check_output(output, correct):
-    print(repr(output))
-    print(repr(correct))
     if output == correct:
         return
-
-    output = output.splitlines()
-    correct = correct.splitlines()
 
     raise check50.Mismatch(correct, output)
