@@ -31,7 +31,7 @@ def compiles():
     """speller compiles"""
     check50.run("make").exit(0)
 
-@check50.check(compiles)
+@check50.check(compiles, timeout=120)
 def qualifies():
     """qualifies for Big Board"""
     try:
@@ -41,7 +41,7 @@ def qualifies():
         check50.run("make -B").exit(0)
 
         # Run on aca.txt
-        check50.c.valgrind("./speller dictionaries/large texts/aca.txt 0 > actual.out").exit(0, timeout=20)
+        check50.c.valgrind("./speller dictionaries/large texts/aca.txt 0 > actual.out").exit(0, timeout=60)
         actual = open("actual.out").read().splitlines()
         expected = open("sols/aca.txt").read().splitlines()
 
