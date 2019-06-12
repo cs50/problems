@@ -1,9 +1,8 @@
 import check50
-import check50.c
 
 @check50.check()
 def exists():
-    """vigenere.c exists."""
+    """vigenere.py exists."""
     check50.exists("vigenere.py")
 
 @check50.check(exists)
