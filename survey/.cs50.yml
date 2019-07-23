@@ -1,0 +1,12 @@
+check50:
+  files: &check50_files
+    - !exclude '*.pyc'
+    - !exclude '__pycache__'
+    - !require application.py
+    - !require templates/layout.html
+    - !require templates/form.html
+    - !require templates/error.html
+    - !require static/styles.css
+
+submit50:
+  files: *check50_files
