@@ -1,14 +1,11 @@
-check50: 
+check50:
   files: &check50_files
     - !exclude "*"
     - !include "*.c"
     - !include ".h"
     - !include "*.md"
-    - !include Makefile
     - !exclude speller.c
     - !require dictionary.c
     - !require dictionary.h
-    - !require Makefile
-    - !require README.md
 submit50:
   files: *check50_files
