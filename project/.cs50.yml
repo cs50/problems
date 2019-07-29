@@ -1,2 +1,3 @@
-check50: false
-submit50: true
+check50: true
+submit50: 
+  style: false
