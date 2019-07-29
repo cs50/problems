@@ -20,7 +20,7 @@ def test_reject_negative():
 @check50.check(compiles)
 def test0():
     """handles a height of 0 correctly"""
-    check50.run("./mario").stdin("0").stdout(check50.EOF).exit(0)
+    check50.run("./mario").stdin("0").reject()
 
 @check50.check(compiles)
 def test1():
