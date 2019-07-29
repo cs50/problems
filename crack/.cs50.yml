@@ -4,7 +4,7 @@ check50:
     - !include "*.c"
     - !include "*.h"
     - !include Makefile
-    - !require cash.c
+    - !require crack.c
 
 submit50:
   files: *check50_files
