@@ -19,7 +19,7 @@ def test_reject_negative():
 
 @check50.check(compiles)
 def test0():
-    """handles a height of 0 correctly"""
+    """rejects a height of 0"""
     check50.run("./mario").stdin("0").reject()
 
 @check50.check(compiles)
