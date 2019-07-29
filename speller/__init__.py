@@ -5,13 +5,13 @@ import check50.c
 @check50.check()
 def exists():
     """dictionary.c, dictionary.h, and Makefile exist"""
-    check50.exists("dictionary.c", "dictionary.h", "Makefile")
+    check50.exists("dictionary.c", "dictionary.h")
 
 
 @check50.check(exists)
 def compiles():
     """speller compiles"""
-    check50.include("speller.c")
+    check50.include("speller.c", "Makefile")
     check50.run("make").exit(0)
 
 
