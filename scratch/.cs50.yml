@@ -1,7 +1,7 @@
 check50: 
   files: &check50_files
     - !exclude "*"
-    - !include "*.sb2"
+    - !include "*.sb3"
 
 submit50:
   files: *check50_files

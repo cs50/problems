@@ -11,136 +11,84 @@ def valid():
     """project exists and is valid Scratch program"""
 
     # Make sure there is only one .sb2 file.
-    filenames = [filename for filename in os.listdir() if filename.endswith(".sb2")]
+    filenames = [filename for filename in os.listdir() if filename.endswith(".sb3")]
 
     if len(filenames) > 1:
-        raise check50.Failure("more than one .sb2 file found. Make sure there's only one!")
+        raise check50.Failure("more than one .sb3 file found. Make sure there's only one!")
     elif not filenames:
-        raise check50.Failure("no .sb2 file found.")
+        raise check50.Failure("no .sb3 file found")
 
     filename = filenames[0]
 
     # Ensure that unzipped .sb2 file contains .json file.
     if check50.run(f"unzip {shlex.quote(filename)}").exit():
-        raise check50.Failure("invalid .sb2 file.")
+        raise check50.Failure("invalid .sb3 file")
     check50.exists("project.json")
 
+    with open("project.json") as f:
+        project = json.load(f)
+
+    return project["targets"]
+
 @check50.check(valid)
-def two_sprites():
+def two_sprites(project):
     """project contains at least two sprites"""
 
-    with open("project.json") as f:
-        project = json.load(f)
-
-    # Loop over children: includes sprites and stages.
-    num_sprites = sum("costumes" in child for child in project["children"])
+    num_sprites = sum(not target["isStage"] for target in project)
 
     if num_sprites < 2:
-        raise check50.Failure(f"only {num_sprites} sprite{'' if num_sprites == 1 else 's'} found, 2 required.")
+        raise check50.Failure(f"only {num_sprites} sprite{'' if num_sprites == 1 else 's'} found, 2 required")
 
 @check50.check(valid)
-def non_cat():
+def non_cat(project):
     """project contains a non-cat sprite"""
 
-    with open("project.json") as f:
-        project = json.load(f)
+    cat_sprite_ids = {"fc0687f38ae230b8765eebf4100e2653",
+                      "06c57b43f5a7d3500fd149de265c2289"}
 
-    for child in project["children"]:
-
-        # Skip over any non-sprites (e.g. backdrops).
-        if "costumes" not in child:
-            continue
-
-        # Check if the sprite has the default costume.
-        is_cat = any(costume["baseLayerMD5"] == "09dc888b0b7df19f70d81588ae73420e.svg"
-                       for costume in child.get("costumes", []))
-
-        # If it doesn't meow, we've found a non-cat sprite.
-        if not is_cat:
-            return
-
-    # If we haven't returned, then no non-cat sprite found.
-    raise check50.Failure("requires a non-cat sprite.")
+    if all(target["isStage"] or {costume["assetId"] for costume in target["costumes"]} == cat_sprite_ids for target in project):
+        raise check50.Failure("no non-cat sprite found")
 
 @check50.check(valid)
-def three_scripts():
-    """project contains at least three scripts"""
+def three_blocks(project):
+    """project contains at least three blocks"""
 
-    with open("project.json") as f:
-        project = json.load(f)
-
-    # Add up scripts from each sprite or backdrop.
-    num_scripts = sum(len(child.get("scripts", [])) for child in project["children"])
-    num_scripts += len(project.get("scripts", []))
-
-    if num_scripts < 3:
-        raise check50.Failure(f"only {num_scripts} script{'' if num_scripts == 1 else 's'} found, 3 required.")
+    num_blocks = sum(len(target["blocks"]) for target in project)
+    if num_blocks < 3:
+        raise check50.Failure(f"only {num_blocks} script{'' if num_blocks == 1 else 's'} found, 3 required")
 
 @check50.check(valid)
-def uses_condition():
+def uses_condition(project):
     """project uses at least one condition"""
-    with open("project.json") as f:
-        project = json.load(f)
 
-    # Search project scripts for an if or if/else block.
-    if not project_contains_keywords(project, ["doIf", "doIfElse", "doUntil"]):
-        raise check50.Failure("no conditions found, 1 required.")
+    conditionals = ["control_repeat", "control_if_else", "control_if"]
+    if not contains_blocks(project, ["control_repeat", "control_if_else", "control_if"]):
+        raise check50.Failure("no conditions found, 1 required")
 
 @check50.check(valid)
-def uses_loop():
+def uses_loop(project):
     """project uses at least one loop"""
-    with open("project.json") as f:
-        project = json.load(f)
 
     # Search project scripts for a repeat, repeat until, or forever block.
-    if not project_contains_keywords(project, ["doRepeat", "doUntil", "doForever"]):
-        raise check50.Failure("no loops found, 1 required.")
+    if not contains_blocks(project, ["control_forever", "control_repeat_until", "control_repeat"]):
+        raise check50.Failure("no loops found, 1 required")
 
 @check50.check(valid)
-def uses_variable():
+def uses_variable(project):
     """project uses at least one variable"""
-    with open("project.json") as f:
-        project = json.load(f)
 
-    # Look for global variables.
-    if project.get("variables"):
-        return
-
-    # Look for local-to-sprite variables.
-    if any(child.get("variables") for child in project["children"]):
-        return
-
-    # If we've reached this point, no variable found.
-    raise check50.Failure("no variables found, 1 required.")
+    if not any(target["variables"] for target in project):
+        raise check50.Failure("no variables found, 1 required")
 
 @check50.check(valid)
-def uses_sound():
+def uses_sound(project):
     """project uses at least one sound"""
-    with open("project.json") as f:
-        project = json.load(f)
 
-    # Search scripts for a sound block.
-    keywords = ["playSound:", "doPlaySoundAndWait", "playDrum", "noteOn:duration:elapsed:from:"]
-    if not project_contains_keywords(project, keywords):
-        raise check50.Failure("no sounds found, 1 required.")
+    if not contains_blocks(project, ["sound_play", "sound_playuntildone"]):
+        raise check50.Failure("no sounds used, 1 required")
 
 
-def project_contains_keywords(project, keywords):
-    """Returns True if project contains at least one of the keywords."""
-    return any(any(contains(script, keywords)
-                   for script in child.get("scripts", []))
-               for child in itertools.chain(project["children"], [project]))
-
-
-def contains(script, keywords):
-    """Performs DFS on the script to determine if keyword exists."""
-
-    # The keyword must be the first item in a list.
-    if type(script) != list or not script:
-        return False
-
-    if script[0] in keywords:
-        return True
-
-    # Iterate over all children.
-    return any(contains(child, keywords) for child in script)
+def contains_blocks(project, opcodes):
+    """Return whether project contains any blocks with their names in opcodes"""
+    return any(any(block["opcode"] in opcodes for block in target["blocks"].values())
+               for target in project)
