@@ -4,7 +4,7 @@ import check50
 def exists():
     """mario.c exists."""
     check50.exists("mario.py")
-    check50.include("1.txt", "2.txt", "23.txt")
+    check50.include("1.txt", "2.txt", "8.txt")
 
 @check50.check(exists)
 def test_reject_negative():
@@ -13,8 +13,8 @@ def test_reject_negative():
 
 @check50.check(exists)
 def test0():
-    """handles a height of 0 correctly"""
-    check50.run("python3 mario.py").stdin("0").stdout(check50.EOF).exit(0)
+    """rejects a height of 0"""
+    check50.run("python3 mario.py").stdin("0").reject()
 
 @check50.check(exists)
 def test1():
@@ -30,14 +30,14 @@ def test2():
 
 @check50.check(exists)
 def test23():
-    """handles a height of 23 correctly"""
-    out = check50.run("python3 mario.py").stdin("23").stdout()
-    check_pyramid(out, open("23.txt").read())
+    """handles a height of 8 correctly"""
+    out = check50.run("python3 mario.py").stdin("8").stdout()
+    check_pyramid(out, open("8.txt").read())
 
 @check50.check(exists)
 def test24():
-    """rejects a height of 24, and then accepts a height of 2"""
-    (check50.run("python3 mario.py").stdin("24").reject()
+    """rejects a height of 9, and then accepts a height of 2"""
+    (check50.run("python3 mario.py").stdin("9").reject()
             .stdin("2").stdout(open("2.txt")).exit(0))
 
 @check50.check(exists)
