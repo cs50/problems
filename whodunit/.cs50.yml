@@ -1,8 +1,8 @@
-check50: 
+check50:
   files: &check50_files
     - !exclude "*"
     - !include Makefile
-    - !require README.md
+    - !require questions.md
     - !require whodunit.c
 submit50:
   files: *check50_files
