@@ -6,13 +6,11 @@ def exists():
     check50.exists("hello.py")
 
 @check50.check(exists)
-def prints_hello():
-    """prints "hello, world\\n" """
-    from re import match
-    expected = "[Hh]ello, world!?\n"
-    actual = check50.run("python3 hello.py").stdout()
-    if not match(expected, actual):
-        help = None
-        if match(expected[:-1], actual):
-            help = r'did you forget a newline ("\n") at the end of your string?'
-        raise Mismatch("hello, world\n", actual, help=help)
+def veronica():
+    """responds to name Veronica."""
+    check50.run("python3 hello.py").stdin("Veronica").stdout("Veronica").exit(0)
+
+@check50.check(exists)
+def brian():
+    """responds to name Brian."""
+    check50.run("python3 hello.py").stdin("Brian").stdout("Brian").exit(0)
