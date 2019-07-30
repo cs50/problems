@@ -1,6 +1,7 @@
 check50:
   dependencies:
     - flask_session
+    - werkzeug<0.15
   files: &check50_files
     - !exclude "*.pyc"
     - !exclude __pycache__
