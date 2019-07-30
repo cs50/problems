@@ -36,7 +36,7 @@ def has_text_fields(self):
         "search", "tel", "text", "time", "url", "week"
     ]
 
-    if any((e.attrs["type"] in types for e in inputs)):
+    if any(e.attrs.get("type") in types for e in inputs):
         return
 
     raise check50.Failure("expected at least one text input")
@@ -47,8 +47,8 @@ def has_checkbox_or_radio_buttons(self):
     """has one or more checkboxes or two or more radio buttons"""
 
     inputs = form_elements("/")[0].find_all("input")
-    if len(tuple(filter(lambda e: e.attrs["type"] == "checkbox", inputs))) < 1 and \
-        len(tuple(filter(lambda e: e.attrs["type"] == "radio", inputs))) < 2:
+    if len(tuple(filter(lambda e: e.attrs.get("type") == "checkbox", inputs))) < 1 and \
+        len(tuple(filter(lambda e: e.attrs.get("type") == "radio", inputs))) < 2:
         raise check50.Failure("expected at least one checkbox or two radio buttons")
 
 
