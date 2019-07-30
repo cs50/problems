@@ -1,6 +1,11 @@
 import check50
 import check50.py
 import check50.flask
+import os
+
+
+# Set API_KEY to a dummy value. The distro code looks at this value, but it's not used in checks.
+os.environ["API_KEY"] = "foo"
 
 
 @check50.check()
@@ -196,4 +201,3 @@ class Finance(check50.flask.app):
             raise check50.Failure("expected button to submit form, but none was found")
 
         return self
-
