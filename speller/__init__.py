@@ -62,4 +62,4 @@ def substring():
 @check50.check(substring)
 def memory():
     """program is free of memory errors"""
-    check50.c.valgrind("./speller substring/dict substring/text").stdout(open("substring/out")).exit(0)
+    check50.c.valgrind("./speller substring/dict substring/text").stdout(open("substring/out"), timeout=10).exit(0)
