@@ -219,6 +219,8 @@ def win_4x4(path):
 def check_board(expected, actual):
     n = len(expected)
     for i, j in itertools.product(range(n), range(n)):
+        if expected[i][j] == 0:
+            continue
         check50.log(f"Checking that {expected[i][j]} appears at index ({i}, {j})")
         if expected[i][j] != actual[i][j]:
             raise check50.Failure(f"Expected {expected[i][j]} at index ({i}, {j}) but found {actual[i][j]}")
