@@ -42,4 +42,5 @@ def test_too_many_arguments():
     check50.run("./fahrenheit 0 32").exit(1)
 
 def number(num):
-    return fr"(?<!\d){num.replace('.', '\\.')}(?!\d)"
+    n = num.replace('.', '\\.')
+    return fr"(?<!\d){n}(?!\d)"
