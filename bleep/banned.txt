@@ -1,0 +1,7 @@
+bar
+darn
+drat
+foo
+fudge
+heck
+shoot
