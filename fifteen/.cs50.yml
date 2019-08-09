@@ -4,7 +4,7 @@ check50:
   files: &check50_files
     - !exclude "*"
     - !require "fifteen.c"
-    - !require "questions.txt"
+    - !require "questions.md"
 
 submit50:
   files: *check50_files
