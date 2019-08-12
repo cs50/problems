@@ -1,8 +1,0 @@
-check50: 
-  files: &check50_files
-    - !exclude "*"
-    - !include "*.py"
-    - !require hello.py
-
-submit50:
-  files: *check50_files

@@ -1,0 +1,10 @@
+check50:
+  dependencies:
+    - cffi
+  files: &check50_files
+    - !exclude "*"
+    - !require "fifteen.c"
+    - !require "questions.txt"
+
+submit50:
+  files: *check50_files

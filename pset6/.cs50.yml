@@ -1,0 +1,11 @@
+check50:
+  files: &check50_files
+    - !exclude '*'
+    - !include '*.py'
+    - !require mario.py
+    - !require sentiments/analyzer.py
+    - !require sentiments/application.py
+    - !require sentiments/tweets
+
+submit50:
+  files: *check50_files
