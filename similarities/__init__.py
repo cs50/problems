@@ -132,6 +132,12 @@ def substrings_duplicates():
     b = "barbaz"
     check_strings("substrings", {"ba", "ar", "rb", "az"}, a, b, 2)
 
+@check50.check(imports)
+def substrings_nonalpha():
+    """handles substrings containing nonalpha chars"""
+    a = "foo bar baz"
+    b = "foo barbaz"
+    check_strings("substrings", {"foo b", "oo ba", "o bar"}, a, b, 5)
 
 def check_strings(method, expected, *args):
     a, b = args[0], args[1]
