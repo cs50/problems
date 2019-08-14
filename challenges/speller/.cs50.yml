@@ -11,5 +11,5 @@ submit50:
   files: *check50_files
   remote:
     message: "Go to https://speller.cs50.io/challenge/{commit_hash} to see your results!"
-    callback: "https://speller.cs50.io/challenges"
+    callback: "https://speller.cs50.io/challenge"
 
