@@ -1,0 +1,5 @@
+check50: 
+  files: &check50_files
+    - !exclude "*"
+    - !include "caesar.c"
+    - !include "ceaser.c"
