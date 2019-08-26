@@ -12,11 +12,14 @@ def compiles():
     check50.c.compile("hello.c", lcs50=True)
 
 @check50.check(compiles)
-def veronica():
-    """responds to name Veronica."""
-    check50.run("./hello").stdin("Veronica").stdout("Veronica").exit()
+def prints_hello():
+    """prints "hello, world\\n" """
+    from re import match
 
-@check50.check(compiles)
-def brian():
-    """responds to name Brian."""
-    check50.run("./hello").stdin("Brian").stdout("Brian").exit()
+    expected = "[Hh]ello, world!?\n"
+    actual = check50.run("./hello").stdout()
+    if not match(expected, actual):
+        help = None
+        if match(expected[:-1], actual):
+            help = r"did you forget a newline ('\n') at the end of your printf string?"
+        raise check50.Mismatch("hello, world\n", actual, help=help)
