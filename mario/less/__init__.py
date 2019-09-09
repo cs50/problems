@@ -3,13 +3,13 @@ import check50.c
 
 @check50.check()
 def exists():
-    """mario.c exists."""
+    """mario.c exists"""
     check50.exists("mario.c")
     check50.include("1.txt", "2.txt", "8.txt")
 
 @check50.check(exists)
 def compiles():
-    """mario.c compiles."""
+    """mario.c compiles"""
     check50.c.compile("mario.c", lcs50=True)
 
 @check50.check(compiles)
@@ -35,16 +35,16 @@ def test2():
     check_pyramid(out, open("2.txt").read())
 
 @check50.check(compiles)
-def test23():
+def test8():
     """handles a height of 8 correctly"""
     out = check50.run("./mario").stdin("8").stdout()
     check_pyramid(out, open("8.txt").read())
 
 @check50.check(compiles)
-def test24():
+def test9():
     """rejects a height of 9, and then accepts a height of 2"""
-    (check50.run("./mario").stdin("9").reject()
-            .stdin("2").stdout(open("2.txt")).exit(0))
+    out = check50.run("./mario").stdin("9").reject().stdin("2").stdout()
+    check_pyramid(out, open("2.txt").read())
 
 @check50.check(compiles)
 def test_reject_foo():
