@@ -3,13 +3,13 @@ import check50.c
 
 @check50.check()
 def exists():
-    """mario.c exists."""
+    """mario.c exists"""
     check50.exists("mario.c")
     check50.include("1.txt", "2.txt", "8.txt")
 
 @check50.check(exists)
 def compiles():
-    """mario.c compiles."""
+    """mario.c compiles"""
     check50.c.compile("mario.c", lcs50=True)
 
 @check50.check(compiles)

@@ -3,12 +3,12 @@ import check50.c
 
 @check50.check()
 def exists():
-    """credit.c exists."""
+    """credit.c exists"""
     check50.exists("credit.c")
 
 @check50.check(exists)
 def compiles():
-    """credit.c compiles."""
+    """credit.c compiles"""
     check50.c.compile("credit.c", lcs50=True)
 
 @check50.check(compiles)
