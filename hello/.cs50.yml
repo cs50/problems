@@ -6,5 +6,5 @@ check50:
 submit50:
   files: *check50_files
   remote:
-    message: "Go to your dashboard at https://cs50.cs.yale.edu/19fa/dash50 to see your score and access your check50 and style50 output."
+    message: "Go to your dashboard at https://cs50.cs.yale.edu/19fa/dash50 to see your score and access your check50 and style50 output.  (It may take a few minutes for this submission to appear.)"
     callback: https://cs50.cs.yale.edu/19fa/api/submit50
