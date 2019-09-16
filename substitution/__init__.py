@@ -33,18 +33,23 @@ def encrypt4():
 
 @check50.check(compiles)
 def encrypt5():
-    """encrypts "This is CS50" as "KeD" using YUKFRNLBAVMWZTEOGXHCIPJSQD as key"""
+    """encrypts "This is CS50" as "Cbah ah KH50" using YUKFRNLBAVMWZTEOGXHCIPJSQD as key"""
     check50.run("./substitution YUKFRNLBAVMWZTEOGXHCIPJSQD").stdin("This is CS50").stdout("ciphertext:\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
 
 @check50.check(compiles)
 def encrypt6():
-    """encrypts "This is CS50" as "KeD" using yukfrnlbavmwzteogxhcipjsqd as key"""
+    """encrypts "This is CS50" as "Cbah ah KH50" using yukfrnlbavmwzteogxhcipjsqd as key"""
     check50.run("./substitution yukfrnlbavmwzteogxhcipjsqd").stdin("This is CS50").stdout("ciphertext:\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
 
 @check50.check(compiles)
 def encrypt7():
-    """encrypts "This is CS50" as "KeD" using YUKFRNLBAVMWZteogxhcipjsqd as key"""
+    """encrypts "This is CS50" as "Cbah ah KH50" using YUKFRNLBAVMWZteogxhcipjsqd as key"""
     check50.run("./substitution YUKFRNLBAVMWZteogxhcipjsqd").stdin("This is CS50").stdout("ciphertext:\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
+
+@check50.check(compiles)
+def encrypt8():
+    """encrypts all alphabetic characters using DWUSXNPQKEGCZFJBTLYROHIAVM as key"""
+    check50.run("./substitution DWUSXNPQKEGCZFJBTLYROHIAVM").stdin("The quick brown fox jumps over the lazy dog").stdout("ciphertext:\s*Rqx tokug wljif nja eozby jhxl rqx cdmv sjp\n", "ciphertext: Rqx tokug wljif nja eozby jhxl rqx cdmv sjp\n").exit(0)
 
 @check50.check(compiles)
 def handles_no_argv():
