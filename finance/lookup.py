@@ -1,4 +1,5 @@
 def lookup(symbol):
+    symbol = symbol.upper()
     if (symbol == "AAAA"):
         return {"name": "Stock A", "price": 28.00, "symbol": "AAAA"}
     elif (symbol == "BBBB"):
