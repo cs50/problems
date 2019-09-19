@@ -1,10 +1,6 @@
 check50: 
   files: &check50_files
-    - !exclude "*.pyc"
-    - !exclude __pycache__
-    - !exclude Makefile
-    - !exclude application.py
-    - !exclude compare
+    - !exclude "*"
     - !require helpers.py
     - !require templates/index.html
 
