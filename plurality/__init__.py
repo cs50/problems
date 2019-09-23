@@ -38,6 +38,11 @@ def vote_finds_name_last():
     check50.run("./plurality_test 0 2").stdout("true").exit(0)
 
 @check50.check(compiles)
+def vote_returns_false():
+    """vote returns false when given name of invalid candidate"""
+    check50.run("./plurality_test 0 3").stdout("false").exit(0)
+
+@check50.check(compiles)
 def first_vote_totals_correct():
     """vote produces correct counts when all votes are zero"""
     check50.run("./plurality_test 0 4").stdout("1 0 0").exit(0)
