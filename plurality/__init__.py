@@ -22,7 +22,6 @@ def compiles():
     check50.c.compile("plurality_test.c", lcs50=True)
 
 @check50.check(compiles)
-@check50.hidden("vote function did not return true")
 def vote_finds_name_first():
     """vote returns true when given name of first candidate"""
     check50.run("./plurality_test 0 0").stdout("true").exit(0)
@@ -85,10 +84,14 @@ def print_winner2():
 @check50.hidden("print_winner function did not print both winners of election")
 def print_winner3():
     """print_winner prints multiple winners in case of tie"""
-    check50.run("./plurality_test 0 10").stdout("Alice\nBob\n").exit(0)
+    result = check50.run("./plurality_test 0 10").stdout()
+    if set(result.split("\n")) - {""} != {"Alice", "Bob"}:
+        raise check50.Mismatch("Alice\nBob\nCharlie\n", result)
 
 @check50.check(compiles)
 @check50.hidden("print_winner function did not print all three winners of election")
 def print_winner4():
     """print_winner prints all names when all candidates are tied"""
-    check50.run("./plurality_test 0 11").stdout("Alice\nBob\nCharlie\n").exit(0)
+    result = check50.run("./plurality_test 0 11").stdout()
+    if set(result.split("\n")) - {""} != {"Alice", "Bob", "Charlie"}:
+        raise check50.Mismatch("Alice\nBob\nCharlie\n", result)
