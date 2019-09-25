@@ -22,6 +22,36 @@ def compiles():
     check50.c.compile("plurality_test.c", lcs50=True)
 
 @check50.check(compiles)
+@check50.hidden("vote function did not return true")
+def vote_finds_name_middle():
+    """vote returns true when given name of middle candidate"""
+    check50.run("./plurality_test 0 1").stdout("true").exit(0)
+
+@check50.check(compiles)
+@check50.hidden("vote function did not return true")
+def vote_finds_name_last():
+    """vote returns true when given name of last candidate"""
+    check50.run("./plurality_test 0 2").stdout("true").exit(0)
+
+@check50.check(compiles)
+@check50.hidden("vote function did not return false")
+def vote_returns_false():
+    """vote returns false when given name of invalid candidate"""
+    check50.run("./plurality_test 0 3").stdout("false").exit(0)
+
+@check50.check(compiles)
+@check50.hidden("vote function did not correctly update vote totals")
+def first_vote_totals_correct():
+    """vote produces correct counts when all votes are zero"""
+    check50.run("./plurality_test 0 4").stdout("1 0 0").exit(0)
+
+@check50.check(compiles)
+@check50.hidden("vote function did not correctly update vote totals")
+def subsequent_vote_totals_correct():
+    """vote produces correct counts after some have already voted"""
+    check50.run("./plurality_test 0 5").stdout("2 8 0").exit(0)
+
+@check50.check(compiles)
 def vote_finds_name_first():
     """vote returns true when given name of first candidate"""
     check50.run("./plurality_test 0 0").stdout("true").exit(0)
