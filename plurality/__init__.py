@@ -22,6 +22,7 @@ def compiles():
     check50.c.compile("plurality_test.c", lcs50=True)
 
 @check50.check(compiles)
+@check50.hidden("vote function did not return true")
 def vote_finds_name_first():
     """vote returns true when given name of first candidate"""
     check50.run("./plurality_test 0 0").stdout("true").exit(0)
