@@ -90,5 +90,5 @@ def uses_sound(project):
 
 def contains_blocks(project, opcodes):
     """Return whether project contains any blocks with their names in opcodes"""
-    return any(any(block["opcode"] in opcodes for block in target["blocks"].values())
+    return any(any((isinstance(block, dict) and block["opcode"] in opcodes) for block in target["blocks"].values())
                for target in project)
