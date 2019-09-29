@@ -1,0 +1,8 @@
+check50: 
+  files: &check50_files
+    - !exclude "*"
+    - !include Makefile
+    - !require recover.c
+
+submit50:
+  files: *check50_files
