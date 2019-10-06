@@ -43,8 +43,8 @@ def two_sprites(project):
 def non_cat(project):
     """project contains a non-cat sprite"""
 
-    cat_sprite_ids = {"fc0687f38ae230b8765eebf4100e2653",
-                      "06c57b43f5a7d3500fd149de265c2289"}
+    cat_sprite_ids = {"b7853f557e4426412e64bb3da6531a99",
+                      "e6ddc55a6ddd9cc9d84fe0b4c21e016f"}
 
     if all(target["isStage"] or {costume["assetId"] for costume in target["costumes"]} == cat_sprite_ids for target in project):
         raise check50.Failure("no non-cat sprite found")
