@@ -5,7 +5,6 @@ check50:
     - !include "*.h"
     - !require dictionary.c
     - !require dictionary.h
-    - !require Makefile
 
 submit50:
   files: *check50_files
