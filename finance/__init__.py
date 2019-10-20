@@ -60,7 +60,7 @@ def check_route_detects_duplicate_username():
     content = app.get("/check", params={"username": username}).status(200).raw_content().decode("utf-8").strip()
     if content != "false":
         raise check50.Failure("route did not return false when username is unavailable")
-        
+
 
 @check50.check(register_page)
 def register_reject_duplicate_username():
