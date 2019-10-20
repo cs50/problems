@@ -2,3 +2,5 @@ submit50:
   files: &submit50_files
     - !exclude "*"
     - !require hello.c
+
+style50: false
