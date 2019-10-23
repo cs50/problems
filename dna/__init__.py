@@ -2,7 +2,7 @@ import check50
 
 @check50.check()
 def exists():
-    """dna.py exists."""
+    """dna.py exists"""
     check50.exists("dna.py")
     check50.include("sequences", "databases")
 
