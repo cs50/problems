@@ -41,7 +41,7 @@ def test420():
         help = None
         if search(coins(22), actual):
             help = "did you forget to round your input to the nearest cent?"
-        raise Mismatch(expected, actual, help=help)
+        raise check50.Mismatch(expected, actual, help=help)
 
 @check50.check(exists)
 def test_reject_negative():
