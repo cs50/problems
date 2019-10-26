@@ -1,0 +1,9 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !require import.py
+    - !require roster.py
+
+check50:
+  files: *submit50_files
