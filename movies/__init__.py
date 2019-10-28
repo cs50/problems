@@ -96,8 +96,7 @@ def test10():
 def test11():
     """11.sql produces correct result"""
     check_single_col(run_query("11.sql"),
-        ["Inception", "The Departed", "Django Unchained", "The Wolf of Wall Street",
-         "Catch Me If You Can"],
+        ["42", "Black Panther", "Marshall", "Get on Up", "Draft Day"],
         ordered=True)
 
 @check50.check(exists)
@@ -132,7 +131,7 @@ def check_single_col(actual, expected, ordered=False):
     """
 
     # Make sure query returned results
-    if actual is None:
+    if actual is None or actual == []:
         raise check50.Failure("Query did not return results")
 
     # Make sure there is only a single column
@@ -163,7 +162,7 @@ def check_double_col(actual, expected, ordered=False):
     """
 
     # Make sure query returned results
-    if actual is None:
+    if actual is None or actual == []:
         raise check50.Failure("Query did not return results")
 
     # Make sure there is only a single column
