@@ -80,9 +80,8 @@ def test8():
 def test9():
     """9.sql produces correct result"""
     check_single_col(run_query("9.sql"),
-        ["Patricia Arquette", "Matthew McConaughey", "Ethan Hawke",
-         "Jessica Chastain", "Anne Hathaway", "Ellar Coltrane",
-         "Mackenzie Foy"],
+        ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
+         "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson"],
         ordered=True)
 
 @check50.check(exists)

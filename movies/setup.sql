@@ -51,6 +51,9 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Harry Potter and the Prisoner of Azkaban", 2004);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"), 7.9, 500820);
+INSERT INTO movies (title, year) VALUES ("The Incredibles", 2004);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "The Incredibles"), 8.0, 616425);
 INSERT INTO movies (title, year) VALUES ("Corpse Bride", 2005);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Corpse Bride"), 7.3, 227219);
@@ -220,6 +223,13 @@ INSERT INTO people (name, birth) VALUES ("Matthew McConaughey", 1969);
 INSERT INTO people (name, birth) VALUES ("Ellar Coltrane", 1994);
 INSERT INTO people (name, birth) VALUES ("Patricia Arquette", 1968);
 INSERT INTO people (name, birth) VALUES ("Chadwick Boseman", 1977);
+INSERT INTO people (name, birth) VALUES ("Samuel L. Jackson", 1948);
+INSERT INTO people (name, birth) VALUES ("Holly Hunter", 1958);
+INSERT INTO people (name, birth) VALUES ("Jason Lee", 1970);
+INSERT INTO people (name, birth) VALUES ("Craig T. Nelson", 1944);
+INSERT INTO people (name, birth) VALUES ("Richard Griffifths", 1947);
+INSERT INTO people (name, birth) VALUES ("Rupert Grint", 1988);
+INSERT INTO people (name, birth) VALUES ("Daniel Radcliffe", 1989);
 
 -- Stars
 INSERT INTO stars (person_id, movie_id) VALUES (
@@ -354,6 +364,30 @@ INSERT INTO stars (person_id, movie_id) VALUES (
 INSERT INTO stars (person_id, movie_id) VALUES (
     (SELECT id FROM people WHERE name = "Chadwick Boseman"),
     (SELECT id FROM movies WHERE title = "Message from the King"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Samuel L. Jackson"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Holly Hunter"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Jason Lee"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Craig T. Nelson"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Richard Griffifths"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Rupert Grint"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Daniel Radcliffe"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Emma Watson"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
 
 -- Directors
 INSERT INTO directors (person_id, movie_id) VALUES (
