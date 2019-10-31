@@ -5,7 +5,4 @@ submit50:
     - !require dna.py
 
 check50:
-  dependencies:
-    - numpy
-    - pandas
   files: *submit50_files
