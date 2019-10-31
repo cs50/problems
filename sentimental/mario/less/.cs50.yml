@@ -1,7 +1,8 @@
 submit50:
-  style: false
   files: &submit50_files
     - !exclude "*"
     - !include "*.py"
     - !require mario.py
 
+check50:
+  files: *submit50_files
