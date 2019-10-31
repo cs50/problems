@@ -8,7 +8,4 @@ submit50:
     callback: https://cs50.cs.yale.edu/19fa/api/submit50
 
 check50:
-  dependencies:
-    - numpy
-    - pandas
   files: *submit50_files
