@@ -9,27 +9,27 @@ def exists():
 @check50.check(exists)
 def test041():
     """input of 0.41 yields output of 4"""
-    check50.run("python3 cash.py").stdin("0.41").stdout(coins(4), "4\n").exit(0)
+    check50.run("python3 cash.py").stdin("0.41").stdout(coins(4), "4\n").exit()
 
 @check50.check(exists)
 def test001():
     """input of 0.01 yields output of 1"""
-    check50.run("python3 cash.py").stdin("0.01").stdout(coins(1), "1\n").exit(0)
+    check50.run("python3 cash.py").stdin("0.01").stdout(coins(1), "1\n").exit()
 
 @check50.check(exists)
 def test015():
     """input of 0.15 yields output of 2"""
-    check50.run("python3 cash.py").stdin("0.15").stdout(coins(2), "2\n").exit(0)
+    check50.run("python3 cash.py").stdin("0.15").stdout(coins(2), "2\n").exit()
 
 @check50.check(exists)
 def test160():
     """input of 1.6 yields output of 7"""
-    check50.run("python3 cash.py").stdin("1.6").stdout(coins(7), "7\n").exit(0)
+    check50.run("python3 cash.py").stdin("1.6").stdout(coins(7), "7\n").exit()
 
 @check50.check(exists)
 def test230():
     """input of 23 yields output of 92"""
-    check50.run("python3 cash.py").stdin("23").stdout(coins(92), "92\n").exit(0)
+    check50.run("python3 cash.py").stdin("23").stdout(coins(92), "92\n").exit()
 
 @check50.check(exists)
 def test420():
