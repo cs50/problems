@@ -53,4 +53,4 @@ def before1():
 @check50.check(exists)
 def grade16plus():
     """handles reading level at Grade 16+"""
-    check50.run("python3 readability.py").stdin("A large class of computational problems involve the determination of properties of graphs, digraphs, integers, arrays of integers, finite families of finite sets, boolean formulas and elements of other countable domains.").stdout("Grade\D+16\+\n", "Grade 16+\n").stdout(check50.EOF).exit(0)
+    check50.run("python3 readability.py").stdin("A large class of computational problems involve the determination of properties of graphs, digraphs, integers, arrays of integers, finite families of finite sets, boolean formulas and elements of other countable domains.").stdout("Grade\D+16\+\n", "Grade 16+\n").exit(0)
