@@ -61,7 +61,7 @@ def check_pyramid(output, correct):
     if output == correct:
         return
 
-    output = output.splitlines()
+    output = [line for line in output.splitlines() if line != ""]
     correct = correct.splitlines()
 
     help = None
