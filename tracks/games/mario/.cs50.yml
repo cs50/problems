@@ -1,0 +1,4 @@
+submit50:
+  style: false
+  files: &submit50_files
+    - !require Main.lua
