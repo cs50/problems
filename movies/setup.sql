@@ -51,6 +51,9 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Harry Potter and the Prisoner of Azkaban", 2004);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"), 7.9, 500820);
+INSERT INTO movies (title, year) VALUES ("The Incredibles", 2004);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "The Incredibles"), 8.0, 616425);
 INSERT INTO movies (title, year) VALUES ("Corpse Bride", 2005);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Corpse Bride"), 7.3, 227219);
@@ -126,6 +129,9 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Life of Pi", 2012);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Life of Pi"), 7.9, 545552);
+INSERT INTO movies (title, year) VALUES ("42", 2013);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "42"), 7.5, 79004);
 INSERT INTO movies (title, year) VALUES ("The Wolf of Wall Street", 2013);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "The Wolf of Wall Street"), 8.2, 1064692);
@@ -135,15 +141,27 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Interstellar", 2014);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Interstellar"), 8.6, 1340748);
+INSERT INTO movies (title, year) VALUES ("Get on Up", 2014);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Get on Up"), 6.9, 19303);
+INSERT INTO movies (title, year) VALUES ("Draft Day", 2014);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Draft Day"), 6.8, 49763);
 INSERT INTO movies (title, year) VALUES ("The Revenant", 2015);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "The Revenant"), 8.0, 639623);
 INSERT INTO movies (title, year) VALUES ("Alice Through the Looking Glass", 2016);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Alice Through the Looking Glass"), 6.2, 82595);
+INSERT INTO movies (title, year) VALUES ("Message from the King", 2016);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Message from the King"), 6.4, 10031);
 INSERT INTO movies (title, year) VALUES ("Harry Potter: A History of Magic", 2017);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Harry Potter: A History of Magic"), 7.2, 213);
+INSERT INTO movies (title, year) VALUES ("Marshall", 2017);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Marshall"), 7.2, 547247);
 INSERT INTO movies (title, year) VALUES ("Black Panther", 2018);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Black Panther"), 7.3, 546919);
@@ -204,6 +222,14 @@ INSERT INTO people (name, birth) VALUES ("Leonardo DiCaprio", 1974);
 INSERT INTO people (name, birth) VALUES ("Matthew McConaughey", 1969);
 INSERT INTO people (name, birth) VALUES ("Ellar Coltrane", 1994);
 INSERT INTO people (name, birth) VALUES ("Patricia Arquette", 1968);
+INSERT INTO people (name, birth) VALUES ("Chadwick Boseman", 1977);
+INSERT INTO people (name, birth) VALUES ("Samuel L. Jackson", 1948);
+INSERT INTO people (name, birth) VALUES ("Holly Hunter", 1958);
+INSERT INTO people (name, birth) VALUES ("Jason Lee", 1970);
+INSERT INTO people (name, birth) VALUES ("Craig T. Nelson", 1944);
+INSERT INTO people (name, birth) VALUES ("Richard Griffifths", 1947);
+INSERT INTO people (name, birth) VALUES ("Rupert Grint", 1988);
+INSERT INTO people (name, birth) VALUES ("Daniel Radcliffe", 1989);
 
 -- Stars
 INSERT INTO stars (person_id, movie_id) VALUES (
@@ -320,6 +346,48 @@ INSERT INTO stars (person_id, movie_id) VALUES (
 INSERT INTO stars (person_id, movie_id) VALUES (
     (SELECT id FROM people WHERE name = "Tom Cruise"),
     (SELECT id FROM movies WHERE title = "A Few Good Men"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "42"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "Black Panther"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "Marshall"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "Get on Up"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "Draft Day"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "Message from the King"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Samuel L. Jackson"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Holly Hunter"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Jason Lee"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Craig T. Nelson"),
+    (SELECT id FROM movies WHERE title = "The Incredibles"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Richard Griffifths"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Rupert Grint"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Daniel Radcliffe"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Emma Watson"),
+    (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
 
 -- Directors
 INSERT INTO directors (person_id, movie_id) VALUES (
