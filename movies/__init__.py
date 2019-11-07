@@ -1,6 +1,7 @@
 from cs50 import SQL
 
 import check50
+import sqlparse
 
 @check50.check()
 def exists():
