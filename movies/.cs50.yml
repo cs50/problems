@@ -17,4 +17,6 @@ submit50:
     - !require 13.sql
 
 check50:
+  dependencies:
+    - sqlparse
   files: *submit50_files
