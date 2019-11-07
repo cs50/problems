@@ -1,6 +1,7 @@
 from cs50 import SQL
 
 import check50
+import sqlparse
 
 @check50.check()
 def exists():
@@ -118,6 +119,7 @@ def run_query(filename):
     try:
         with open(filename) as f:
             query = f.read().strip()
+            query = sqlparse.format(query, strip_comments=True).strip()
         db = SQL("sqlite:///movies.db")
         result = db.execute(query)
         return result
