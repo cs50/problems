@@ -1,5 +1,4 @@
 submit50:
-  style: false
   files: &submit50_files
     - !exclude "*"
     - !include "*.sql"
@@ -16,3 +15,6 @@ submit50:
     - !require 11.sql
     - !require 12.sql
     - !require 13.sql
+
+check50:
+  files: *submit50_files
