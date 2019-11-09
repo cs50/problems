@@ -6,3 +6,7 @@ submit50:
     - !require application.py
     - !require finance.db
     - !require helpers.py
+  remote:
+    message: "Go to your dashboard at https://cs50.cs.yale.edu/19fa/dash50 to see your submission.  (It may take a few minutes for this submission to appear.)"
+    callback: https://cs50.cs.yale.edu/19fa/api/submit50
+
