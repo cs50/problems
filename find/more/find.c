@@ -35,7 +35,7 @@ int main(int argc, string argv[])
     {
         // wait for hay until EOF
         printf("\nhaystack[%i] = ", size);
-        int straw = get_int();
+        int straw = get_int("");
         if (straw == INT_MAX)
         {
             break;
