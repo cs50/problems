@@ -34,7 +34,7 @@ def exists():
 def test0(exists):
     """balanceable identifies [1, 1] as balanceable"""
     teetering = check50.py.import_("teetering.py")
-    check_output(0), True)
+    check_output(0, True)
 
 @check50.check(exists)
 def test1(exists):
