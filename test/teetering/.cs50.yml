@@ -4,3 +4,5 @@ submit50:
     - !exclude "*"
     - !require teetering.py
 
+check50:
+  files: *submit50_files
