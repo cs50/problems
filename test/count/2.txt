@@ -1,0 +1,1 @@
+Mergesort is in Ɵ(n log n).
