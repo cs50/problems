@@ -1,4 +1,6 @@
 submit50:
+  files:
+    - !exclude node_modules
   style: false
   remote:
     message: "Go to your dashboard at https://cs50.cs.yale.edu/19fa/dash50 to see your submission.  (It may take a few minutes for this submission to appear.)"
