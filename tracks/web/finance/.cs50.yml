@@ -6,3 +6,6 @@ submit50:
     - !require application.py
     - !require finance.db
     - !require helpers.py
+
+check50:
+  files: *submit50_files

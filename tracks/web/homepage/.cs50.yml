@@ -1,7 +1,7 @@
-check50: 
+check50:
   files: &check50_files
     - !require index.html
 
-submit50: 
+submit50:
   files: *check50_files
   style: false
