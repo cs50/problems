@@ -65,13 +65,3 @@ def test10():
 def test11():
     """identifies 4111111111111113 as INVALID"""
     check50.run("./credit").stdin("4111111111111113").stdout("INVALID\n").stdout(check50.EOF).exit(0)
-
-@check50.check(compiles)
-def test_reject_foo():
-    """rejects a non-numeric input of "foo" """
-    check50.run("./credit").stdin("foo").reject()
-
-@check50.check(compiles)
-def test_reject_empty():
-    """rejects a non-numeric input of "" """
-    check50.run("./credit").stdin("").reject()
