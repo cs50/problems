@@ -75,3 +75,13 @@ def handles_duplicate_chars():
 def handles_multiple_duplicate_chars():
     """handles multiple duplicate characters in key"""
     check50.run("./substitution BBCCEFGHIJKLMNOPQRSTUVWXYZ").exit(1)
+    
+@check50.check(compiles)
+def handles_duplicate_chars_with_different_cases():
+    """handles duplicate characters in key when cases are different"""
+    check50.run("./substitution YFDTSMPBVIERGyEWONUAKLQXCZ").exit(1)
+    
+@check50.check(compiles)
+def handles_multiple_duplicate_chars_with_different_cases():
+    """handles multiple duplicate characters in key when cases are different"""
+    check50.run("./substitution YFDTSMmBVIERGyEWONUqKLQXCZ").exit(1)
