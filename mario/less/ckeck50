@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main()
+{
+
+	int n;
+	
+	printf("HEIGHT: ");               // Prompt for height 
+	scanf("%i",&n);
+    
+	
+	int hash=1, spa=n-1;              // Integer for HASH # and spa for space 
+
+	  	while (n < 1 || n > 7)
+        return 0;
+	  	for(int ren=1; ren<=n ; ren++) // rem repeat number of times 
+	  	{
+		  for(int i=1; i<=spa ; i++)  // for print the spaces.
+			printf(" ");
+		  
+		  for(int i=1; i<=hash ; i++) // for print the hash #.
+			printf("#");
+			printf("\n");
+			hash= hash+1; 
+			spa= spa-1;        // for each + # reduce space. 
+		}
+}
