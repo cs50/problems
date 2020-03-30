@@ -4,6 +4,3 @@ submit50:
     - !exclude "*"
     - !require count.c
 
-check50:
-  files: *submit50_files
-
