@@ -2,7 +2,7 @@ import check50
 
 @check50.check()
 def exists():
-    """mario.c exists."""
+    """mario.py exists."""
     check50.exists("mario.py")
     check50.include("1.txt", "2.txt", "8.txt")
 
