@@ -4,7 +4,7 @@ submit50:
     - !include "*.py"
     - !require hello.py
   remote:
-    message: "Go to your dashboard at https://cs50.cs.yale.edu/20su/dash50 to see your score and access your check50 and style50 output.  (It may take a few minutes for this submission to appear.)"
+    message: "Go to your dashboard at https://cs50.cs.yale.edu/20su/dashboard to see your score and access your check50 and style50 output.  (It may take a few minutes for this submission to appear.)"
     callback: https://cs50.cs.yale.edu/20su/api/submit50
 
 check50:
