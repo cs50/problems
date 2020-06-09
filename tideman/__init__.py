@@ -92,19 +92,19 @@ def sort_pairs1():
 @check50.hidden("lock_pairs did not lock all pairs")
 def lock_pairs1():
     """lock_pairs locks all pairs when no cycles"""
-    check50.run("./tideman_test 4 9").stdout("false true false false false false true true false false false true false false false false ").exit(0)
+    check50.run("./tideman_test 5 16").stdout("false false false true false true false false false false false false false false false false false false false true false false true false false ").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("lock_pairs did not correctly lock all non-cyclical pairs")
 def lock_pairs2():
     """lock_pairs skips final pair if it creates cycle"""
-    check50.run("./tideman_test 4 10").stdout("false true false false false false true false false false false true false false false false ").exit(0)
+    check50.run("./tideman_test 6 14").stdout("false true false false false false false false false false true false false false false false false false false false false false false true false false true true false false false false false false false false ").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("lock_pairs did not correctly lock all non-cyclical pairs")
 def lock_pairs3():
     """lock_pairs skips middle pair if it creates a cycle"""
-    check50.run("./tideman_test 4 11").stdout("false true false false false false true false false false false true false false false false ").exit(0)
+    check50.run("./tideman_test 5 15").stdout("false false false false false false false false true false true false false false false false false false false false false true true false false ").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("print_winner did not print winner of election")
