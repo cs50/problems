@@ -1,6 +1,0 @@
-submit50:
-  style: false
-  files: &submit50_files
-    - !exclude "*"
-    - !require count.c
-
