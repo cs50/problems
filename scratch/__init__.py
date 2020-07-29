@@ -61,8 +61,7 @@ def three_blocks(project):
 def uses_condition(project):
     """project uses at least one condition"""
 
-    conditionals = ["control_repeat", "control_if_else", "control_if"]
-    if not contains_blocks(project, ["control_repeat", "control_if_else", "control_if"]):
+    if not contains_blocks(project, ["control_repeat", "control_if_else", "control_if", "motion_ifonedgebounce"]):
         raise check50.Failure("no conditions found, 1 required")
 
 @check50.check(valid)
