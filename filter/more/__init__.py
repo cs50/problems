@@ -38,7 +38,7 @@ SAMPLE_IMAGES = [
     "third row: (20, 20, 40), (30, 10, 30), (50, 40, 10)"],
 
     # 6
-    ["testing with sample 3x3 image",
+    ["testing with sample 4x4 image",
     "first row: (0, 10, 25), (0, 10, 30), (40, 60, 80), (50, 60, 80)",
     "second row: (20, 30, 90), (30, 40, 100), (80, 70, 90), (80, 80, 90)",
     "third row: (20, 20, 40), (30, 10, 30), (50, 40, 10), (50, 40, 100)",
