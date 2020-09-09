@@ -224,6 +224,7 @@ int main(int argc, string argv[])
             break;
 
         case 12:
+            pair_count = 6;
             locked[0][0] = false;
             locked[0][1] = locked[0][2] = locked[0][3] = true;
             locked[1][0] = locked[1][1] = false;
@@ -235,6 +236,7 @@ int main(int argc, string argv[])
             break;
 
         case 13:
+            pair_count = 4;
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
                     locked[i][j] = false;
@@ -244,7 +246,7 @@ int main(int argc, string argv[])
             locked[1][3] = true;
             print_winner();
             break;
-            
+
         case 14:  //lock final pair test
             pair_count = 7;
             pairs[0].winner = 0; pairs[0].loser = 1;
