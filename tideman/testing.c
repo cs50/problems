@@ -77,6 +77,25 @@ int main(int argc, string argv[])
             candidates[2] = "Charlie";
             candidates[3] = "David";
             break;
+
+        case 5:
+            candidate_count = 5;
+            candidates[0] = "Alice";
+            candidates[1] = "Bob";
+            candidates[2] = "Charlie";
+            candidates[3] = "David";
+            candidates[4] = "Erin";
+            break;
+
+        case 6:
+            candidate_count = 6;
+            candidates[0] = "Alice";
+            candidates[1] = "Bob";
+            candidates[2] = "Charlie";
+            candidates[3] = "David";
+            candidates[4] = "Eric";
+            candidates[5] = "Frank";
+            break;
     }
 
     // Test
@@ -205,6 +224,7 @@ int main(int argc, string argv[])
             break;
 
         case 12:
+            pair_count = 6;
             locked[0][0] = false;
             locked[0][1] = locked[0][2] = locked[0][3] = true;
             locked[1][0] = locked[1][1] = false;
@@ -215,8 +235,8 @@ int main(int argc, string argv[])
             print_winner();
             break;
 
-
         case 13:
+            pair_count = 4;
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
                     locked[i][j] = false;
@@ -225,6 +245,49 @@ int main(int argc, string argv[])
             locked[0][3] = true;
             locked[1][3] = true;
             print_winner();
+            break;
+
+        case 14:  //lock final pair test
+            pair_count = 7;
+            pairs[0].winner = 0; pairs[0].loser = 1;
+            pairs[1].winner = 1; pairs[1].loser = 4;
+            pairs[2].winner = 4; pairs[2].loser = 2;
+            pairs[3].winner = 4; pairs[3].loser = 3;
+            pairs[4].winner = 3; pairs[4].loser = 5;
+            pairs[5].winner = 5; pairs[5].loser = 1;
+            pairs[6].winner = 2; pairs[6].loser = 1;
+
+            lock_pairs();
+            for (int i = 0; i < candidate_count; i++)
+                for (int j = 0; j < candidate_count; j++)
+                    printf("%s ", locked[i][j] ? "true" : "false");
+            break;
+
+        case 15: //lock middle pair test
+            pair_count = 5;
+            pairs[0].winner = 2; pairs[0].loser = 0;
+            pairs[1].winner = 4; pairs[1].loser = 1;
+            pairs[2].winner = 1; pairs[2].loser = 3;
+            pairs[3].winner = 3; pairs[3].loser = 4;
+            pairs[4].winner = 4; pairs[4].loser = 2;
+
+            lock_pairs();
+            for (int i = 0; i < candidate_count; i++)
+                for (int j = 0; j < candidate_count; j++)
+                    printf("%s ", locked[i][j] ? "true" : "false");
+            break;
+
+        case 16: //lock all pairs if no cycles
+            pair_count = 4;
+            pairs[0].winner = 4; pairs[0].loser = 2;
+            pairs[1].winner = 0; pairs[1].loser = 3;
+            pairs[2].winner = 1; pairs[2].loser = 0;
+            pairs[3].winner = 3; pairs[3].loser = 4;
+
+            lock_pairs();
+            for (int i = 0; i < candidate_count; i++)
+                for (int j = 0; j < candidate_count; j++)
+                    printf("%s ", locked[i][j] ? "true" : "false");
             break;
     }
 }
