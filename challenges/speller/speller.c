@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
     // spell-check each word in text
     char c;
-    while (fread(&c, sizeof(char), 1, file))
+    while (fread(&c, sizeof(char), 1, fp))
     {
         // allow only alphabetical characters and apostrophes
         if (isalpha(c) || (c == '\'' && index > 0))
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
             if (index > LENGTH)
             {
                 // consume remainder of alphabetical string
-                while (fread(&c, sizeof(char), 1, file) && isalpha(c));
+                while (fread(&c, sizeof(char), 1, fp) && isalpha(c));
 
                 // prepare for new word
                 index = 0;
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
         else if (isdigit(c))
         {
             // consume remainder of alphanumeric string
-            while (fread(&c, sizeof(char), 1, file) && isalnum(c));
+            while (fread(&c, sizeof(char), 1, fp) && isalnum(c));
 
             // prepare for new word
             index = 0;
