@@ -226,5 +226,17 @@ int main(int argc, string argv[])
             for (int i = 0; i < candidate_count; i++)
                 printf("%s ", candidates[i].eliminated ? "true" : "false");
             break;
+
+        // additional tabulate check
+        case 22:
+            preferences[5][1] = 3;
+            preferences[5][2] = 1;
+            candidates[2].eliminated = true;
+            candidates[3].eliminated = true;
+            tabulate();
+            for (int i = 0; i < candidate_count; i++)
+                printf("%i ", candidates[i].votes);
+            break;
+
     }
 }
