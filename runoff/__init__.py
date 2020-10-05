@@ -71,6 +71,12 @@ def tabulate3():
     check50.run("./runoff_test 1 7").stdout("3 4 0 0 ").exit(0)
 
 @check50.check(compiles)
+@check50.hidden("tabulate function did not produce correct vote totals")
+def tabulate4():
+    """tabulate handles multiple rounds of preferences"""
+    check50.run("./runoff_test 1 22").stdout("3 4 0 0 ").exit(0)
+
+@check50.check(compiles)
 @check50.hidden("print_winner did not print winner of election")
 def print_winner1():
     """print_winner prints name when someone has a majority"""
