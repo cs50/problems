@@ -1,17 +1,20 @@
 import check50
 import check50.c
+import os
 
 
 @check50.check()
 def exists():
-    """dictionary.c, dictionary.h, and Makefile exist"""
-    check50.exists("dictionary.c", "dictionary.h")
+    """dictionary.c exists"""
+    check50.exists("dictionary.c")
 
 
 @check50.check(exists)
 def compiles():
     """speller compiles"""
     check50.include("speller.c", "Makefile")
+    if not os.path.exists("dictionary.h"):
+        check50.include("dictionary.h")
     check50.run("make").exit(0)
 
 
