@@ -48,21 +48,6 @@ def register_password_mismatch_fails():
 
 
 @check50.check(register_page)
-def check_route_detects_duplicate_username():
-    """/check route confirms whether username is available"""
-    user = ["check50student1", "ohHai28!", "ohHai28!"]
-    username = user[0]
-    app = Finance()
-    content = app.get("/check", params={"username": username}).status(200).raw_content().decode("utf-8").strip()
-    if content != "true":
-        raise check50.Failure("route did not return true when username is available")
-    app.register(*user).status(200)
-    content = app.get("/check", params={"username": username}).status(200).raw_content().decode("utf-8").strip()
-    if content != "false":
-        raise check50.Failure("route did not return false when username is unavailable")
-
-
-@check50.check(register_page)
 def register_reject_duplicate_username():
     """registration rejects duplicate username"""
     user = ["elfie", "Doggo28!", "Doggo28!"]
