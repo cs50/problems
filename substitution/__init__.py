@@ -75,3 +75,8 @@ def handles_duplicate_chars():
 def handles_multiple_duplicate_chars():
     """handles multiple duplicate characters in key"""
     check50.run("./substitution BBCCEFGHIJKLMNOPQRSTUVWXYZ").exit(1)
+
+@check50.check(compiles)
+def handles_multiple_duplicate_mixed_case_chars():
+    """handles multiple duplicate characters with mixed cases in key"""
+    check50.run("./substitution BbCcEFGHIJKLMNOPQRSTUVWXYZ").exit(1)
