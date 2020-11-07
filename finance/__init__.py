@@ -57,6 +57,9 @@ def register_reject_duplicate_username():
 @check50.check(startup)
 def login_page():
     """login page has all required elements"""
+    if Finance().page_exists("/signin"):
+        Finance().validate_form("/signin", ["username", "password"])
+        return
     Finance().validate_form("/login", ["username", "password"])
 
 
@@ -163,7 +166,10 @@ class Finance(check50.flask.app):
 
     def login(self, username, password):
         """Helper function for logging in"""
-        return self.post("/login", data={"username": username, "password": password})
+        route = "/login"
+        if self.page_exists("/signin"):
+            route = "/signin"
+        return self.post(route, data={"username": username, "password": password})
 
     def quote(self, ticker):
         """Query app for a quote for `ticker`"""
@@ -202,3 +208,6 @@ class Finance(check50.flask.app):
             raise check50.Failure("expected button to submit form, but none was found")
 
         return self
+
+    def page_exists(self, route):
+        return self.get(route).status() == 200
