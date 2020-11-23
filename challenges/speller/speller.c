@@ -11,8 +11,65 @@
 #include <sys/time.h>
 
 #include "dictionary.h"
+
+/* stop the user from overriding anything */
+#undef a
+#undef after
+#undef argc
+#undef argv
+#undef atoi
+#undef b
+#undef before
+#undef c
 #undef calculate
+#undef char
+#undef check
+#undef const
+#undef define
+#undef dictionaries
+#undef dictionary
+#undef double
+#undef else
+#undef fclose
+#undef ferror
+#undef FILE
+#undef fopen
+#undef fp
+#undef fread
 #undef getrusage
+#undef if
+#undef index
+#undef int
+#undef isalnum
+#undef isalpha
+#undef isdigit
+#undef load
+#undef loaded
+#undef main
+#undef misspelled
+#undef misspellings
+#undef mode
+#undef n
+#undef printf
+#undef return
+#undef rusage
+#undef ru_stime
+#undef ru_utime
+#undef size
+#undef sizeof
+#undef struct
+#undef text
+#undef time_check
+#undef time_load
+#undef time_size
+#undef time_unload
+#undef undef
+#undef unload
+#undef unloaded
+#undef unsigned
+#undef while
+#undef word
+#undef words
 
 // default dictionary
 #define DICTIONARY "dictionaries/large"
