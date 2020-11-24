@@ -36,6 +36,7 @@ def encrypts_barfoo_as_onesbb():
     """encrypts "barfoo" as "onesbb" using 65 as key"""
     check50.run("./caesar 65").stdin("barfoo").stdout("[Cc]iphertext:\s*onesbb\n", "ciphertext: onesbb\n").exit(0)
 
+@check50.check(compiles)
 def checks_for_handling_non_alpha():
     """encrypts "world, say hello!" as "iadxp, emk tqxxa!" using 12 as key"""
     check50.run("./caesar 12").stdin("world, say hello!").stdout("[Cc]iphertext:\s*iadxp, emk tqxxa!\n", "ciphertext: iadxp, emk tqxxa!\n").exit(0)
