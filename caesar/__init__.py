@@ -37,9 +37,9 @@ def encrypts_barfoo_as_onesbb():
     check50.run("./caesar 65").stdin("barfoo").stdout("[Cc]iphertext:\s*onesbb\n", "ciphertext: onesbb\n").exit(0)
 
 @check50.check(compiles)
-def checks_for_handling_non_alpha():
-    """encrypts "world, say hello!" as "iadxp, emk tqxxa!" using 12 as key"""
-    check50.run("./caesar 12").stdin("world, say hello!").stdout("[Cc]iphertext:\s*iadxp, emk tqxxa!\n", "ciphertext: iadxp, emk tqxxa!\n").exit(0)
+def checks_for_handling_non_alpha_multiple_cases():
+    """encrypts "Hello, world! This is CS50!" as "Tqxxa, iadxp! Ftue ue OE50!" using 12 as key"""
+    check50.run("./caesar 12").stdin("Hello, world! This is CS50!").stdout("[Cc]iphertext:\s*Tqxxa, iadxp! Ftue ue OE50!\n", "ciphertext: iadxp, emk tqxxa!\n").exit(0)
 
 @check50.check(compiles)
 def handles_no_argv():
