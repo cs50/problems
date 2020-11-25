@@ -43,8 +43,8 @@ def checks_for_handling_non_alpha():
     
 @check50.check(compiles)
 def checks_for_handling_non_alpha_complex_cases():
-    """encrypts "This is CS50, Harvard University's introduction to the intellectual enterprises of computer science and the art of programming." as "Ftue ue OE50, Tmdhmdp Gzuhqdeufk'e uzfdapgofuaz fa ftq uzfqxxqofgmx qzfqdbdueqe ar oaybgfqd eouqzoq mzp ftq mdf ar bdasdmyyuzs." using 12 as key"""
-    check50.run("./caesar 12").stdin("This is CS50, Harvard University's introduction to the intellectual enterprises of computer science and the art of programming.").stdout("[Cc]iphertext:\s*Ftue ue OE50, Tmdhmdp Gzuhqdeufk'e uzfdapgofuaz fa ftq uzfqxxqofgmx qzfqdbdueqe ar oaybgfqd eouqzoq mzp ftq mdf ar bdasdmyyuzs\n", "ciphertext: Ftue ue OE50, Tmdhmdp Gzuhqdeufk'e uzfdapgofuaz fa ftq uzfqxxqofgmx qzfqdbdueqe ar oaybgfqd eouqzoq mzp ftq mdf ar bdasdmyyuzs\n").exit(0)
+    """encrypts "This is CS50; Harvard University's introduction to the intellectual enterprises of computer science and the art of programming." as "Ftue ue OE50; Tmdhmdp Gzuhqdeufk'e uzfdapgofuaz fa ftq uzfqxxqofgmx qzfqdbdueqe ar oaybgfqd eouqzoq mzp ftq mdf ar bdasdmyyuzs." using 12 as key"""
+    check50.run("./caesar 12").stdin("This is CS50; Harvard University's introduction to the intellectual enterprises of computer science and the art of programming.").stdout("[Cc]iphertext:\s*Ftue ue OE50; Tmdhmdp Gzuhqdeufk'e uzfdapgofuaz fa ftq uzfqxxqofgmx qzfqdbdueqe ar oaybgfqd eouqzoq mzp ftq mdf ar bdasdmyyuzs\n", "ciphertext: Ftue ue OE50; Tmdhmdp Gzuhqdeufk'e uzfdapgofuaz fa ftq uzfqxxqofgmx qzfqdbdueqe ar oaybgfqd eouqzoq mzp ftq mdf ar bdasdmyyuzs\n").exit(0)
 
 @check50.check(compiles)
 def handles_no_argv():
