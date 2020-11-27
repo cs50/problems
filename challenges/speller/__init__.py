@@ -35,6 +35,11 @@ def compiles():
 def qualifies():
     """qualifies for Big Board"""
     try:
+        # make sure that dictionary.h doesn't override any functions used in speller.c
+        check50.run("""make dictionary.o && [ -z $(comm -12 \
+                       <(objdump -t  dictionary.o | awk '/.text/ { print $6 }' | sort) \
+                       <(objdump -t  speller.o | awk '/UND/ { print $4 }' | grep -v "check\|load\|unload\|size" | sort) ) ]").exit(0)""").exit(0)
+        
         # inject canary
         canary = str(uuid.uuid4())
         check50.run("sed -i -e 's/CANARY/{}/' speller.c".format(canary)).exit(0)
