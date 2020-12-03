@@ -166,10 +166,10 @@ def check_double_col(actual, expected, ordered=False):
     if actual is None or actual == []:
         raise check50.Failure("Query did not return results")
 
-    # Make sure there is only a single column
+    # Make sure there are only two columns
     row_counts = {len(list(row.values())) for row in actual}
     if row_counts != {2}:
-        raise check50.Failure("Query should only return a single column")
+        raise check50.Failure("Query should return exactly two columns")
 
     # Get data from column
     try:
