@@ -82,7 +82,7 @@ def uses_variable(project):
 @check50.check(valid)
 def uses_sound(project):
     """project uses at least one sound"""
-    if not contains_blocks(project, ["sound_play", "sound_playuntildone", "music_playNoteForBeats", "music_playDrumForBeats"]):
+    if not contains_blocks(project, ["sound_play", "sound_playuntildone", "music_playNoteForBeats", "music_playDrumForBeats", "text2speech_speakAndWait"]):
         raise check50.Failure("no sounds used, 1 required")
 
 
