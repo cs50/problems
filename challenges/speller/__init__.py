@@ -22,9 +22,9 @@ class Memory:
 
 @check50.check()
 def exists():
-    """dictionary.c and dictionary.h exist"""
-    check50.exists("dictionary.c", "dictionary.h")
-    check50.include("Makefile", "speller.c", "dictionaries", "texts", "sols")
+    """dictionary.c exists"""
+    check50.exists("dictionary.c")
+    check50.include("Makefile", "speller.c", "dictionaries", "texts", "sols", "dictionary.h")
 
 @check50.check(exists)
 def compiles():
