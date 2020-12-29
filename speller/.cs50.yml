@@ -5,6 +5,7 @@ check50:
     - !include "*.h"
     - !include "*.md"
     - !exclude speller.c
+    - !exclude dictionary.h
     - !require dictionary.c
 
 submit50:
