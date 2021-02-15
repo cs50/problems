@@ -13,7 +13,7 @@ def final():
     if len(text) < 2500:
         raise check50.Failure(f"Description is not long enough.")
        
-    urls = re.findall('(?:(?:https?):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+', text)
+    urls = re.findall('https?:\/\/[\w/\-?=%.]+\.[\w/\-?=%.]+', text)
     if not urls:
         raise check50.Failure(f"Video URL is missing.")
         
