@@ -34,7 +34,7 @@ def import_count():
     """import.py imports the correct number of rows"""
     check50.run("python3 import.py students.csv").exit(timeout=10)
     db = SQL("sqlite:///students.db")
-    actual = db.execute("SELECT COUNT(*) as count FROM students")[0]["count"]
+    actual = db.execute("SELECT COUNT(*) as count FROM students")[0]["COUNT"]
     expected = 40
     if actual != expected:
         raise check50.Mismatch(str(expected), str(actual))
