@@ -67,19 +67,19 @@ def invalid_vote_votes_unchanged():
 @check50.hidden("print_winner function did not print winner of election")
 def print_winner0():
     """print_winner identifies Alice as winner of election"""
-    check50.run("./plurality_test 0 7").stdout("Alice\n").exit(0)
+    check50.run("./plurality_test 0 7").stdout("^Alice\n?$").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("print_winner function did not print winner of election")
 def print_winner1():
     """print_winner identifies Bob as winner of election"""
-    check50.run("./plurality_test 0 8").stdout("Bob\n").exit(0)
+    check50.run("./plurality_test 0 8").stdout("^Bob\n?$").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("print_winner function did not print winner of election")
 def print_winner2():
     """print_winner identifies Charlie as winner of election"""
-    check50.run("./plurality_test 0 9").stdout("Charlie\n").exit(0)
+    check50.run("./plurality_test 0 9").stdout("^Charlie\n?$").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("print_winner function did not print both winners of election")
