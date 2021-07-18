@@ -96,3 +96,9 @@ def print_winner4():
     result = check50.run("./plurality_test 0 11").stdout()
     if set(result.split("\n")) - {""} != {"Alice", "Bob", "Charlie"}:
         raise check50.Mismatch("Alice\nBob\nCharlie\n", result)
+
+@check50.check(compiles)
+@check50.hidden("print_winner function did not print only winners of election")
+def print_winner5():
+    """print_winner prints only winner name when losers tie"""
+    check50.run("./plurality_test 0 12").stdout("Charlie\n").exit(0)

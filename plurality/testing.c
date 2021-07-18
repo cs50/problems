@@ -99,5 +99,12 @@ int main(int argc, string argv[])
             candidates[2].votes = 8;
             print_winner();
             break;
+            
+        case 12:
+            candidates[0].votes = 1;
+            candidates[1].votes = 1;
+            candidates[2].votes = 2;
+            print_winner();
+            break;
     }
 }
