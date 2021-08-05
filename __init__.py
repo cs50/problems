@@ -9,5 +9,5 @@ def exists():
 @check50.check(exists)
 def hello():
     """prints hello, world"""
-    check50.run("python experiment.py").stdout("hello, world").exit()
+    check50.run("python3 experiment.py").stdout("hello, world").exit()
 
