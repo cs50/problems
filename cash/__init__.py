@@ -32,52 +32,52 @@ def compiles():
 
 @check50.check(compiles)
 def cents():
-    """get_cents() returns integer number of cents"""
+    """get_cents returns integer number of cents"""
     check50.run("./cash_test 0").stdin("100", prompt = True).stdout(100).exit()
 
 @check50.check(compiles)
 def negative():
-    """get_cents() rejects negative input"""
+    """get_cents rejects negative input"""
     check50.run("./cash_test 0").stdin("-10", prompt = True).reject()
 
 @check50.check(compiles)
 def test_reject_foo():
-    """get_cents() rejects a non-numeric input of "foo" """
+    """get_cents rejects a non-numeric input of "foo" """
     check50.run("./cash_test 0").stdin("foo", prompt = True).reject()
 
 @check50.check(compiles)
 def quarters0():
-    """get_quarters() returns 2 when input is 50"""
+    """get_quarters returns 2 when input is 50"""
     check50.run("./cash_test 1").stdout("2")
 
 @check50.check(compiles)
 def quarters1():
-    """get_quarters() returns 1 when input is 42"""
+    """get_quarters returns 1 when input is 42"""
     check50.run("./cash_test 2").stdout("1")
 
 @check50.check(compiles)
 def dimes0():
-    """get_dimes() returns 1 when input is 10"""
+    """get_dimes returns 1 when input is 10"""
     check50.run("./cash_test 3").stdout("1")
 
 @check50.check(compiles)
 def dimes1():
-    """get_dimes() returns 1 when input is 15"""
+    """get_dimes returns 1 when input is 15"""
     check50.run("./cash_test 4").stdout("1")
 
 @check50.check(compiles)
 def nickels0():
-    """get_nickels() returns 1 when input is 5"""
+    """get_nickels returns 1 when input is 5"""
     check50.run("./cash_test 5").stdout("1")
 
 @check50.check(compiles)
 def nickels1():
-    """get_nickels() returns 5 when input is 28"""
+    """get_nickels returns 5 when input is 28"""
     check50.run("./cash_test 6").stdout("5")
 
 @check50.check(compiles)
 def pennies():
-    """get_pennies() returns 4 when input is 4"""
+    """get_pennies returns 4 when input is 4"""
     check50.run("./cash_test 7").stdout("4")
 
 @check50.check(compiles)
