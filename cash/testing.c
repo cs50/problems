@@ -11,31 +11,31 @@ int main(int argc, string argv[])
             break;
         
         case 1:
-            printf("%i", get_quarters(50));
+            printf("%i", calculate_quarters(50));
             break;
 
         case 2:
-            printf("%i", get_quarters(42));
+            printf("%i", calculate_quarters(42));
             break;
         
         case 3:
-            printf("%i", get_dimes(10));
+            printf("%i", calculate_dimes(10));
             break;
         
         case 4:
-            printf("%i", get_dimes(15));
+            printf("%i", calculate_dimes(15));
             break;
 
         case 5:
-            printf("%i", get_nickels(5));
+            printf("%i", calculate_nickels(5));
             break;
 
         case 6:
-            printf("%i", get_nickels(28));
+            printf("%i", calculate_nickels(28));
             break;
 
         case 7:
-            printf("%i", get_pennies(4));
+            printf("%i", calculate_pennies(4));
             break;
     }
 }
