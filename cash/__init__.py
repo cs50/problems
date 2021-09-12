@@ -33,7 +33,7 @@ def compiles():
 @check50.check(compiles)
 def cents():
     """get_cents returns integer number of cents"""
-    check50.run("./cash_test 0").stdin("100", prompt = True).stdout(100).exit()
+    check50.run("./cash_test 0").stdin("100", prompt = True).stdout("100").exit()
 
 @check50.check(compiles)
 def negative():
