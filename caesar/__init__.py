@@ -45,3 +45,13 @@ def checks_for_handling_non_alpha():
 def handles_no_argv():
     """handles lack of argv[1]"""
     check50.run("./caesar").exit(1)
+    
+@check50.check(compiles)
+def handles_non_numeric_argv():
+    """handles non-numeric key"""
+    check50.run("./caesar 2x").exit(1)
+    
+@check50.check(compiles)
+def too_many_args():
+    """handles too many arguments"""
+    check50.run("./caesar 1 2").exit(1)
