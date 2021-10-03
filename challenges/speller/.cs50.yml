@@ -3,6 +3,8 @@ check50:
     - !exclude "*"
     - !include "*.c"
     - !include "*.h"
+    - !include "*.md"
+    - !exclude speller.c
     - !require dictionary.c
 
 submit50:
@@ -10,4 +12,3 @@ submit50:
   remote:
     message: "Go to https://speller.cs50.net/challenge/{commit_hash} to see your results!"
     callback: "https://speller.cs50.net/challenge"
-
