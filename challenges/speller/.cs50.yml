@@ -3,6 +3,7 @@ check50:
     - !exclude "*"
     - !include "*.c"
     - !include "*.h"
+    - !exclude "speller.c"
     - !require dictionary.c
 
 submit50:
