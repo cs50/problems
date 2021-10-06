@@ -40,3 +40,12 @@ def test7():
     """identifies 1234567890 as INVALID"""
     check50.run("python3 credit.py").stdin("1234567890").stdout("INVALID\n").exit()
 
+@check50.check(exists)
+def test8():
+    """identifies 4111111111111113 as INVALID"""
+    check50.run("python3 credit.py").stdin("4111111111111113").stdout("INVALID\n").exit()
+
+@check50.check(exists)
+def test9():
+    """identifies 4222222222223 as INVALID"""
+    check50.run("python3 credit.py").stdin("4222222222223").stdout("INVALID\n").exit()
