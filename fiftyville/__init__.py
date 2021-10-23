@@ -22,9 +22,9 @@ def solved():
 
     answers = open("answers.txt").read().lower()
 
-    thief = "65726e657374"
-    city = "6c6f6e646f6e"
-    accomplice = "62657274686f6c64"
+    thief = "6272756365"
+    city = "6e657720796f726b"
+    accomplice = "726f62696e"
 
     for q in ["thief is", "escaped to", "accomplice is"]:
         if answers.count(q) > 1:
