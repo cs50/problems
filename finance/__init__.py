@@ -10,8 +10,8 @@ os.environ["API_KEY"] = "foo"
 
 @check50.check()
 def exists():
-    """application.py exists"""
-    check50.exists("application.py")
+    """app.py exists"""
+    check50.exists("app.py")
     check50.include("lookup.py")
     check50.py.append_code("helpers.py", "lookup.py")
 
@@ -153,7 +153,7 @@ def sell_handles_valid():
 class Finance(check50.flask.app):
     """Extension of flask.App class that adds Finance-specific functions"""
 
-    APP_NAME = "application.py"
+    APP_NAME = "app.py"
 
     def __init__(self):
         """Helper function for registering user"""
