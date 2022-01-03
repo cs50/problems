@@ -79,13 +79,6 @@ def uses_variable(project):
     if not any(target["variables"] for target in project):
         raise check50.Failure("no variables found, 1 required")
 
-@check50.check(valid)
-def uses_sound(project):
-    """project uses at least one sound"""
-    if not contains_blocks(project, ["sound_play", "sound_playuntildone", "music_playNoteForBeats", "music_playDrumForBeats", "text2speech_speakAndWait"]):
-        raise check50.Failure("no sounds used, 1 required")
-
-
 def contains_blocks(project, opcodes):
     """Return whether project contains any blocks with their names in opcodes"""
     return any(any((isinstance(block, dict) and block["opcode"] in opcodes) for block in target["blocks"].values())
