@@ -66,6 +66,11 @@ def dimes1():
     check50.run("./cash_test 4").stdout("1")
 
 @check50.check(compiles)
+def dimes2():
+    """calculate_dimes returns 7 when input is 73"""
+    check50.run("./cash_test 8").stdout("7")    
+    
+@check50.check(compiles)
 def nickels0():
     """calculate_nickels returns 1 when input is 5"""
     check50.run("./cash_test 5").stdout("1")
@@ -79,6 +84,7 @@ def nickels1():
 def pennies():
     """calculate_pennies returns 4 when input is 4"""
     check50.run("./cash_test 7").stdout("4")
+  
 
 @check50.check(compiles)
 def test41():

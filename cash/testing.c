@@ -37,5 +37,10 @@ int main(int argc, string argv[])
         case 7:
             printf("%i", calculate_pennies(4));
             break;
+
+        case 8:
+            printf("%i", calculate_dimes(73));
+            break;
+            
     }
 }
