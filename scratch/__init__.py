@@ -79,8 +79,8 @@ def uses_variable(project):
     if not any(target["variables"] for target in project):
         raise check50.Failure("no variables found, 1 required")
 
-@check50.check(valid)
-def contains_blocks(project, opcodes):
-    """Return whether project contains any blocks with their names in opcodes"""
-    return any(any((isinstance(block, dict) and block["opcode"] in opcodes) for block in target["blocks"].values())
-               for target in project)
+# @check50.check(valid)
+# def contains_blocks(project, opcodes):
+#     """Return whether project contains any blocks with their names in opcodes"""
+#     return any(any((isinstance(block, dict) and block["opcode"] in opcodes) for block in target["blocks"].values())
+#                for target in project)
