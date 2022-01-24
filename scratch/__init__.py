@@ -51,7 +51,7 @@ def non_cat(project):
 
 @check50.check(valid)
 def three_blocks(project):
-    """project contains at least three blocks"""
+    """project contains at least three scripts"""
 
     num_blocks = sum(len(target["blocks"]) for target in project)
     if num_blocks < 3:
