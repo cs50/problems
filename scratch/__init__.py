@@ -10,7 +10,7 @@ import check50
 def valid():
     """project exists and is valid Scratch program"""
 
-    # Make sure there is only one .sb2 file.
+    # Make sure there is only one .sb3 file.
     filenames = [filename for filename in os.listdir() if filename.endswith(".sb3")]
 
     if len(filenames) > 1:
@@ -43,8 +43,8 @@ def two_sprites(project):
 def non_cat(project):
     """project contains a non-cat sprite"""
 
-    cat_sprite_ids = {"fc0687f38ae230b8765eebf4100e2653",
-                      "06c57b43f5a7d3500fd149de265c2289"}
+    cat_sprite_ids = {"bcf454acf82e4504149f7ffe07081dbc",
+                      "0fb9be3e8397c983338cb71dc84d0b25"}
 
     if all(target["isStage"] or {costume["assetId"] for costume in target["costumes"]} == cat_sprite_ids for target in project):
         raise check50.Failure("no non-cat sprite found")
