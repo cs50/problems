@@ -110,10 +110,10 @@ def lock_pairs3():
 @check50.hidden("print_winner did not print winner of election")
 def print_winner1():
     """print_winner prints winner of election when one candidate wins over all others"""
-    check50.run("./tideman_test 4 12").stdout("Alice\n").exit(0)
+    check50.run("./tideman_test 4 12").stdout("^Alice\n?$").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("print_winner did not print winner of election")
 def print_winner2():
     """print_winner prints winner of election when some pairs are tied"""
-    check50.run("./tideman_test 4 13").stdout("Charlie\n").exit(0)
+    check50.run("./tideman_test 4 13").stdout("^Charlie\n?$").exit(0)
