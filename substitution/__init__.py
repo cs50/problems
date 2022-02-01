@@ -59,7 +59,7 @@ def handles_no_argv():
 @check50.check(compiles)
 def handles_too_many_args():
     """handles too many arguments"""
-    check50.run("/substitution abcdefghijklmnopqrstuvwxyz abc").exit(1)
+    check50.run("./substitution abcdefghijklmnopqrstuvwxyz abc").exit(1)
     
 @check50.check(compiles)
 def handles_invalid_length():
