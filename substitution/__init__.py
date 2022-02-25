@@ -79,4 +79,4 @@ def handles_duplicate_chars():
 @check50.check(compiles)
 def handles_multiple_duplicate_chars():
     """handles multiple duplicate characters in key"""
-    check50.run("./substitution BBCCEFGHIJKLMNOPQRSTUVWXYZ").exit(1)
+    check50.run("./substitution BBCcEFGHIJKLMNOPQRqTUVWXbZ").exit(1)
