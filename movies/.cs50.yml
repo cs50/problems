@@ -15,6 +15,7 @@ submit50:
     - !require 11.sql
     - !require 12.sql
     - !require 13.sql
+   style: false
 
 check50:
   files: *submit50_files
