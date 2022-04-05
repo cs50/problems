@@ -1,0 +1,8 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !require license.py
+
+check50:
+  files: *submit50_files
