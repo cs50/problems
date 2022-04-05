@@ -3,6 +3,7 @@ submit50:
     - !exclude "*"
     - !include "*.py"
     - !require faces.py
-
+  style: false
+  
 check50:
   files: *submit50_files
