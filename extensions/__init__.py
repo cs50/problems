@@ -10,80 +10,80 @@ def exists():
 
 @check50.check(exists)
 def testgif():
-    """input of .gif yields output of image/gif"""
-    input = ".gif"
+    """input of cs50.gif yields output of image/gif"""
+    input = "cs50.gif"
     output = "image/gif"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testjpg():
-    """input of .jpg yields output of image/jpeg"""
-    input = ".jpg"
+    """input of happy.jpg yields output of image/jpeg"""
+    input = "happy.jpg"
     output = "image/jpeg"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testjpeg():
-    """input of .jpeg yields output of image/jpeg"""
-    input = ".jpeg"
+    """input of happy.jpeg yields output of image/jpeg"""
+    input = "happy.jpeg"
     output = "image/jpeg"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testpng():
-    """input of .png yields output of image/png"""
-    input = ".png"
+    """input of check.png yields output of image/png"""
+    input = "check.png"
     output = "image/png"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testpdf():
-    """input of .pdf yields output of application/pdf"""
-    input = ".pdf"
+    """input of document.pdf yields output of application/pdf"""
+    input = "document.pdf"
     output = "application/pdf"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testtxt():
-    """input of .txt yields output of text/plain"""
-    input = ".txt"
+    """input of plain.txt yields output of text/plain"""
+    input = "plain.txt"
     output = "text/plain"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testzip():
-    """input of .zip yields output of application/zip"""
-    input = ".zip"
+    """input of files.zip yields output of application/zip"""
+    input = "files.zip"
     output = "application/zip"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testbin():
-    """input of .bin yields output of application/octet-stream"""
-    input = ".bin"
+    """input of application.bin yields output of application/octet-stream"""
+    input = "application.bin"
     output = "application/octet-stream"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testpdf_capital():
-    """input of .PDF yields output of application/pdf"""
-    input = ".pdf"
+    """input of document.PDF yields output of application/pdf"""
+    input = "document.PDF"
     output = "application/pdf"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testpdf_spaces():
-    """input of .PDF, with spaces on either side, yields output of application/pdf"""
-    input = " .pdf   "
+    """input of document.PDF, with spaces on either side, yields output of application/pdf"""
+    input = " document.pdf   "
     output = "application/pdf"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
