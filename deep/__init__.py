@@ -40,7 +40,7 @@ def test_forty_two_malformed():
 
 
 @check50.check(exists)
-def test42_spaces():
+def test_42_spaces():
     """input of 42, with spaces on either side, yields output of Yes"""
     input = " 42  "
     output = "Yes"
@@ -48,7 +48,7 @@ def test42_spaces():
 
 
 @check50.check(exists)
-def test50():
+def test_50():
     """input of 50 yields output of No"""
     input = "50"
     output = "No"
@@ -56,7 +56,7 @@ def test50():
 
 
 @check50.check(exists)
-def testfifty():
+def test_fifty():
     """input of fifty yields output of No"""
     input = "fifty"
     output = "No"
