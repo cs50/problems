@@ -14,6 +14,12 @@ def testHello():
 
 
 @check50.check(exists)
+def testHello():
+    """input of \" Hello \" yields output of $0"""
+    check50.run("python3 bank.py").stdin(" Hello ", prompt=True).stdout(r'^[$]0[^\d]$', "$0", regex=True).exit()
+
+
+@check50.check(exists)
 def testHello_Newman():
     """input of \"Hello, Newman\" yields output of $0"""
     check50.run("python3 bank.py").stdin("Hello, Newman", prompt=True).stdout(r'^[$]0[^\d]$', "$0", regex=True).exit()
