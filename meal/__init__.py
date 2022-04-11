@@ -49,5 +49,5 @@ def test_no_output():
 
 
 def regex(time):
-    """match input strictly, with only whitespace on either side"""
-    return fr'^\s*{time}\s*$'
+    """match case-insensitively with only whitespace on either side"""
+    return fr'(?i)^\s*{escape(time)}\s*$'
