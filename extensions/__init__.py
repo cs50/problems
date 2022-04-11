@@ -89,4 +89,5 @@ def testpdf_spaces():
 
 
 def regex(text):
-    return fr'^[\s]*{escape(text)}[\s]*$'
+    """Match case-sensitively, allowing for spaces on either side"""
+    return fr'^\s*{escape(text)}\s*$'
