@@ -33,6 +33,14 @@ def test_lunch():
 
 
 @check50.check(exists)
+def test_lunch():
+    """input of 13:00 yields output of \"lunch time\""""
+    input = "13:00"
+    output = "lunch time"
+    check50.run("python3 meal.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
+@check50.check(exists)
 def test_dinner():
     """input of 18:32 yields output of \"dinner time\""""
     input = "18:32"
