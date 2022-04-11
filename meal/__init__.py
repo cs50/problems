@@ -42,8 +42,8 @@ def test_dinner():
 
 @check50.check(exists)
 def test_no_output():
-    """input of 14:30 yields no output"""
-    input = "14:30"
+    """input of 11:11 yields no output"""
+    input = "11:11"
     output = ""
     check50.run("python3 meal.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
