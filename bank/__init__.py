@@ -14,7 +14,7 @@ def testHello():
 
 
 @check50.check(exists)
-def testHello():
+def testHello_spaces():
     """input of \" Hello \" yields output of $0"""
     check50.run("python3 bank.py").stdin(" Hello ", prompt=True).stdout(r'^[$]0[^\d]$', "$0", regex=True).exit()
 
