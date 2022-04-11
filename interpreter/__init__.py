@@ -49,5 +49,5 @@ def test_3_divided_by_2():
 
 
 def regex(num):
-    """match given number with a single floating point decimal; allow only text on either side of number"""
+    """match given number with a single floating point decimal; allow only text or whitespace on either side of number"""
     return fr'^[^\d]*{escape(num)}[^\d]*$'
