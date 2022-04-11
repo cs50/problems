@@ -50,7 +50,7 @@ def testWhats_happening():
 
 @check50.check(exists)
 def testWhats_up():
-    """input of \"what's up?\" yields output of $100"""
+    """input of \"What's up?\" yields output of $100"""
     input = "What's up?"
     output = "$100"
     check50.run("python3 bank.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
