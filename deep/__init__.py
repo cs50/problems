@@ -8,42 +8,61 @@ def exists():
 
 
 @check50.check(exists)
-def test42():
+def test_42():
     """input of 42 yields output of Yes"""
-    check50.run("python3 deep.py").stdin("42", prompt=True).stdout("[Yy]es", "Yes", regex=True).exit()
+    input = "42"
+    output = "Yes"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
-def testfortytwo():
+def test_forty_two():
     """input of forty-two yields output of Yes"""
-    check50.run("python3 deep.py").stdin("forty-two", prompt=True).stdout("[Yy]es", "Yes", regex=True).exit()
+    input = "forty-two"
+    output = "Yes"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
-def testforty_two():
+def test_forty_two_space():
     """input of forty two yields output of Yes"""
-    check50.run("python3 deep.py").stdin("forty two", prompt=True).stdout("[Yy]es", "Yes", regex=True).exit()
+    input = "forty two"
+    output = "Yes"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
-def testforty_two_malformed():
+def test_forty_two_malformed():
     """input of FoRty TwO yields output of Yes"""
-    check50.run("python3 deep.py").stdin("FoRty TwO", prompt=True).stdout("[Yy]es", "Yes", regex=True).exit()
+    input = "FoRty TwO"
+    output = "Yes"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def test42_spaces():
     """input of 42, with spaces on either side, yields output of Yes"""
-    check50.run("python3 deep.py").stdin(" 42 ", prompt=True).stdout("[Yy]es", "Yes", regex=True).exit()
+    input = " 42  "
+    output = "Yes"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def test50():
     """input of 50 yields output of No"""
-    check50.run("python3 deep.py").stdin("50", prompt=True).stdout("[Nn]o", "No", regex=True).exit()
+    input = "50"
+    output = "No"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(exists)
 def testfifty():
     """input of fifty yields output of No"""
-    check50.run("python3 deep.py").stdin("fifty", prompt=True).stdout("[Nn]o", "No", regex=True).exit()
+    input = "fifty"
+    output = "No"
+    check50.run("python3 deep.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
+def regex(answer):
+    """match case-insensitively with only whitespace on either side"""
+    return rf'(?i)^\s*{answer}\s*$'
