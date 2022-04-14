@@ -14,7 +14,7 @@ def exists():
 def compiles():
     """runoff compiles"""
     check50.c.compile("runoff.c", lcs50=True)
-    runoff = re.sub("int\s+main", "int distro_main", open("runoff.c").read())
+    runoff = re.sub("int\s+main\s*\(", "int distro_main(", open("runoff.c").read())
     testing = open("testing.c").read()
     with open("runoff_test.c", "w") as f:
         f.write(runoff)

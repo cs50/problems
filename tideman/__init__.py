@@ -14,7 +14,7 @@ def exists():
 def compiles():
     """tideman compiles"""
     check50.c.compile("tideman.c", lcs50=True)
-    tideman = re.sub("int\s+main", "int distro_main", open("tideman.c").read())
+    tideman = re.sub("int\s+main\s*\(", "int distro_main(", open("tideman.c").read())
     testing = open("testing.c").read()
     with open("tideman_test.c", "w") as f:
         f.write(tideman)
