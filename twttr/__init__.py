@@ -40,7 +40,6 @@ def test_python():
     check50.run("python3 twttr.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
-
 def regex(text):
     """match case-sensitively, allowing for characters on either side"""
     return fr'^.*{escape(text)}.*$'
