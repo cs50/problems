@@ -65,5 +65,5 @@ def test_change():
 
 
 def regex(text):
-    """match case-sensitively, allowing for characters (not numbers) on either side"""
-    return fr'^[^\d]*{escape(text)}[^\d]*$'
+    """match case-sensitively, allowing for characters (not numbers) on either side. Ensure not negative with no dashes"""
+    return fr'^[^\d-]*{escape(text)}[^\d]*$'
