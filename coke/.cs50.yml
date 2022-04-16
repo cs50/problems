@@ -1,0 +1,9 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !require coke.py
+  style: false
+  
+check50:
+  files: *submit50_files
