@@ -57,5 +57,5 @@ def test_terminate():
 
 
 def regex(text):
-    """match case-sensitively, allowing for characters on either side"""
+    """match case-sensitively, allowing for characters (not numbers) on either side"""
     return fr'^[^\d]*{escape(text)}[^\d]*$'
