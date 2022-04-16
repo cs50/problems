@@ -40,7 +40,7 @@ def test_invalid():
     check50.run("python3 coke.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).kill()
 
 
-@check50.check(test_10)
+@check50.check(exists)
 def test_multiple():
     """coke accepts continued input"""
     input = "10"
@@ -48,12 +48,20 @@ def test_multiple():
     check50.run("python3 coke.py").stdin(input, prompt=True).stdin(input, prompt=True).stdout(regex(output), output, regex=True).kill()
 
 
-@check50.check(test_25)
+@check50.check(exists)
 def test_terminate():
     """coke terminates at 50 cents"""
-    input = "25"
+    input = "10"
     output = "0"
-    check50.run("python3 coke.py").stdin(input, prompt=True).stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+    check50.run("python3 coke.py").stdin(input, prompt=True).stdin(input, prompt=True).stdin(input, prompt=True).stdin(input, prompt=True).stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
+@check50.check(exists)
+def test_change():
+    """coke provides correct change"""
+    input = "25"
+    output = "10"
+    check50.run("python3 coke.py").stdin(input, prompt=True).stdin("10", prompt=True).stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 def regex(text):
