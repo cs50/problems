@@ -34,9 +34,9 @@ def test_cs50():
 
 @check50.check(exists)
 def test_python():
-    """input of Python yields output of Pythn"""
-    input = "Python"
-    output = "Pythn"
+    """input of PYTHON yields output of PYTHN"""
+    input = "PYTHON"
+    output = "PYTHN"
     check50.run("python3 twttr.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
