@@ -87,7 +87,31 @@ def testpdf_spaces():
     output = "application/pdf"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
+    
+@check50.check(exists)
+def test_two():
+    """input of test.txt.pdf, with one extra extension, yields output of application/pdf"""
+    input = "test.txt.pdf"
+    output = "application/pdf"
+    check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
+    
+@check50.check(exists)
+def testjpg_substring():
+    """input of zipper.jpg, with another extension name, yields output of image/jpeg"""
+    input = "zipper.jpg"
+    output = "image/jpeg"
+    check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+    
+
+@check50.check(exists)
+def test_noextension():
+    """input of myfile, with no extension, yields output of application/octet-stream"""
+    input = "myfile"
+    output = "application/octet-stream"
+    check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+    
+    
 def regex(text):
     """match case-sensitively, allowing for spaces on either side"""
     return fr'^\s*{escape(text)}\s*$'
