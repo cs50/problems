@@ -53,7 +53,9 @@ def test_none():
     """nutrition.py ignores invalid input"""
     input = "Tomato"
     output = ""
-    check50.run("python3 nutrition.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+    output = str(check50.run("python3 nutrition.py").stdin(input, prompt=True).stdout())
+    if output != "":
+        raise check50.Mismatch("", output)
 
 
 def regex(text):
