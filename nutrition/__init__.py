@@ -48,6 +48,14 @@ def test_sweet_cherries():
     check50.run("python3 nutrition.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
+@check50.check(exists)
+def test_none():
+    """nutrition.py ignores invalid input"""
+    input = "Tomato"
+    output = ""
+    check50.run("python3 nutrition.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
 def regex(text):
     """match case-sensitively, allowing for characters (but not numbers) on either side"""
     return fr'^[^\d]*{escape(text)}[^\d]*$'
