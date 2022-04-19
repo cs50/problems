@@ -34,6 +34,14 @@ def test_NRVOUS():
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
+@check50.check(exists)
+def test_CS05():
+    """input of CS05 yields output of Invalid"""
+    input = "CS05"
+    output = "Invalid"
+    check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+    
 # Numbers before letters (Doc Hudson, Cars)
 @check50.check(exists)
 def test_51HHMD():
