@@ -34,6 +34,7 @@ def test_NRVOUS():
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
+# Tests for Zero as first number
 @check50.check(exists)
 def test_CS05():
     """input of CS05 yields output of Invalid"""
@@ -42,34 +43,34 @@ def test_CS05():
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
     
-# Numbers before letters (Doc Hudson, Cars)
+# Numbers before letters (after the first 2 letters)
 @check50.check(exists)
-def test_51HHMD():
-    """input of 51HHMD yields output of Invalid"""
-    input = "51HHMD"
+def test_CS50P():
+    """input of CS50P yields output of Invalid"""
+    input = "CS50P"
     output = "Invalid"
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
-# Non-alphanumeric characters (Tow Mater, Cars)
+# Non-alphanumeric characters (after the first 2 letters)
 @check50.check(exists)
-def test_A113():
-    """input of A-113 yields output of Invalid"""
-    input = "A-113"
+def test_PI3.14():
+    """input of PI3.14 yields output of Invalid"""
+    input = "PI3.14"
     output = "Invalid"
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
-# Length and non-alphanumeric characters (Luigi, Cars)
+# Length (too short)
 @check50.check(exists)
 def test_445108():
-    """input of 44.5-10.8 yields output of Invalid"""
-    input = "This is CS50"
+    """input of H yields output of Invalid"""
+    input = "H"
     output = "Invalid"
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
-# Length (Back to the Future)
+# Length (too long) (Back to the Future)
 @check50.check(exists)
 def test_OUTATIME():
     """input of OUTATIME yields output of Invalid"""
