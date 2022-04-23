@@ -54,7 +54,7 @@ def test_CS50P():
 
 # Non-alphanumeric characters (after the first 2 letters)
 @check50.check(exists)
-def test_PI3.14():
+def test_PI3_14():
     """input of PI3.14 yields output of Invalid"""
     input = "PI3.14"
     output = "Invalid"
