@@ -72,9 +72,16 @@ def test_ZeroDivisionError():
 
 
 @check50.check(exists)
-def test_ValueError():
+def test_str_conversion():
     """input of three/four results in reprompt"""
     input = "three/four"
+    check50.run("python3 fuel.py").stdin(input, prompt=True).reject()
+
+
+@check50.check(exists)
+def test_float():
+    """input of 1.5/4 results in reprompt"""
+    input = "1.5/4"
     check50.run("python3 fuel.py").stdin(input, prompt=True).reject()
 
 
