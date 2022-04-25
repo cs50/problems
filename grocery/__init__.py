@@ -34,8 +34,8 @@ def test_multiple_items():
 
 @check50.check(test_EOF)
 def test_single_and_multiple_items():
-    """input of \"mango\", \"mango\", and \"sugar\" yields \"2 MANGO 1 SUGAR\""""
-    items = ["mango", "mango", "sugar"]
+    """input of \"mango\", \"sugar\", and \"mango\" yields \"2 MANGO 1 SUGAR\""""
+    items = ["mango", "sugar", "mango"]
     output = "2 MANGO\n1 SUGAR"
     check50.run("python3 grocery.py").stdin(items[0], prompt=False).stdin(items[1], prompt=False).stdin(items[2], prompt=False).stdin(EOF, prompt=False).stdout(regex(output), output, regex=True).exit()
 
