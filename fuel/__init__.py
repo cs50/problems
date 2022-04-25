@@ -72,6 +72,13 @@ def test_ZeroDivisionError():
 
 
 @check50.check(exists)
+def test_numerator_greater_than_denominator():
+    """input of 4/3 results in reprompt"""
+    input = "4/3"
+    check50.run("python3 fuel.py").stdin(input, prompt=True).reject()
+
+
+@check50.check(exists)
 def test_str_conversion():
     """input of three/four results in reprompt"""
     input = "three/four"
