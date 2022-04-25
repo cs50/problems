@@ -79,9 +79,16 @@ def test_str_conversion():
 
 
 @check50.check(exists)
-def test_float():
+def test_float_numerator():
     """input of 1.5/4 results in reprompt"""
     input = "1.5/4"
+    check50.run("python3 fuel.py").stdin(input, prompt=True).reject()
+
+
+@check50.check(exists)
+def test_float_denominator():
+    """input of 3/5.5 results in reprompt"""
+    input = "3/5.5"
     check50.run("python3 fuel.py").stdin(input, prompt=True).reject()
 
 
