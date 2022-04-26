@@ -41,13 +41,6 @@ def test_yale_characters():
 
 
 @check50.check(exists)
-def test_two_digit_year():
-    """input of 2/6/98 results in reprompt"""
-    input = "2/6/98"
-    check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
-
-
-@check50.check(exists)
 def test_out_of_range_month():
     """input of 23/6/1912 results in reprompt"""
     input = "23/6/1912"
