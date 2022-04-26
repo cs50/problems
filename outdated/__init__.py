@@ -53,7 +53,14 @@ def test_out_of_order_char():
     input = "10 December, 1815"
     check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
 
-
+    
+@check50.check(exists)
+def test_incorrect_format():
+    """input of October/9/1701 results in reprompt"""
+    input = "October/9/1701"
+    check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
+    
+    
 @check50.check(exists)
 def test_out_of_range_day():
     """input of 1/50/2000 results in reprompt"""
