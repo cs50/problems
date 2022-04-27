@@ -1,6 +1,6 @@
 import check50
-from re import escape
 from pexpect import EOF
+from re import escape
 
 
 @check50.check()
