@@ -1,4 +1,5 @@
 import check50
+from pexpect import EOF
 from re import escape
 
 
@@ -9,6 +10,12 @@ def exists():
 
 
 @check50.check(exists)
+def test_EOF():
+    """input of EOF halts program"""
+    check50.run("python3 taqueria.py").stdin(EOF).exit(0)
+
+
+@check50.check(test_EOF)
 def test_basic_order():
     """input of \"taco\", \"taco\", and \"tortilla salad\" results in $14.00"""
     items = ["taco", "taco", "tortilla salad"]
@@ -16,7 +23,7 @@ def test_basic_order():
     check50.run("python3 taqueria.py").stdin(items[0], prompt=True).stdin(items[1], prompt=True).stdin(items[2], prompt=True).stdout(regex(f"{output:.2f}"), f"${output:.2f}", regex=True).kill()
 
 
-@check50.check(exists)
+@check50.check(test_EOF)
 def test_basic_order_2():
     """input of \"burrito\", \"bowl\", and \"nachos\" results in $27.00"""
     items = ["burrito", "bowl", "nachos"]
@@ -24,7 +31,7 @@ def test_basic_order_2():
     check50.run("python3 taqueria.py").stdin(items[0], prompt=True).stdin(items[1], prompt=True).stdin(items[2], prompt=True).stdout(regex(f"{output:.2f}"), f"${output:.2f}", regex=True).kill()
 
 
-@check50.check(exists)
+@check50.check(test_EOF)
 def test_basic_order_3():
     """input of \"Baja Taco\", \"Quesadilla\", and \"Super Burrito\" results in $21.00"""
     items = ["Baja Taco", "Quesadilla", "Super Burrito"]
@@ -32,7 +39,7 @@ def test_basic_order_3():
     check50.run("python3 taqueria.py").stdin(items[0], prompt=True).stdin(items[1], prompt=True).stdin(items[2], prompt=True).stdout(regex(f"{output:.2f}"), f"${output:.2f}", regex=True).kill()
 
 
-@check50.check(exists)
+@check50.check(test_EOF)
 def test_capitalization():
     """input of \"Super quesadilla\" results in $9.50"""
     input = "Super quesadilla"
@@ -40,7 +47,7 @@ def test_capitalization():
     check50.run("python3 taqueria.py").stdin(input, prompt=True).stdout(regex(f"{output:.2f}"), f"${output:.2f}", regex=True).kill()
 
 
-@check50.check(exists)
+@check50.check(test_EOF)
 def test_invalid_order():
     """input of \"burger\" results in reprompt"""
     input = "burger"

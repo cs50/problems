@@ -12,8 +12,7 @@ def exists():
 @check50.check(exists)
 def test_EOF():
     """input of EOF halts program"""
-    input = EOF
-    check50.run("python3 grocery.py").stdin(input, prompt=False).exit()
+    check50.run("python3 grocery.py").stdin(EOF).exit(0)
 
 
 @check50.check(test_EOF)
