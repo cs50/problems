@@ -63,6 +63,12 @@ def encrypt8():
 
 
 @check50.check(compiles)
+def encrypt9():
+    """does not encrypt non-alphabetical characters using DWUSXNPQKEGCZFJBTLYROHIAVM as key"""
+    check50.run("./substitution DWUSXNPQKEGCZFJBTLYROHIAVM").stdin("Shh... Don't tell!").stdout("ciphertext:\s*Yqq... Sjf'r rxcc!\n", "ciphertext: Yqq... Sjf'r rxcc!\n").exit(0)
+
+
+@check50.check(compiles)
 def handles_no_argv():
     """handles lack of key"""
     check50.run("./substitution").exit(1)
