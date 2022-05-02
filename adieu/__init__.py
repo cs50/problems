@@ -97,7 +97,7 @@ def regex(text):
 
 
 def multi_name_test(input, output):
-    """Test names in list create expected output"""
+    """test names in list create expected output"""
 
     # Run program and supply names in input via stdin
     program = check50.run("python3 adieu.py")
