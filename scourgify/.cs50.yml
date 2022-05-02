@@ -2,7 +2,7 @@ submit50:
   files: &submit50_files
     - !exclude "*"
     - !include "*.py"
-    - !require bitcoin.py
+    - !require scourgify.py
   style: false
   
 check50:
