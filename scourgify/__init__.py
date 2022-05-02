@@ -6,6 +6,7 @@ from re import escape
 def exists():
     """scourgify.py exists"""
     check50.exists("scourgify.py")
+    check50.include("before.csv")
 
 
 @check50.check()
@@ -24,6 +25,12 @@ def test_too_few_arguments():
 def test_too_many_arguments():
     """scourgify.py exits given too many command-line arguments"""
     check50.run("python3 scourgify.py 1.csv 2.csv 3.csv").exit(1)
+
+
+@check50.check()
+def test_invalid_file():
+    """scourgify.py exits given invalid file"""
+    check50.run("python3 scourgify.py 1.csv 2.csv").exit(1)
 
 
 def regex(text):
