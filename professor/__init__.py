@@ -46,6 +46,7 @@ def test_score():
     for solution in solutions:
         program.stdin(str(solution), prompt=False)
     program.stdout(regex("9"), "9", regex=True)
+    program.exit(0)
 
 
 @check50.check(exists)
