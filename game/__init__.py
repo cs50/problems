@@ -6,7 +6,6 @@ from re import escape
 def exists():
     """game.py exists"""
     check50.exists("game.py")
-    check50.include("testing.py")
 
 
 @check50.check(exists)
@@ -43,21 +42,21 @@ def test_integer_guess():
 def test_too_large():
     """game.py outputs \"Too large!\" when guess is too large"""
     output = "Too large!"
-    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("5", prompt=True).stdout(regex(output), output, regex=True).reject()
+    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("10", prompt=True).stdout(regex(output), output, regex=True).reject()
 
 
 @check50.check(test_valid_level)
 def test_just_right():
     """game.py outputs \"Just right!\" when guess is correct"""
     output = "Just right!"
-    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("4", prompt=True).stdout(regex(output), output, regex=True).exit()
+    check50.run("python3 testing.py").stdin("1", prompt=True).stdin("1", prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(test_valid_level)
 def test_too_small():
     """game.py outputs \"Too small!\" when guess is too low"""
     output = "Too small!"
-    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("2", prompt=True).stdout(regex(output), output, regex=True).reject()
+    check50.run("python3 testing.py").stdin("1000000000", prompt=True).stdin("1", prompt=True).stdout(regex(output), output, regex=True).reject()
 
 
 def regex(text):
