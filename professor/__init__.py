@@ -35,6 +35,8 @@ def test_valid_level():
 def test_range_level_1():
     """At Level 1, Little Professor generates addition problems using 0–9"""
     level = "1"
+
+    # With random.seed(0) in testing.py, 6 + 6 is expected output from randint and randrange with range of 0–9
     output = "6 + 6 ="
     check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(regex(output), output, regex=True)
 
@@ -43,6 +45,8 @@ def test_range_level_1():
 def test_range_level_2():
     """At Level 2, Little Professor generates addition problems using 10–99"""
     level = "2"
+
+    # With random.seed(0) in testing.py, 59 + 63 is expected output from randint and randrange with range of 10–99
     output = "59 + 63 ="
     check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(regex(output), output, regex=True)
 
@@ -51,6 +55,8 @@ def test_range_level_2():
 def test_range_level_3():
     """At Level 3, Little Professor generates addition problems using 100–999"""
     level = "3"
+
+    # With random.seed(0) in testing.py, 964 + 494 is expected output from randint and randrange with range of 100–999
     output = "964 + 494 ="
     check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(regex(output), output, regex=True)
 
