@@ -1,5 +1,4 @@
 import check50
-from pexpect import EOF
 from re import escape
 
 
