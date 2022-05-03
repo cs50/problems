@@ -34,9 +34,9 @@ def test_smile_cat():
 
 @check50.check(exists)
 def test_smile_cat():
-    """input of \":red_heart:\" yields output of ❤️"""
-    input = ":red_heart:"
-    output = "❤️"
+    """input of \":candy:\" yields output of 🍬"""
+    input = ":candy:"
+    output = "🍬"
     check50.run("python3 emojize.py").stdin(input, prompt=False).stdout(regex(output), output, regex=True).exit(0)
 
 
