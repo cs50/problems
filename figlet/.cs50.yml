@@ -1,0 +1,10 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !include "*.txt"
+    - !require figlet.py
+  style: false
+  
+check50:
+  files: *submit50_files
