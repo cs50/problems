@@ -50,7 +50,7 @@ def test_too_large():
 def test_just_right():
     """game.py outputs \"Just right!\" when guess is correct"""
     output = "Just right!"
-    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("4", prompt=True).stdout(regex(output), output, regex=True).exit(0)
+    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("4", prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(test_valid_level)
