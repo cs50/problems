@@ -60,5 +60,5 @@ def test_too_small():
 
 
 def regex(text):
-    """match case-sensitively with any characters on either side"""
+    """match case-insensitively with any characters on either side"""
     return fr'(?i)^.*{escape(text)}.*$'
