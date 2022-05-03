@@ -79,7 +79,7 @@ def test_score():
 @check50.check(test_generate_problems)
 def test_EEE():
     """Little Professor displays EEE when answer is incorrect"""
-    check50.run("python3 testing.py main").stdin("1", prompt=False).stdin("0", prompt=False).stdout(regex("EEE"), "EEE", regex=True).kill()
+    check50.run("python3 testing.py main").stdin("1", prompt=False).stdin("0", prompt=False).stdout(regex("EEE"), "EEE", regex=True)
 
 
 @check50.check(test_generate_problems)
@@ -89,7 +89,6 @@ def test_show_solution():
     for _ in range(3):
         program.stdin("0", prompt=False)
     program.stdout(regex("12"), "12", regex=True)
-    program.kill()
 
 
 def regex(text):
