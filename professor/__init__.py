@@ -7,31 +7,61 @@ from re import escape
 def exists():
     """professor.py exists"""
     check50.exists("professor.py")
+    check50.include("testing.py")
 
 
-@check50.check()
+@check50.check(exists)
 def test_level_low():
     """Little Professor rejects level of 0"""
-    check50.run("python3 professor.py").stdin("0").reject()
+    check50.run("python3 testing.py get_level").stdin("0", prompt=False).reject()
 
 
-@check50.check()
+@check50.check(exists)
 def test_level_high():
     """Little Professor rejects level of 4"""
-    check50.run("python3 professor.py").stdin("4").reject()
+    check50.run("python3 testing.py get_level").stdin("4", prompt=False).reject()
 
 
-@check50.check()
-def test_question():
+@check50.check(exists)
+def test_valid_level():
     """Little Professor accepts valid level"""
-    check50.run("python3 professor.py").stdin("1").stdout(regex("+"), "+", regex=True).kill()
+    check50.run("python3 testing.py get_level").stdin("1", prompt=False).exit(0)
 
 
-@check50.check()
-def test_question2():
-    """Little Professor tests a question"""
-    output = check50.run("python3 professor.py").stdin("1").stdout()
-    check50.log(output)
+@check50.check(exists)
+def test_program():
+    """Little Professor generates 10 problems before exiting"""
+    solutions = [12, 4, 15, 10, 12, 12, 10, 6, 10, 12]
+    program = check50.run("python3 testing.py main").stdin("1", prompt=False)
+    for solution in solutions:
+        program.stdin(str(solution), prompt=False)
+    program.exit(0)
+
+
+@check50.check(exists)
+def test_score():
+    """Little Professor displays number of problems correct"""
+    solutions = [12, 4, 15, 10, 12, 12, 10, 6, 10, 10, 12]
+    program = check50.run("python3 testing.py main").stdin("1", prompt=False)
+    for solution in solutions:
+        program.stdin(str(solution), prompt=False)
+    program.stdout(regex("9"), "9", regex=True)
+
+
+@check50.check(exists)
+def test_EEE():
+    """Little Professor displays EEE when answer is incorrect"""
+    check50.run("python3 testing.py main").stdin("1", prompt=False).stdin("0", prompt=False).stdout(regex("EEE"), "EEE", regex=True).kill()
+
+
+@check50.check(exists)
+def test_show_solution():
+    """Little Professor shows solution after 3 incorrect attempts"""
+    program = check50.run("python3 testing.py main").stdin("1", prompt=False)
+    for _ in range(3):
+        program.stdin("0", prompt=False)
+    program.stdout(regex("12"), "12", regex=True)
+    program.kill()
 
 
 def regex(text):
