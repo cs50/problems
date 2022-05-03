@@ -1,8 +1,7 @@
-import game
 import random
+random.randint = lambda x, y : 4
+random.randrange = lambda x, y : 4
+import game
 
-# Set a random seed, so generator is predictable
-random.seed(0)
-
-# Run the game
+# Run game if not run when imported
 game.main()
