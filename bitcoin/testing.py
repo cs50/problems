@@ -18,3 +18,11 @@ requests.get = lambda x : FakeResponse()
 
 # Run bitcoin via import
 import bitcoin
+
+# Run bitcoin's main function if not via import
+try:
+    bitcoin.main()
+except AttributeError:
+
+    # Bitcoin has no main function
+    pass

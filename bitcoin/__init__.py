@@ -48,6 +48,6 @@ def test_decimal_coins():
 
 
 def regex(amount):
-    """match case-sensitively with any characters preceding and only whitespace after"""
+    """match case-sensitively with any characters before or after"""
     amount = f'${amount:,.4f}'
-    return fr'^.*{escape(amount)}\s*$'
+    return fr'^.*{escape(amount)}.*$'
