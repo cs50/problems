@@ -8,6 +8,7 @@ import sys
 def exists():
     """bitcoin.py exists"""
     check50.exists("bitcoin.py")
+    check50.include("testing.py")
 
 
 @check50.check(exists)
@@ -26,35 +27,27 @@ def test_non_numeric_argument():
 def test_single_coin():
     """bitcoin.py provides price of 1 Bitcoin to 4 decimal places"""
     coins = 1
-    price = get_price(coins)
-    check50.run(f"python3 bitcoin.py {coins}").stdout(regex(price), price, regex=True).exit(0)
+    price = 37817.3283
+    check50.run(f"python3 testing.py {coins}").stdout(regex(price * coins), str(price * coins), regex=True).exit(0)
 
 
 @check50.check(exists)
 def test_two_coins():
     """bitcoin.py provides price of 2 Bitcoin to 4 decimal places"""
     coins = 2
-    price = get_price(coins)
-    check50.run(f"python3 bitcoin.py {coins}").stdout(regex(price), price, regex=True).exit(0)
+    price = 37817.3283
+    check50.run(f"python3 testing.py {coins}").stdout(regex(price * coins), str(price * coins), regex=True).exit(0)
 
 
 @check50.check(exists)
 def test_decimal_coins():
     """bitcoin.py provides price of 2.5 Bitcoin to 4 decimal places"""
     coins = 2.5
-    price = get_price(coins)
-    check50.run(f"python3 bitcoin.py {coins}").stdout(regex(price), price, regex=True).exit(0)
+    price = 37817.3283
+    check50.run(f"python3 testing.py {coins}").stdout(regex(price * coins), str(price * coins), regex=True).exit(0)
 
 
-def regex(text):
+def regex(amount):
     """match case-sensitively with any characters preceding and only whitespace after"""
-    return fr'^.*{escape(text)}\s*$'
-
-
-def get_price(coins):
-    try:
-        response = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
-        price = response.json()["bpi"]["USD"]["rate_float"]
-    except requests.HTTPError:
-        sys.exit("check50 encountered a server error")
-    return f"${coins * price:,.4f}"
+    amount = f'${amount:,.4f}'
+    return fr'^.*{escape(amount)}\s*$'
