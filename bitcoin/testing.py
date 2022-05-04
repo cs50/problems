@@ -18,3 +18,6 @@ requests.get = lambda x : FakeResponse()
 
 # Run bitcoin via import
 import bitcoin
+
+# Run bitcoin via main if not via import
+bitcoin.main()
