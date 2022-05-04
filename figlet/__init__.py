@@ -65,7 +65,7 @@ def test_alphabet_text():
         output = ""
         for line in lines:
             output += line
-        check50.run(f"python3 figlet.py --font {font}").stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit(0)
+        check50.run(f"python3 figlet.py -f {font}").stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit(0)
 
 
 def regex(text):
