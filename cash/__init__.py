@@ -17,7 +17,7 @@ def compiles():
     check50.c.compile("cash.c", lcs50=True)
     
     # Rename main function to "distro_main"
-    cash = re.sub("int\s+main", "int distro_main", open("cash.c").read())
+    cash = re.sub("int\s+main\s*\(", "int distro_main(", open("cash.c").read())
 
     # Read testing file
     testing = open("testing.c").read()
