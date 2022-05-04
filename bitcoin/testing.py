@@ -1,6 +1,6 @@
 class FakeResponse():
     def json(_):
-        return { 
+        return {
                 "bpi": {
                     "USD": {
                         "code": "USD",
@@ -11,6 +11,8 @@ class FakeResponse():
                     }
                 }
             }
+
+    status_code = 200
 
 
 import requests
