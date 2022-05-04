@@ -20,7 +20,13 @@ def test_level_high():
     """Little Professor rejects level of 4"""
     check50.run("python3 testing.py get_level").stdin("4", prompt=False).reject()
 
-
+    
+@check50.check(exists)
+def test_level_nonint():
+    """Little Professor rejects level of one"""
+    check50.run("python3 testing.py get_level").stdin("one", prompt=False).reject()
+    
+    
 @check50.check(exists)
 def test_valid_level():
     """Little Professor accepts valid level"""
