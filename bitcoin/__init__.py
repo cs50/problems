@@ -28,7 +28,8 @@ def test_single_coin():
     """bitcoin.py provides price of 1 Bitcoin to 4 decimal places"""
     coins = 1
     price = 37817.3283
-    check50.run(f"python3 testing.py {coins}").stdout(regex(price * coins), str(price * coins), regex=True).exit(0)
+    amount = coins * price
+    check50.run(f"python3 testing.py {coins}").stdout(regex(amount), f'${amount:,.4f}', regex=True).exit(0)
 
 
 @check50.check(exists)
@@ -36,7 +37,8 @@ def test_two_coins():
     """bitcoin.py provides price of 2 Bitcoin to 4 decimal places"""
     coins = 2
     price = 37817.3283
-    check50.run(f"python3 testing.py {coins}").stdout(regex(price * coins), str(price * coins), regex=True).exit(0)
+    amount = coins * price
+    check50.run(f"python3 testing.py {coins}").stdout(regex(amount), f'${amount:,.4f}', regex=True).exit(0)
 
 
 @check50.check(exists)
@@ -44,7 +46,8 @@ def test_decimal_coins():
     """bitcoin.py provides price of 2.5 Bitcoin to 4 decimal places"""
     coins = 2.5
     price = 37817.3283
-    check50.run(f"python3 testing.py {coins}").stdout(regex(price * coins), str(price * coins), regex=True).exit(0)
+    amount = coins * price
+    check50.run(f"python3 testing.py {coins}").stdout(regex(amount), f'${amount:,.4f}', regex=True).exit(0)
 
 
 def regex(amount):
