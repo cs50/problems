@@ -1,7 +1,7 @@
 import check50
 from re import escape
-import requests
-import sys
+
+price = 37817.3283
 
 
 @check50.check()
@@ -27,7 +27,6 @@ def test_non_numeric_argument():
 def test_single_coin():
     """bitcoin.py provides price of 1 Bitcoin to 4 decimal places"""
     coins = 1
-    price = 37817.3283
     amount = coins * price
     check50.run(f"python3 testing.py {coins}").stdout(regex(amount), f'${amount:,.4f}', regex=True).exit(0)
 
@@ -36,7 +35,6 @@ def test_single_coin():
 def test_two_coins():
     """bitcoin.py provides price of 2 Bitcoin to 4 decimal places"""
     coins = 2
-    price = 37817.3283
     amount = coins * price
     check50.run(f"python3 testing.py {coins}").stdout(regex(amount), f'${amount:,.4f}', regex=True).exit(0)
 
@@ -45,7 +43,6 @@ def test_two_coins():
 def test_decimal_coins():
     """bitcoin.py provides price of 2.5 Bitcoin to 4 decimal places"""
     coins = 2.5
-    price = 37817.3283
     amount = coins * price
     check50.run(f"python3 testing.py {coins}").stdout(regex(amount), f'${amount:,.4f}', regex=True).exit(0)
 
