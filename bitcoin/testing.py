@@ -1,4 +1,8 @@
 class FakeResponse():
+
+    def __init__(self):
+        self.status_code = 200
+
     def json(_):
         return {
                 "bpi": {
@@ -12,11 +16,8 @@ class FakeResponse():
                 }
             }
 
-    status_code = 200
-
-
 import requests
-requests.get = lambda x : FakeResponse()
+requests.get = lambda x, *args, **kwargs: FakeResponse()
 
 # Run bitcoin via import
 import bitcoin
