@@ -43,14 +43,14 @@ def test_integer_guess():
 def test_too_large():
     """game.py outputs \"Too large!\" when guess is too large"""
     output = "Too large!"
-    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("5", prompt=True).stdout(regex(output), output, regex=True).reject()
+    check50.run("python3 testing.py").stdin("22", prompt=True).stdin("18", prompt=True).stdout(regex(output), output, regex=True).reject()
 
 
 @check50.check(test_valid_level)
 def test_just_right():
     """game.py outputs \"Just right!\" when guess is correct"""
     output = "Just right!"
-    check50.run("python3 testing.py").stdin("5", prompt=True).stdin("4", prompt=True).stdout(regex(output), output, regex=True).exit()
+    check50.run("python3 testing.py").stdin("6", prompt=True).stdin("4", prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 @check50.check(test_valid_level)
