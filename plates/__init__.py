@@ -45,9 +45,9 @@ def test_CS05():
     
 # Numbers before letters (after the first 2 letters)
 @check50.check(exists)
-def test_CS50P():
-    """input of CS50P yields output of Invalid"""
-    input = "CS50P"
+def test_CS50P2():
+    """input of CS50P2 yields output of Invalid"""
+    input = "CS50P2"
     output = "Invalid"
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
