@@ -2,6 +2,7 @@ class FakeResponse():
 
     def __init__(self):
         self.status_code = 200
+        self.text = '{"bpi":{"USD":{"code":"USD","symbol": "&#36;","rate":"37,817.3283","description":"United States Dollar","rate_float": 37817.3283}}}'
 
     def json(*args):
         return {
