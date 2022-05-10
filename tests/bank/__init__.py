@@ -39,22 +39,22 @@ def patch_file(import_file):
     """patch a new version of is_valid by updating import statement"""
 
     # Update import statement with new filename
-    with open("twttr.py", "r") as f:
-        twttr = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
+    with open("bank.py", "r") as f:
+        bank = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
 
-    # Write new import statement to twttr.py
-    with open("twttr.py", "w") as f:
-        f.write(twttr)
+    # Write new import statement to bank.py
+    with open("bank.py", "w") as f:
+        f.write(bank)
 
 
 def test_implementation(filename, code=0):
-    """test an implementation of twttr.py against student's checks in test_twttr.py, expect a given exit status"""
+    """test an implementation of bank.py against student's checks in test_bank.py, expect a given exit status"""
 
-    # Include new compiled testing version of twttr.py
+    # Include new compiled testing version of bank.py
     check50.include(f"{filename}.pyc")
 
     # Patch is_valid function from new test file
     patch_file(f"{filename}")
 
     # Expect that pytest will exit with given status code
-    return check50.run("pytest test_twttr.py").exit(code=code)
+    return check50.run("pytest test_bank.py").exit(code=code)
