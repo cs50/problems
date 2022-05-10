@@ -14,37 +14,45 @@ def exists():
 @check50.check(exists)
 def test_correct():
     """correct plates.py passes all test_plates checks"""
-    test_implementation("correct_test", code=0)
+
+    # Include new testing version of plates.py
+    check50.include("correct_test.py")
+
+    # Patch is_valid function from new test file
+    update_plates("correct_test")
+
+    # Expect that pytest will exit with status code 0, given correct plates.py
+    check50.run("pytest test_plates.py").exit(0)
 
 
 @check50.check(exists)
 def test_beginning_alpha_checks():
     """test_plates catches plates.py without beginning alphabetical checks"""
-    test_implementation("beginning_alpha_test", code=1)
+    test_buggy_file("beginning_alpha_test")
 
 
 @check50.check(exists)
 def test_length_checks():
     """test_plates catches plates.py without length checks"""
-    test_implementation("length_test", code=1)
+    test_buggy_file("length_test")
 
 
 @check50.check(exists)
 def test_number_placement_checks():
     """test_plates catches plates.py without checks for number placement"""
-    test_implementation("number_test", code=1)
+    test_buggy_file("number_test")
 
 
 @check50.check(exists)
 def test_zero_checks():
     """test_plates catches plates.py without checks for zero placement"""
-    test_implementation("zero_test", code=1)
+    test_buggy_file("zero_test")
 
 
 @check50.check(exists)
 def test_alnum_checks():
     """test_plates catches plates.py without checks for alphanumeric characters"""
-    test_implementation("alnum_test", code=1)
+    test_buggy_file("alnum_test")
 
 
 def update_plates(import_file):
@@ -59,14 +67,14 @@ def update_plates(import_file):
         f.write(plates)
 
 
-def test_implementation(filename, code=0):
-    """test an implementation of plates.py against student's checks in test_plates.py, expect a given exit status"""
+def test_buggy_file(test_name):
+    """test a buggy implementation of plates.py against student's checks in test_plates.py"""
 
     # Include new testing version of plates.py
-    check50.include(f"{filename}.py")
+    check50.include(f"{test_name}.py")
 
     # Patch is_valid function from new test file
-    update_plates(f"{filename}")
+    update_plates(f"{test_name}")
 
-    # Expect that pytest will exit with given status code
-    return check50.run("pytest test_plates.py").exit(code=code)
+    # Expect that pytest will exit with status code 1, given faulty plates.py
+    return check50.run("pytest test_plates.py").exit(1)
