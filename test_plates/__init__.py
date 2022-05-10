@@ -47,7 +47,7 @@ def test_alnum_checks():
     test_implementation("alnum_test", code=1)
 
 
-def update_plates(import_file):
+def patch_file(import_file):
     """patch a new version of is_valid by updating import statement"""
 
     # Update import statement with new filename
@@ -66,7 +66,7 @@ def test_implementation(filename, code=0):
     check50.include(f"{filename}.py")
 
     # Patch is_valid function from new test file
-    update_plates(f"{filename}")
+    patch_file(f"{filename}")
 
     # Expect that pytest will exit with given status code
     return check50.run("pytest test_plates.py").exit(code=code)
