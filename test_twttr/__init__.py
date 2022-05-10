@@ -35,6 +35,12 @@ def test_lower_vowel_replacement():
     test_implementation("lower_vowel_test", code=1)
 
 
+@check50.check(exists)
+def test_lower_vowel_replacement():
+    """test_twttr catches twttr.py without number printing"""
+    test_implementation("lower_vowel_test", code=1)
+
+
 def patch_file(import_file):
     """patch a new version of convert by updating import statement"""
 
