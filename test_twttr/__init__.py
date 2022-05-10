@@ -54,7 +54,7 @@ def patch_file(import_file):
     with open("twttr.py", "r") as f:
         twttr = sub(f"from \w* import convert", f"from {import_file} import convert", f.read())
 
-    # Write new import statement to plates.py
+    # Write new import statement to twttr.py
     with open("twttr.py", "w") as f:
         f.write(twttr)
 
