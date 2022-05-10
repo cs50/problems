@@ -23,6 +23,18 @@ def test_vowel_replacement():
     test_implementation("vowel_replacement_test", code=1)
 
 
+@check50.check(exists)
+def test_capital_vowel_replacement():
+    """test_twttr catches twttr.py without capitalized vowel replacement"""
+    test_implementation("capital_vowel_test", code=1)
+
+
+@check50.check(exists)
+def test_lower_vowel_replacement():
+    """test_twttr catches twttr.py without lowercase vowel replacement"""
+    test_implementation("lower_vowel_test", code=1)
+
+
 def patch_file(import_file):
     """patch a new version of convert by updating import statement"""
 
