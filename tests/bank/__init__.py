@@ -29,6 +29,12 @@ def test_case_sensitive():
     test_implementation("case_sensitive_test", code=1)
 
 
+@check50.check(exists)
+def test_starts_with():
+    """test_bank catches bank.py not allowing for entire phrase"""
+    test_implementation("starts_with_test", code=1)
+
+
 def patch_file(import_file):
     """patch a new version of value by updating import statement"""
 
