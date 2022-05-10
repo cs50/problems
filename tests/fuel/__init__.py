@@ -17,43 +17,43 @@ def test_correct():
     test_implementation("correct_test", code=0)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_convert():
     """test_fuel catches fuel.py returning incorrect ints in convert"""
     test_implementation("convert_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_value_error():
     """test_fuel catches fuel.py not raising ValueError in convert"""
     test_implementation("value_error_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_zero_division_error():
     """test_fuel catches fuel.py not raising ZeroDivisionError in convert"""
     test_implementation("zero_division_error_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_lower_bound():
     """test_fuel catches fuel.py returning incorrect percentages in gauge"""
     test_implementation("gauge_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_percent_gauge():
     """test_fuel catches fuel.py not printing % in gauge"""
     test_implementation("percent_gauge_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_lower_bound():
     """test_fuel catches fuel.py not labeling 1% as E in gauge"""
     test_implementation("lower_bound_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_upper_bound():
     """test_fuel catches fuel.py not labeling 99% as F in gauge"""
     test_implementation("upper_bound_test", code=1)

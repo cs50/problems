@@ -17,37 +17,37 @@ def test_correct():
     test_implementation("correct_test", code=0)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_vowel_replacement():
     """test_twttr catches twttr.py without vowel replacement"""
     test_implementation("vowel_replacement_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_capital_vowel_replacement():
     """test_twttr catches twttr.py without capitalized vowel replacement"""
     test_implementation("capital_vowel_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_lower_vowel_replacement():
     """test_twttr catches twttr.py without lowercase vowel replacement"""
     test_implementation("lower_vowel_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_number_printing():
     """test_twttr catches twttr.py omitting numbers"""
     test_implementation("number_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_capital_output():
     """test_twttr catches twttr.py printing in uppercase"""
     test_implementation("capital_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_punctuation():
     """test_twttr catches twttr.py omitting punctuation"""
     test_implementation("punctuation_test", code=1)

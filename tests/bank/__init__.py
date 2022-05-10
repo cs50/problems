@@ -17,19 +17,19 @@ def test_correct():
     test_implementation("correct_test", code=0)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_reversed_values():
     """test_bank catches bank.py with incorrect values"""
     test_implementation("reversed_value_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_case_sensitive():
     """test_bank catches bank.py without case-insensitivity"""
     test_implementation("case_sensitive_test", code=1)
 
 
-@check50.check(exists)
+@check50.check(test_correct)
 def test_starts_with():
     """test_bank catches bank.py not allowing for entire phrase"""
     test_implementation("starts_with_test", code=1)
