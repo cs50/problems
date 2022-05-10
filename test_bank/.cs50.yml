@@ -1,0 +1,8 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !require test_bank.py
+  style: false
+  
+check50:
+  files: *submit50_files
