@@ -41,6 +41,12 @@ def test_number_printing():
     test_implementation("number_test", code=1)
 
 
+@check50.check(exists)
+def test_capital_output():
+    """test_twttr catches twttr.py printing in uppercase"""
+    test_implementation("capital_test", code=1)
+
+
 def patch_file(import_file):
     """patch a new version of convert by updating import statement"""
 
