@@ -37,7 +37,7 @@ def test_lower_vowel_replacement():
 
 @check50.check(exists)
 def test_number_printing():
-    """test_twttr catches twttr.py without number printing"""
+    """test_twttr catches twttr.py omitting numbers"""
     test_implementation("number_test", code=1)
 
 
@@ -48,7 +48,7 @@ def test_capital_output():
 
 
 @check50.check(exists)
-def test_capital_output():
+def test_punctuation():
     """test_twttr catches twttr.py omitting punctuation"""
     test_implementation("punctuation_test", code=1)
 
