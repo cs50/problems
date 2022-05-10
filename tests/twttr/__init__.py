@@ -7,7 +7,7 @@ def exists():
     """test_twttr.py exist"""
     check50.exists("test_twttr.py")
     
-    # Include testing plates.py
+    # Include testing twttr.py
     check50.include("twttr.py")
 
 
@@ -54,11 +54,11 @@ def test_punctuation():
 
 
 def patch_file(import_file):
-    """patch a new version of convert by updating import statement"""
+    """patch a new version of is_valid by updating import statement"""
 
     # Update import statement with new filename
     with open("twttr.py", "r") as f:
-        twttr = sub(f"from \w* import convert", f"from {import_file} import convert", f.read())
+        twttr = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
 
     # Write new import statement to twttr.py
     with open("twttr.py", "w") as f:
@@ -68,8 +68,8 @@ def patch_file(import_file):
 def test_implementation(filename, code=0):
     """test an implementation of twttr.py against student's checks in test_twttr.py, expect a given exit status"""
 
-    # Include new testing version of plates.py
-    check50.include(f"{filename}.py")
+    # Include new compiled testing version of twttr.py
+    check50.include(f"{filename}.pyc")
 
     # Patch is_valid function from new test file
     patch_file(f"{filename}")
