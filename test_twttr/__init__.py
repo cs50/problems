@@ -17,16 +17,22 @@ def test_correct():
     test_implementation("correct_test", code=0)
 
 
+@check50.check(exists)
+def test_vowel_replacement():
+    """test_twttr catches twttr.py without vowel replacement"""
+    test_implementation("vowel_replacement_test", code=1)
+
+
 def patch_file(import_file):
     """patch a new version of convert by updating import statement"""
 
     # Update import statement with new filename
     with open("twttr.py", "r") as f:
-        plates = sub(f"from \w* import is_valid", f"from {import_file} import is_valid", f.read())
+        twttr = sub(f"from \w* import convert", f"from {import_file} import convert", f.read())
 
     # Write new import statement to plates.py
     with open("twttr.py", "w") as f:
-        f.write(plates)
+        f.write(twttr)
 
 
 def test_implementation(filename, code=0):
