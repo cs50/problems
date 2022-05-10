@@ -1,5 +1,6 @@
+from distutils.filelist import findall
 import check50
-from re import sub
+from re import sub, match
 
 
 @check50.check()
@@ -9,7 +10,7 @@ def exists():
     
     # Include testing plates.py
     check50.include("plates.py")
-    
+
 
 @check50.check(exists)
 def test_correct():
@@ -45,6 +46,22 @@ def test_zero_checks():
 def test_alnum_checks():
     """test_plates catches plates.py without checks for alphanumeric characters"""
     test_implementation("alnum_test", code=1)
+
+
+@check50.check(test_correct)
+def test_num_tests():
+    """test_plates contains at least 4 functions"""
+    out = check50.run("pytest test_plates.py").stdout()
+    matches = match(".*([0-9]+) passed.*", out)
+    try:
+        functions = int(matches.group(1))
+    except:
+        functions = 0
+    
+    if functions >= 4:
+        pass
+    else:
+        raise check50.Failure("test_plates does not contain at least 4 functions")
 
 
 def patch_file(import_file):
