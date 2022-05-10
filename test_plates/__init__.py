@@ -46,7 +46,7 @@ def test_beginning_alpha():
     # Include new testing version of plates.py
     check50.include("beginning_alpha_test.py")
 
-    # Patch is_valid function from length_test file
+    # Patch is_valid function from beginning_alpha_test file
     update_plates("beginning_alpha_test")
 
     # Expect that pytest will exit with status code 1, given faulty plates.py
