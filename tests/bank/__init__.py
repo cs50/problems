@@ -7,7 +7,7 @@ def exists():
     """test_bank.py exist"""
     check50.exists("test_bank.py")
     
-    # Include testing plates.py
+    # Include testing bank.py
     check50.include("bank.py")
 
 
