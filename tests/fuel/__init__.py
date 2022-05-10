@@ -7,7 +7,7 @@ def exists():
     """test_fuel.py exist"""
     check50.exists("test_fuel.py")
     
-    # Include testing plates.py
+    # Include testing fuel.py
     check50.include("fuel.py")
 
 
