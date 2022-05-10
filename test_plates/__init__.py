@@ -18,7 +18,7 @@ def test_correct():
     # Include new testing version of plates.py
     check50.include("correct_test.py")
 
-    # Patch is_valid function from correct_test file
+    # Patch is_valid function from new test file
     update_plates("correct_test")
 
     # Expect that pytest will exit with status code 0, given correct plates.py
@@ -26,13 +26,27 @@ def test_correct():
 
 
 @check50.check(exists)
-def test_valid_length():
+def test_beginning_alpha_checks():
+    """test_plates catches plates.py without beginning alphabetical checks"""
+
+    # Include new testing version of plates.py
+    check50.include("beginning_alpha_test.py")
+
+    # Patch is_valid function from new test file
+    update_plates("beginning_alpha_test")
+
+    # Expect that pytest will exit with status code 1, given faulty plates.py
+    check50.run("pytest test_plates.py").exit(1)
+
+
+@check50.check(exists)
+def test_length_checks():
     """test_plates catches plates.py without length checks"""
 
     # Include new testing version of plates.py
     check50.include("length_test.py")
 
-    # Patch is_valid function from length_test file
+    # Patch is_valid function from new test file
     update_plates("length_test")
 
     # Expect that pytest will exit with status code 1, given faulty plates.py
@@ -40,14 +54,42 @@ def test_valid_length():
 
 
 @check50.check(exists)
-def test_beginning_alpha():
-    """test_plates catches plates.py without beginning alphabetical checks"""
+def test_number_placement_checks():
+    """test_plates catches plates.py without checks for number placement"""
 
     # Include new testing version of plates.py
-    check50.include("beginning_alpha_test.py")
+    check50.include("number_test.py")
 
-    # Patch is_valid function from beginning_alpha_test file
-    update_plates("beginning_alpha_test")
+    # Patch is_valid function from new test file
+    update_plates("number_test")
+
+    # Expect that pytest will exit with status code 1, given faulty plates.py
+    check50.run("pytest test_plates.py").exit(1)
+
+
+@check50.check(exists)
+def test_zero_checks():
+    """test_plates catches plates.py without checks for zero placement"""
+
+    # Include new testing version of plates.py
+    check50.include("zero_test.py")
+
+    # Patch is_valid function from new test file
+    update_plates("zero_test")
+
+    # Expect that pytest will exit with status code 1, given faulty plates.py
+    check50.run("pytest test_plates.py").exit(1)
+
+
+@check50.check(exists)
+def test_alnum_checks():
+    """test_plates catches plates.py without checks for alphanumeric characters"""
+
+    # Include new testing version of plates.py
+    check50.include("alnum_test.py")
+
+    # Patch is_valid function from new test file
+    update_plates("alnum_test")
 
     # Expect that pytest will exit with status code 1, given faulty plates.py
     check50.run("pytest test_plates.py").exit(1)
