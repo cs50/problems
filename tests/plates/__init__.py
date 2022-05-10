@@ -52,7 +52,7 @@ def patch_file(import_file):
 
     # Update import statement with new filename
     with open("plates.py", "r") as f:
-        plates = sub(f"from \w* import is_valid", f"from {import_file} import is_valid", f.read())
+        plates = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
 
     # Write new import statement to plates.py
     with open("plates.py", "w") as f:
@@ -62,8 +62,8 @@ def patch_file(import_file):
 def test_implementation(filename, code=0):
     """test an implementation of plates.py against student's checks in test_plates.py, expect a given exit status"""
 
-    # Include new testing version of plates.py
-    check50.include(f"{filename}.py")
+    # Include new compiled testing version of plates.py
+    check50.include(f"{filename}.pyc")
 
     # Patch is_valid function from new test file
     patch_file(f"{filename}")
