@@ -18,15 +18,9 @@ def test_correct():
 
 
 @check50.check(exists)
-def test_float():
-    """test_fuel catches fuel.py returning incorrect floats in convert"""
-    test_implementation("float_test", code=1)
-
-
-@check50.check(exists)
-def test_int():
-    """test_fuel catches fuel.py returning int instead of float in convert"""
-    test_implementation("int_test", code=1)
+def test_convert():
+    """test_fuel catches fuel.py returning incorrect ints in convert"""
+    test_implementation("convert_test", code=1)
 
 
 @check50.check(exists)
@@ -38,28 +32,39 @@ def test_value_error():
 @check50.check(exists)
 def test_zero_division_error():
     """test_fuel catches fuel.py not raising ZeroDivisionError in convert"""
-    test_implementation("zero_division_test", code=1)
+    test_implementation("zero_division_error_test", code=1)
 
 
 @check50.check(exists)
-def test_float_gauge():
-    """test_fuel catches fuel.py returning a float in gauge"""
-    test_implementation("float_test_gauge", code=1)
+def test_lower_bound():
+    """test_fuel catches fuel.py returning incorrect percentages in gauge"""
+    test_implementation("gauge_test", code=1)
 
 
 @check50.check(exists)
-def test_str_gauge():
-    """test_fuel catches fuel.py accepting a str in gauge"""
-    test_implementation("str_test_gauge", code=1)
+def test_percent_gauge():
+    """test_fuel catches fuel.py not printing % in gauge"""
+    test_implementation("percent_gauge_test", code=1)
+
+
+@check50.check(exists)
+def test_lower_bound():
+    """test_fuel catches fuel.py not labeling 1% as E in gauge"""
+    test_implementation("lower_bound_test", code=1)
+
+
+@check50.check(exists)
+def test_upper_bound():
+    """test_fuel catches fuel.py not labeling 99% as F in gauge"""
+    test_implementation("upper_bound_test", code=1)
 
 
 def patch_file(import_file):
-    """patch a new version of value by updating import statement"""
+    """patch a new version of is_valid by updating import statement"""
 
     # Update import statement with new filename
     with open("fuel.py", "r") as f:
-        fuel = sub(f"from \w* import convert", f"from {import_file} import convert", f.read())
-        fuel = sub(f"from \w* import gauge", f"from {import_file} import gauge", fuel)
+        fuel = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
 
     # Write new import statement to fuel.py
     with open("fuel.py", "w") as f:
@@ -67,10 +72,10 @@ def patch_file(import_file):
 
 
 def test_implementation(filename, code=0):
-    """test an implementation of fuel.py against student's checks in fuel.py, expect a given exit status"""
+    """test an implementation of fuel.py against student's checks in test_fuel.py, expect a given exit status"""
 
-    # Include new testing version of plates.py
-    check50.include(f"{filename}.py")
+    # Include new compiled testing version of fuel.py
+    check50.include(f"{filename}.pyc")
 
     # Patch is_valid function from new test file
     patch_file(f"{filename}")

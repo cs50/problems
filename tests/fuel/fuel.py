@@ -1,14 +1,19 @@
-from correct_test import convert as patched_convert
-from correct_test import gauge as patched_gauge
+import marshal
 
+# Header bytes in .pyc files have changed with python versions
+# https://peps.python.org/pep-0552/
+HEADER_BYTES = 16
 
-def convert(s):
-    return patched_convert(s)
+# Open test file for reading in binary format
+with open("correct_test.pyc", "rb") as test_file:
 
+    # Move file pointer past .pyc file header
+    test_file.seek(HEADER_BYTES)
 
-def gauge(s):
-    return patched_gauge(s)
+    # De-marshal .pyc file for execution
+    test_file_obj = marshal.load(test_file)
 
+    # Run test file to gain access to function definitions
+    exec(test_file_obj)
 
-if __name__ == "__main__":
-    pass
+# With help from https://stackoverflow.com/questions/34709390/how-can-i-import-a-pyc-compiled-python-file-and-use-it
