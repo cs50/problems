@@ -68,6 +68,7 @@ def update_plates(import_file):
 
 
 def test_buggy_file(test_name):
+    """test a buggy implementation of plates.py against student's checks in test_plates.py"""
 
     # Include new testing version of plates.py
     check50.include(f"{test_name}.py")
