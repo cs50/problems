@@ -1,5 +1,5 @@
 import check50
-from re import escape, sub
+from re import sub
 
 
 @check50.check()
