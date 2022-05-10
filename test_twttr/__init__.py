@@ -67,14 +67,14 @@ def update_plates(import_file):
         f.write(plates)
 
 
-def test_buggy_file(test_name):
-    """test a buggy implementation of plates.py against student's checks in test_plates.py"""
+def test_implementation(filename, code=0):
+    """test an implementation of plates.py against student's checks in test_plates.py, expect a given exit status"""
 
-    # Include new testing version of plates.py
-    check50.include(f"{test_name}.py")
+    # Include new testing version of twttr.py
+    check50.include(f"{filename}.py")
 
     # Patch is_valid function from new test file
-    update_plates(f"{test_name}")
+    update_plates(f"{filename}")
 
-    # Expect that pytest will exit with status code 1, given faulty plates.py
-    return check50.run("pytest test_plates.py").exit(1)
+    # Expect that pytest will exit with given status code
+    return check50.run("pytest test_plates.py").exit(code=code)

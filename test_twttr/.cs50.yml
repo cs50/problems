@@ -1,7 +1,7 @@
 submit50:
   files: &submit50_files
     - !exclude "*"
-    - !require test_plates.py
+    - !require test_twttr.py
   style: false
   
 check50:
