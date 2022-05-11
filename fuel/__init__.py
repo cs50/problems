@@ -34,16 +34,8 @@ def test_empty():
 
 @check50.check(exists)
 def test_almost_empty():
-    """input of 1/1000 yields output of E"""
-    input = "1/1000"
-    output = "E"
-    check50.run("python3 fuel.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
-
-
-@check50.check(exists)
-def test_almost_empty():
-    """input of 8/1000 yields output of E"""
-    input = "8/1000"
+    """input of 1/100 yields output of E"""
+    input = "1/100"
     output = "E"
     check50.run("python3 fuel.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
@@ -58,8 +50,8 @@ def test_full():
 
 @check50.check(exists)
 def test_almost_full():
-    """input of 992/1000 yields output of F"""
-    input = "992/1000"
+    """input of 99/100 yields output of F"""
+    input = "99/100"
     output = "F"
     check50.run("python3 fuel.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
