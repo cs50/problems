@@ -6,68 +6,60 @@ from re import escape
 def exists():
     """figlet.py exists"""
     check50.exists("figlet.py")
-    check50.include("alphabet.txt")
-    check50.include("rectangles.txt")
-    check50.include("slant.txt")
 
 
 @check50.check(exists)
 def test_one_argument():
     """figlet.py exits given one command-line argument"""
-    check50.run("python3 figlet.py test").exit(1)
+    exit = check50.run("python3 figlet.py test").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_invalid_first_argument():
     """figlet.py exits given invalid first command-line argument"""
-    check50.run("python3 figlet.py --front slant").exit(1)
+    exit = check50.run("python3 figlet.py --front slant").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_invalid_second_argument():
     """figlet.py exits given invalid second command-line argument"""
-    check50.run("python3 figlet.py --font slnt").exit(1)
+    exit = check50.run("python3 figlet.py --font slnt").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_slanted_text():
     """figlet.py renders slanted text"""
-    font = "slant"
-    text = "CS50"
-    with open(f"{font}.txt", "r") as file:
-        lines = file.readlines()
-        output = ""
-        for line in lines:
-            output += line
-        check50.run(f"python3 figlet.py --font {font}").stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit(0)
+    check_font_rendering(font="slant", text="CS50")
 
 
 @check50.check(exists)
 def test_rectangular_text():
     """figlet.py renders rectangular text"""
-    font = "rectangles"
-    text = "Hello, world"
-    with open(f"{font}.txt", "r") as file:
-        lines = file.readlines()
-        output = ""
-        for line in lines:
-            output += line
-        check50.run(f"python3 figlet.py --font {font}").stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit(0)
+    check_font_rendering(font="rectangles", text="Hello, world")
 
 
 @check50.check(exists)
 def test_alphabet_text():
     """figlet.py renders alphabet text"""
-    font = "alphabet"
-    text = "Moo"
+    check_font_rendering(font="alphabet", text="Moo")
+
+
+def regex(text):
+    """match case-sensitively with any characters preceding and only whitespace after"""
+    return fr'^.*{escape(text)}\s*$'
+
+
+def check_font_rendering(font, text):
+    check50.include(f"{font}.txt")
     with open(f"{font}.txt", "r") as file:
         lines = file.readlines()
         output = ""
         for line in lines:
             output += line
         check50.run(f"python3 figlet.py -f {font}").stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit(0)
-
-
-def regex(text):
-    """match case-sensitively with any characters preceding and only whitespace after"""
-    return fr'^.*{escape(text)}\s*$'
