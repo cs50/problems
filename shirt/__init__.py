@@ -54,9 +54,8 @@ def test_mismatched_extension():
 @check50.check(exists)
 def test_more_arguments():
     """shirt.py exits given more than two command-line arguments"""
-    check50.include("muppet_01.jpg")
-    check50.include("muppet_02.jpg")
-    check50.include("muppet_03.jpg")
+    for file in ["muppet_01.jpg", "muppet_02.jpg", "muppet_03.jpg"]:
+        check50.include(file)
     exit = check50.run("python3 lines.py muppet_01.jpg muppet_02.jpg muppet_03.jpg").exit()
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
