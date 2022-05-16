@@ -8,30 +8,41 @@ def exists():
     """scourgify.py exists"""
     check50.exists("scourgify.py")
     check50.include("before.csv")
+    check50.include("1.csv")
+    check50.include("2.csv")
+    check50.include("3.csv")
 
 
 @check50.check(exists)
 def test_no_arguments():
     """scourgify.py exits given no command-line arguments"""
-    check50.run("python3 scourgify.py").exit(1)
+    exit = check50.run("python3 scourgify.py").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_too_few_arguments():
     """scourgify.py exits given too few command-line arguments"""
-    check50.run("python3 scourgify.py 1.csv").exit(1)
+    exit = check50.run("python3 scourgify.py 1.csv").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_too_many_arguments():
     """scourgify.py exits given too many command-line arguments"""
-    check50.run("python3 scourgify.py 1.csv 2.csv 3.csv").exit(1)
+    check50.run("python3 scourgify.py 1.csv 2.csv 3.csv").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_invalid_file():
     """scourgify.py exits given invalid file"""
-    check50.run("python3 scourgify.py 1.csv 2.csv").exit(1)
+    exit = check50.run("python3 scourgify.py invalid_name.csv invalid_name2.csv").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
