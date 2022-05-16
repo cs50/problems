@@ -72,4 +72,4 @@ def test_line_count(lines):
 
 def regex(lines):
     """accept line number without digits before or after"""
-    return fr'^\D*{lines}\D*$'
+    return fr'^\D*{escape(lines)}\D*$'
