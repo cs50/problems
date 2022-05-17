@@ -8,6 +8,7 @@ def exists():
     """scourgify.py exists"""
     check50.exists("scourgify.py")
     check50.include("before.csv")
+    check50.include("before_long.csv")
     check50.include("1.csv")
     check50.include("2.csv")
     check50.include("3.csv")
@@ -47,19 +48,28 @@ def test_invalid_file():
 
 @check50.check(exists)
 def test_create_file():
-    """scourgify.py creates new csv file"""
+    """scourgify.py creates new CSV file"""
     check50.run("python3 scourgify.py before.csv after.csv").exit(0)
     check50.exists("after.csv")
 
 
 @check50.check(test_create_file)
 def test_clean_file():
-    """scourgify.py cleans csv file"""
+    """scourgify.py cleans short CSV file"""
     check50.run("python3 scourgify.py before.csv after.csv").exit(0)
     hash = check50.hash("after.csv")
     if hash == "584703d1422c3dc0006af54109c8ebfd8998ec8256a463e6ddeab6cb2869f92f":
         raise check50.Failure("CSV does not match specified format", help="Did you mistakenly open your file in append mode?")
     elif hash != "440790c127f56d3581809a6e5feef891a49f0039aff7944035afdf4a75aec170":
+        raise check50.Failure("CSV does not match specified format")
+
+
+@check50.check(test_clean_file)
+def test_clean_file_long():
+    """scourgify.py cleans long CSV file"""
+    check50.run("python3 scourgify.py before_long.csv after_long.csv").exit(0)
+    hash = check50.hash("after_long.csv")
+    if hash != "d0a8c1975fb26da372052911bf88dcd3961ec52b5e1c549cd3f0478141f899c7":
         raise check50.Failure("CSV does not match specified format")
 
 
