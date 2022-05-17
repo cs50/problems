@@ -1,12 +1,12 @@
 import check50
 
 HASHES = {
-    "muppet_01.jpg" : 'ff9e67fb54eea3361a48d7d02ded267917356195d1c770f5c537a6bb5a955bc3',
-    "muppet_02.jpg" : '39fa49339e41062988ccc875f377cc7af5df1d7a34bac1aac214942159b81b8c',
-    "muppet_03.jpg" : '252e2283a07ce4cba53237793b1478f32c4360bb59ec12e091c4ddccde150934',
-    "muppet_04.jpg" : '2961f103aedaf3fdd4c30512c69598b5ec57a1d78abd43b06729d408243c0569',
-    "muppet_05.jpg" : '5191faf25d7e67d8ca214d68cc19472efc42a97c08abf71ced6a3a2e5264f106',
-    "muppet_06.jpg" : '76574d615ca845b5adb7c6521465b55ce853ef1ed82505c7edc93254c52ba663',
+    "muppet_01.jpg" : 'b782475a5dd3b0d7b3202cebc8a70f5d795dd196e9c18564691d5edc11ccf7c9',
+    "muppet_02.jpg" : 'f989a97f95563f587e158bb55a1fc6dba075f1e221acec988612caaa0d1a6b78',
+    "muppet_03.jpg" : 'fa7b30def84d46559c54e718d167de93e52785f9b613db8a647ddcfbbe9aff98',
+    "muppet_04.jpg" : '8f59304412e181f1a18d3b36ad88d7b2911a7eea8f471c7e437e2cbed5893152',
+    "muppet_05.jpg" : 'eeb531294c2211ba578dafe5c1f53d974f77312cec5b7bcc315c2bb429b3ac1d',
+    "muppet_06.jpg" : '4918f1f41fa872e2807fd325d4e460bcce9b1f23660cdf0e73dc3127fccc1046',
 }
 
 
