@@ -83,7 +83,7 @@ def test_no_comma():
 
 
 @check50.check(exists)
-def test_harvard_digits():
+def test_extra_spaces():
     """input of 9 / 8 / 1636 results in reprompt"""
     input = "9 / 8 / 1636"
     check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
