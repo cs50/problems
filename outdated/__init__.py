@@ -75,6 +75,13 @@ def test_out_of_range_day_char():
     check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
 
 
+@check50.check(exists)
+def test_no_comma():
+    """input of September 8 1636 results in reprompt"""
+    input = "September 8 1636"
+    check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
+
+
 def regex(items):
     """match case-sensitively with only whitespace on either side"""
     return fr'^\s*{escape(items)}\s*$'
