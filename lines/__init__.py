@@ -62,7 +62,7 @@ def test_docstring():
 @check50.check(test_docstring)
 def test_open_source():
     """lines.py yields 2058 given 2058 lines of code in an open-source library file"""
-    test_line_count(9)
+    test_line_count(2058)
     
 
 def test_line_count(lines):
