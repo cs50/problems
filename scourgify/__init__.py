@@ -1,6 +1,4 @@
 import check50
-import check50.internal
-from re import escape
 
 
 @check50.check()
@@ -8,10 +6,9 @@ def exists():
     """scourgify.py exists"""
     check50.exists("scourgify.py")
     check50.include("before.csv")
+    check50.include("after_correct.csv")
     check50.include("before_long.csv")
-    check50.include("1.csv")
-    check50.include("2.csv")
-    check50.include("3.csv")
+    check50.include("after_long_correct.csv")
 
 
 @check50.check(exists)
@@ -25,7 +22,7 @@ def test_no_arguments():
 @check50.check(exists)
 def test_too_few_arguments():
     """scourgify.py exits given too few command-line arguments"""
-    exit = check50.run("python3 scourgify.py 1.csv").exit()
+    exit = check50.run("python3 scourgify.py before.csv").exit()
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -33,15 +30,15 @@ def test_too_few_arguments():
 @check50.check(exists)
 def test_too_many_arguments():
     """scourgify.py exits given too many command-line arguments"""
-    check50.run("python3 scourgify.py 1.csv 2.csv 3.csv").exit()
+    check50.run("python3 scourgify.py before.csv after.csv before_long.csv").exit()
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
 
 @check50.check(exists)
 def test_invalid_file():
-    """scourgify.py exits given invalid file"""
-    exit = check50.run("python3 scourgify.py invalid_name.csv invalid_name2.csv").exit()
+    """scourgify.py exits given invalid input file"""
+    exit = check50.run("python3 scourgify.py invalid_name.csv after.csv").exit()
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -57,22 +54,29 @@ def test_create_file():
 def test_clean_file():
     """scourgify.py cleans short CSV file"""
     check50.run("python3 scourgify.py before.csv after.csv").exit(0)
-    hash = check50.hash("after.csv")
-    if hash == "584703d1422c3dc0006af54109c8ebfd8998ec8256a463e6ddeab6cb2869f92f":
-        raise check50.Failure("CSV does not match specified format", help="Did you mistakenly open your file in append mode?")
-    elif hash != "440790c127f56d3581809a6e5feef891a49f0039aff7944035afdf4a75aec170":
-        raise check50.Failure("CSV does not match specified format")
+    check50.exists("after.csv")
+
+    with open("after.csv", "r") as student_file, open("after_correct.csv") as check_file:
+        compare_csv_files(student_file, check_file)
 
 
 @check50.check(test_clean_file)
 def test_clean_file_long():
     """scourgify.py cleans long CSV file"""
     check50.run("python3 scourgify.py before_long.csv after_long.csv").exit(0)
-    hash = check50.hash("after_long.csv")
-    if hash != "d0a8c1975fb26da372052911bf88dcd3961ec52b5e1c549cd3f0478141f899c7":
-        raise check50.Failure("CSV does not match specified format")
+    check50.exists("after_long.csv")
+
+    with open("after_long.csv", "r") as student_file, open("after_long_correct.csv") as check_file:
+        compare_csv_files(student_file, check_file)
 
 
-def regex(text):
-    """match case-sensitively with any characters preceding and only whitespace after"""
-    return fr'^.*{escape(text)}\s*$'
+def compare_csv_files(student_file, check_file):
+    """compares two CSV files, standardizing CRLF and CR on LF (linefeed)"""
+
+    student_output = student_file.read().replace("\r\n", "\n").replace("\r", "\n")
+    correct_output = check_file.read().replace("\r\n", "\n").replace("\r", "\n")
+    
+    if student_output == correct_output + correct_output:
+        raise check50.Failure("scourgify.py does not produce CSV with specified format", help="Did you mistakenly open your file in append mode?")
+    if student_output != correct_output:
+        raise check50.Failure("scourgify.py does not produce CSV with specified format")
