@@ -78,5 +78,5 @@ def compare_csv_files(student_file, check_file):
     
     if student_output == correct_output + correct_output:
         raise check50.Failure("scourgify.py does not produce CSV with specified format", help="Did you mistakenly open your file in append mode?")
-    if student_output != correct_output:
+    elif student_output != correct_output:
         raise check50.Failure("scourgify.py does not produce CSV with specified format")
