@@ -64,9 +64,15 @@ def raise_for_invalid_spaces():
 
 
 @check50.check(exists)
-def raise_for_invalid_format():
+def raise_for_invalid_format_24_hour():
     """working.py raises ValueError when given \"09:00 to 17:00\""""
     test_invalid_time(input="09:00 to 17:00", error="ValueError")
+
+
+@check50.check(exists)
+def raise_for_invalid_format_dash():
+    """working.py raises ValueError when given \"9 AM - 5 PM\""""
+    test_invalid_time(input="9 AM - 5 PM", error="ValueError")
 
 
 """
@@ -77,6 +83,12 @@ test_working.py checks
 def test_correct():
     """correct working.py passes all test_working checks"""
     test_implementation("working.py", "correct_test.pyc", "test_working.py", code=0)
+
+
+@check50.check(exists)
+def test_off_by_one():
+    """test_working.py catches working.py with hours off by one"""
+    test_implementation("working.py", "off_by_one_test.pyc", "test_working.py", code=1)
 
 
 """
