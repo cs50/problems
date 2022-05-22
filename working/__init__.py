@@ -87,13 +87,13 @@ def test_correct():
 
 @check50.check(exists)
 def test_incorrect_hours():
-    """test_working.py catches working.py with incorrect hours"""
+    """test_working.py catches working.py printing incorrect hours"""
     test_implementation("working.py", "off_by_one_test.pyc", "test_working.py", code=1)
 
 
 @check50.check(exists)
 def test_incorrect_minutes():
-    """test_working.py catches working.py with incorrect minutes"""
+    """test_working.py catches working.py printing incorrect minutes"""
     test_implementation("working.py", "incorrect_minutes_test.pyc", "test_working.py", code=1)
 
 
