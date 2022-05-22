@@ -115,7 +115,7 @@ def test_implementation(base_filename, implementation_filename, test_filename, c
         pytest_helper_text = pytest_helper.read()
 
         # Replace open statement with implementation_file
-        sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{implementation_filename}\", \"rb\") as test_file:", pytest_helper_text)
+        pytest_helper_text = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{implementation_filename}\", \"rb\") as test_file:", pytest_helper_text)
 
         # Write helper file text to base_file
         base_file.writelines(pytest_helper_text)
