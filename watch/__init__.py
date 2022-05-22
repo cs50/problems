@@ -65,6 +65,11 @@ def test_none():
     test_simple_iframe(link, output)
 
 
+"""
+Helpers
+"""
+
+
 def test_simple_iframe(link, output):
     input = f"<iframe src=\"{link}\"></iframe>"
     check50.run("python3 testing.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
