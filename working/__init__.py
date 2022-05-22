@@ -106,6 +106,7 @@ def test_implementation(base_filename, implementation_filename, test_filename, c
     """Test implementation_file, an implementation of base_file, against student's checks in test_file. Expect a given exit status"""
 
     check50.include("pytest_helper.py")
+    check50.include(implementation_filename)
 
     # Overwrite base_file with code to run implementation_file
     with open(base_filename, "w") as base_file, open("pytest_helper.py", "r") as pytest_helper:
