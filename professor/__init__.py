@@ -83,7 +83,7 @@ def test_score():
     program = check50.run("python3 testing.py main").stdin("1", prompt=False)
     for solution in solutions:
         program.stdin(str(solution), prompt=False)
-    program.stdout(regex("Score: 9"), "Score: 9", regex=True)
+    program.stdout(score_regex("9"), "9", regex=True)
     program.exit(0)
 
 
@@ -105,3 +105,8 @@ def test_show_solution():
 def regex(text):
     """match case-sensitively with any characters on either side"""
     return fr'^.*{escape(text)}.*$'
+
+
+def score_regex(score):
+    """match case-insensitively with only final printing of score"""
+    return fr'(?i)\n[^\d+=]*{score}[^\d+=]*$'
