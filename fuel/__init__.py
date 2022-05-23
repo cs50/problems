@@ -17,10 +17,18 @@ def test_3_over_4():
 
 
 @check50.check(exists)
-def test_round():
-    """input of 503/1000 yields output of 50%"""
-    input = "503/1000"
-    output = "50%"
+def test_round_down():
+    """input of 1/3 yields output of 33%"""
+    input = "1/3"
+    output = "33%"
+    check50.run("python3 fuel.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
+@check50.check(exists)
+def test_round_up():
+    """input of 2/3 yields output of 67%"""
+    input = "2/3"
+    output = "67%"
     check50.run("python3 fuel.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
