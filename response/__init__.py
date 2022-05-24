@@ -26,9 +26,17 @@ def test_valid_email_2():
 
 
 @check50.check(exists)
-def test_invalid_email():
+def test_invalid_email_spelled_out():
     """response.py yields Invalid when email address is \"malan at harvard dot edu\""""
     input = "malan at harvard dot edu"
+    output = "Invalid"
+    check50.run("python3 response.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
+
+
+@check50.check(exists)
+def test_invalid_email_at_symbols():
+    """response.py yields Invalid when email address is \"malan@@@harvard.edu\""""
+    input = "malan@@@harvard.edu"
     output = "Invalid"
     check50.run("python3 response.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
 
