@@ -79,11 +79,11 @@ def test_generate_problems():
 @check50.check(test_generate_problems)
 def test_score():
     """Little Professor displays number of problems correct"""
-    solutions = [12, 4, 15, 10, 12, 12, 10, 6, 10, 10, 12]
+    solutions = [12, 4, 15, 8, 8, 8, 12, 12, 10, 6, 10, 12]
     program = check50.run("python3 testing.py main").stdin("1", prompt=False)
     for solution in solutions:
         program.stdin(str(solution), prompt=False)
-    program.stdout(regex("9"), "9", regex=True)
+    program.stdout(score_regex("9"), "9", regex=True)
     program.exit(0)
 
 
@@ -105,3 +105,8 @@ def test_show_solution():
 def regex(text):
     """match case-sensitively with any characters on either side"""
     return fr'^.*{escape(text)}.*$'
+
+
+def score_regex(score):
+    """match case-insensitively with only final printing of score"""
+    return fr'(?i)[^\d+=]*{score}[^\d+=]*$'
