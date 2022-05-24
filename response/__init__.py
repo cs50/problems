@@ -17,6 +17,15 @@ def test_valid_email():
 
 
 @check50.check(exists)
+def test_valid_email_2():
+    """response.py yields Valid when email address is \"sysadmins@cs50.harvard.edu\""""
+    input = "sysadmins@cs50.harvard.edu"
+    output = "Valid"
+    check50.run("python3 response.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
+
+
+
+@check50.check(exists)
 def test_invalid_email():
     """response.py yields Invalid when email address is \"malan at harvard dot edu\""""
     input = "malan at harvard dot edu"
