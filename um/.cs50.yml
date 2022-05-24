@@ -1,0 +1,9 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !require um.py
+    - !require test_um.py
+  style: false
+  
+check50:
+  files: *submit50_files
