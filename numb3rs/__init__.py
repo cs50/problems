@@ -89,13 +89,13 @@ def test_first_byte():
 
 
 @check50.check(test_correct)
-def test_first_byte():
+def test_invalid_format():
     """test_numb3rs.py catches numb3rs.py failing to return False for invalid IPv4 format"""
     test_implementation("numb3rs.py", "invalid_format_test.pyc", "test_numb3rs.py", code=1)
 
 
 @check50.check(test_correct)
-def test_first_byte():
+def test_invalid_regex():
     """test_numb3rs.py catches numb3rs.py with invalid regex"""
     test_implementation("numb3rs.py", "invalid_regex_test.pyc", "test_numb3rs.py", code=1)
 
