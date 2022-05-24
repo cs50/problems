@@ -96,7 +96,7 @@ def test_invalid_format():
 
 @check50.check(test_correct)
 def test_invalid_regex():
-    """test_numb3rs.py catches numb3rs.py with invalid regex"""
+    """test_numb3rs.py catches numb3rs.py with regular expression matching 0 or more decimals within each byte of IPv4 address"""
     test_implementation("numb3rs.py", "invalid_regex_test.pyc", "test_numb3rs.py", code=1)
 
 
