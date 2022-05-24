@@ -45,7 +45,7 @@ def test_capital():
 
 @check50.check(exists)
 def test_multiple():
-    """um.py yields 1 for \"Um, thanks, um, regular expressions make sense now.\""""
+    """um.py yields 2 for \"Um, thanks, um, regular expressions make sense now.\""""
     test_phrase(input="Um, thanks, um, regular expressions make sense now.", count="2")
 
 
@@ -62,7 +62,7 @@ test_um.py checks
 
 @check50.check(exists)
 def test_correct():
-    """correct um.py passes all test_um checks"""
+    """correct um.py passes all test_um.py checks"""
     test_implementation("um.py", "correct_test.pyc", "test_um.py", code=0)
 
 
