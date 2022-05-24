@@ -109,4 +109,4 @@ def regex(text):
 
 def score_regex(score):
     """match case-insensitively with only final printing of score"""
-    return fr'(?i)\n[^\d+=]*{score}[^\d+=]*$'
+    return fr'(?i)[^\d+=]*{score}[^\d+=]*$'
