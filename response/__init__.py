@@ -1,11 +1,22 @@
 import check50
-from re import escape
+from re import escape, search
 
 
 @check50.check()
 def exists():
     """response.py exists"""
     check50.exists("response.py")
+
+
+@check50.check(exists)
+def libraries():
+    """response.py uses either the validators or validator-collection library and does not use the re library"""
+    with open("response.py", "r") as file:
+        contents = file.read()
+        if not search(r'(?<!#[ \t\w]*)((import[ \t]*(validators|validator_collection))|(from[ \t]*(validators|validator_collection)[ \t]*import[ \t]*[\w\*]+))', contents):
+            raise check50.Failure("response.py does not import validators or validator-collection library", help="Did you forget to include \"import validators\" or \"import validator_collection\"?")
+        if search(r'(?<!#[ \t]*)((import[ \t]*re)|(from[ \t]*re[ \t]*import[ \t]*[\w\*]+))', contents):
+            raise check50.Failure("response.py uses the re library", help="Be sure not to import functions from the re library, either via \"import re\" or \"from re import ...\"")
 
 
 @check50.check(exists)
@@ -22,7 +33,6 @@ def test_valid_email_2():
     input = "sysadmins@cs50.harvard.edu"
     output = "Valid"
     check50.run("python3 response.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
-
 
 
 @check50.check(exists)
