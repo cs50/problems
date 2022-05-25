@@ -58,11 +58,19 @@ def test_complex_https_www():
 
 
 @check50.check(exists)
-def test_none():
+def test_non_youtube():
     """watch.py returns None when given iframe without YouTube link"""
     link = "https://cs50.harvard.edu/python"
     output = "None"
     test_simple_iframe(link, output)
+
+
+@check50.check(exists)
+def test_outside_iframe():
+    """watch.py returns None when given YouTube link outside of an iframe"""
+    input = "https://www.youtube.com/embed/xvFZjo5PgG0"
+    output = "None"
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
 
 
 """
