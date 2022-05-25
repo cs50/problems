@@ -1,5 +1,5 @@
 import check50
-from re import escape, sub
+from re import escape, search, sub
 
 """
 Setup
@@ -11,65 +11,76 @@ def exists():
     check50.exists("working.py")
     check50.exists("test_working.py")
 
+
+@check50.check(exists)
+def libraries():
+    """working.py does not import libraries other than sys and re"""
+    with open("working.py", "r") as file:
+        contents = file.read()
+        if search(r'(?<!#)(?<! )((import(?![ \t]*(re|sys)\b))|(from(?![ \t]*(re|sys)\b)))', contents):
+            raise check50.Failure("working.py imports libraries other than sys and re", help="Be sure only to use \"import re\" and \"import sys\", or \"from re import ...\" and \"from sys import ...\"")
+
+
 """
 working.py checks
 """
 
-@check50.check(exists)
+
+@check50.check(libraries)
 def convert_9_to_5_short():
     """working.py converts \"9 AM to 5 PM\" to \"09:00 to 17:00\""""
     test_valid_time(input="9 AM to 5 PM", output="09:00 to 17:00")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def convert_9_to_5_long():
     """working.py converts \"9:00 AM to 5:00 PM\" to \"09:00 to 17:00\""""
     test_valid_time(input="9:00 AM to 5:00 PM", output="09:00 to 17:00")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def convert_8_to_8_short():
     """working.py converts \"8 PM to 8 AM\" to \"20:00 to 08:00\""""
     test_valid_time(input="8 PM to 8 AM", output="20:00 to 08:00")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def convert_8_to_8_long():
     """working.py converts \"8:00 PM to 8:00 AM\" to \"20:00 to 08:00\""""
     test_valid_time(input="8:00 PM to 8:00 AM", output="20:00 to 08:00")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def convert_12_to_12_short():
     """working.py converts \"12 AM to 12 PM\" to \"00:00 to 12:00\""""
     test_valid_time(input="12 AM to 12 PM", output="00:00 to 12:00")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def convert_12_to_12_long():
     """working.py converts \"12:00 AM to 12:00 PM\" to \"00:00 to 12:00\""""
     test_valid_time(input="12:00 AM to 12:00 PM", output="00:00 to 12:00")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def raise_for_invalid_time():
     """working.py raises ValueError when given \"8:60 AM to 4:60 PM\""""
     test_invalid_time(input="8:60 AM to 4:60 PM", error="ValueError")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def raise_for_invalid_spaces():
     """working.py raises ValueError when given \"9AM to 5PM\""""
     test_invalid_time(input="9AM to 5PM", error="ValueError")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def raise_for_invalid_format_24_hour():
     """working.py raises ValueError when given \"09:00 to 17:00\""""
     test_invalid_time(input="09:00 to 17:00", error="ValueError")
 
 
-@check50.check(exists)
+@check50.check(libraries)
 def raise_for_invalid_format_dash():
     """working.py raises ValueError when given \"9 AM - 5 PM\""""
     test_invalid_time(input="9 AM - 5 PM", error="ValueError")
@@ -79,7 +90,7 @@ def raise_for_invalid_format_dash():
 test_working.py checks
 """
 
-@check50.check(exists)
+@check50.check(libraries)
 def test_correct():
     """correct working.py passes all test_working checks"""
     test_implementation("working.py", "correct_test.pyc", "test_working.py", code=0)
