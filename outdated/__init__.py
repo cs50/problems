@@ -41,6 +41,14 @@ def test_yale_characters():
 
 
 @check50.check(exists)
+def test_extra_spaces():
+    """input of \" 9/8/1636 \" outputs 1636-09-08"""
+    input = " 9/8/1636 "
+    output = "1636-09-08"
+    check50.run("python3 outdated.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
+@check50.check(exists)
 def test_out_of_range_month():
     """input of 23/6/1912 results in reprompt"""
     input = "23/6/1912"
@@ -79,13 +87,6 @@ def test_out_of_range_day_char():
 def test_no_comma():
     """input of September 8 1636 results in reprompt"""
     input = "September 8 1636"
-    check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
-
-
-@check50.check(exists)
-def test_extra_spaces():
-    """input of 9 / 8 / 1636 results in reprompt"""
-    input = "9 / 8 / 1636"
     check50.run("python3 outdated.py").stdin(input, prompt=True).reject()
 
 
