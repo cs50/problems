@@ -5,7 +5,6 @@ import check50
 def exists():
     """jars.py and test_jars.py exist"""
     check50.exists("jar.py")
-    check50.exists("test_jar.py")
     check50.include("test_file.py")
 
 
