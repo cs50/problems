@@ -4,7 +4,7 @@ from re import escape, search
 
 @check50.check()
 def exists():
-    """seasons.py and test_seasons.py exists"""
+    """seasons.py and test_seasons.py exist"""
     check50.exists("seasons.py")
     check50.exists("test_seasons.py")
     check50.include("testing.py")
@@ -71,7 +71,7 @@ def test_student_file_passes():
 
 @check50.check(test_student_file_passes)
 def test_number_functions():
-    """test_seasons.py contains at least three functions"""
+    """test_seasons.py contains at least one function"""
     out = check50.run("pytest test_seasons.py").stdout()
     matches = search(r'(\d) passed', out)
     if not matches:
@@ -80,7 +80,7 @@ def test_number_functions():
         functions = int(matches.groups(1)[0])
     except ValueError:
         raise check50.Failure("Could not parse output of pytest")
-    if functions < 3:
+    if functions < 1:
         raise check50.Failure("test_seasons.py does not contain at least three functions")
 
 
