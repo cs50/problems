@@ -66,6 +66,7 @@ def test_invalid_input():
 test_seasons checks
 """
 
+
 @check50.check(exists)
 def test_student_file_passes():
     """seasons.py passes all checks in test_seasons.py"""

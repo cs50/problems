@@ -1,5 +1,4 @@
 import check50
-from re import escape
 
 
 @check50.check()
@@ -50,13 +49,3 @@ def test_withdraw():
 def test_empty():
     """Jar's withdraw method raises ValueError when withdrawn cookies exceed jar's size"""
     check50.run("pytest test_file.py -k 'test_empty'").exit(0)
-
-
-"""
-Helpers
-"""
-
-
-def regex(text):
-    """match case-sensitively, allowing for only whitespace on either side"""
-    return fr'^\s*{escape(text)}\s*$'
