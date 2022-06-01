@@ -1,0 +1,9 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !require jar.py
+    - !require test_jar.py
+  style: false
+  
+check50:
+  files: *submit50_files
