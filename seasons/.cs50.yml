@@ -1,0 +1,9 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !require seasons.py
+    - !require test_seasons.py
+  style: false
+  
+check50:
+  files: *submit50_files
