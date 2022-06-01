@@ -52,11 +52,14 @@ def test_day():
 
 @check50.check(exists)
 def test_invalid_input():
-    """Input of \"February 6th, 1998\" prompts program to exit"""
+    """Input of \"February 6th, 1998\" prompts program to exit with sys.exit"""
     date = "February 6th, 1998"
     code = check50.run("python3 testing.py").stdin(date, prompt=True).exit()
     if code == 0:
-        check50.Failure("Expected non-zero exit code.")
+        raise check50.Failure("Expected non-zero exit code.")
+    out = check50.run("python3 testing.py").stdin(date, prompt=True).stdout()
+    if search(r'(Traceback)', out):
+        raise check50.Failure("Program exited with a traceback")
 
 
 """
