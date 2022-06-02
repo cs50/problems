@@ -69,4 +69,4 @@ def test_number_functions():
     except ValueError:
         raise check50.Failure("Could not parse output of pytest")
     if functions < 4:
-        raise check50.Failure("test_jar.py does not contain at least three functions")
+        raise check50.Failure("test_jar.py does not contain at least four functions")
