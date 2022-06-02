@@ -73,21 +73,6 @@ def test_student_file_passes():
     check50.run("pytest test_seasons.py").exit(0)
 
 
-@check50.check(test_student_file_passes)
-def test_number_functions():
-    """test_seasons.py contains at least one function"""
-    out = check50.run("pytest test_seasons.py").stdout()
-    matches = search(r'(\d) passed', out)
-    if not matches:
-        raise check50.Failure("Could not parse output of pytest")
-    try:
-        functions = int(matches.groups(1)[0])
-    except ValueError:
-        raise check50.Failure("Could not parse output of pytest")
-    if functions < 1:
-        raise check50.Failure("test_seasons.py does not contain at least three functions")
-
-
 """
 Helpers
 """
