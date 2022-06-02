@@ -1,5 +1,5 @@
 import check50
-
+import re
 
 @check50.check()
 def exists():
@@ -50,7 +50,23 @@ def test_empty():
     """Jar's withdraw method raises ValueError when withdrawn cookies exceed jar's size"""
     check50.run("pytest test_file.py -k 'test_empty'").exit(0)
 
+
 @check50.check(exists)
-def test_empty():
+def test_student_file_passes():
     """Implementation of Jar passes all tests in test_jar.py"""
     check50.run("pytest test_jar.py").exit(0)
+
+
+@check50.check(test_student_file_passes)
+def test_number_functions():
+    """test_jar.py contains at least four functions"""
+    out = check50.run("pytest test_jar.py").stdout()
+    matches = re.search(r'(\d) passed', out)
+    if not matches:
+        raise check50.Failure("Could not parse output of pytest")
+    try:
+        functions = int(matches.groups(1)[0])
+    except ValueError:
+        raise check50.Failure("Could not parse output of pytest")
+    if functions < 4:
+        raise check50.Failure("test_jar.py does not contain at least three functions")
