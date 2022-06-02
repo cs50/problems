@@ -5,6 +5,7 @@ import check50
 def exists():
     """shirtificate.py exist"""
     check50.exists("shirtificate.py")
+    check50.include("shirtificate.png")
 
 
 @check50.check(exists)
