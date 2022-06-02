@@ -5,6 +5,7 @@ import check50
 def exists():
     """jars.py exists"""
     check50.exists("jar.py")
+    check50.exists("test_jar.py")
     check50.include("test_file.py")
 
 
@@ -48,3 +49,8 @@ def test_withdraw():
 def test_empty():
     """Jar's withdraw method raises ValueError when withdrawn cookies exceed jar's size"""
     check50.run("pytest test_file.py -k 'test_empty'").exit(0)
+
+@check50.check(exists)
+def test_empty():
+    """Implementation of Jar passes all tests in test_jar.py"""
+    check50.run("pytest test_jar.py").exit(0)
