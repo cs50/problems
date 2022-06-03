@@ -38,6 +38,3 @@ def unit_test():
     """each function other than main accompanied with a unit test and can be executed with pytest"""
     check50.include("custom_functions_check.py")
     check50.run("python3 custom_functions_check.py unit_test").exit(0)
-
-
-
