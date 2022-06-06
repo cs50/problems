@@ -2,6 +2,7 @@ submit50:
   files: &submit50_files
     - !require README.md
     - !require project.py
+    - !require test_project.py
   style: false
 
 check50:
