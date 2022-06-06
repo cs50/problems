@@ -24,7 +24,7 @@ def final_readme():
 def exists_project():
     """project.py exists"""
     try:
-        check50.run("pip3 install -r requirements.txt")
+        check50.run("pip3 install -r requirements.txt --force")
     except:
         pass
     
