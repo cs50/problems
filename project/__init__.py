@@ -24,10 +24,12 @@ def final_readme():
 def exists_project():
     """project.py exists"""
     try:
-        check50.run("pip3 install -r requirements.txt --force")
+        code = check50.run("pip3 install -r requirements.txt --force").exit()
+        if code != 0:
+            check50.log(f"packages installation failed")
     except:
         pass
-    
+
     check50.exists("project.py")
 
 
