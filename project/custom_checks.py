@@ -35,17 +35,8 @@ match sys.argv[1]:
 
             # Ensure unit tests can be executed with pytest
             subprocess.check_call(["pytest", "test_project.py"])
-        
-        # Inspect unit test individually
         else:
-            for function in getmembers(project, isfunction):
-                
-                # Ensure each custom function other than main accompanied with a unit test
-                if function[0] != "main":
-                    assert f"test_{function[0]}.py" in files
-
-                    # Ensure each unit test can be executed with pytest
-                    subprocess.check_call(["pytest", f"test_{function[0]}.py"])
+            sys.exit(2)
     
     case "custom_functions":
 
