@@ -23,6 +23,11 @@ def final_readme():
 @check50.check()
 def exists_project():
     """project.py exists"""
+    try:
+        check50.run("pip3 install -r requirements.txt")
+    except:
+        pass
+    
     check50.exists("project.py")
 
 
