@@ -51,7 +51,8 @@ def unit_test():
     """each function other than main accompanied with a unit test and can be executed with pytest"""
     check50.include("custom_checks.py")
 
-    code = check50.run("python3 custom_checks.py unit_test").exit()
+    # Create a virtual display for project that involves GUI before running pytest
+    code = check50.run("Xvfb $DISPLAY -screen 0 1280x720x16 -br &>> /tmp/xvfb.log & python3 custom_checks.py unit_test").exit()
     if (code == 2):
         raise check50.Failure("test_project.py not found")
     elif (code != 0):
