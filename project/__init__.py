@@ -23,20 +23,14 @@ def final_readme():
 @check50.check()
 def exists_project():
     """project.py exists"""
-    try:
-        code = check50.run("pip3 install -r requirements.txt --force").exit()
-        if code != 0:
-            check50.log(f"packages installation failed")
-    except:
-        pass
-
     check50.exists("project.py")
 
 
 @check50.check(exists_project)
 def main_function():
     """main function exists"""
-    check50.run("echo 'from project import main' | python3").exit(0)
+    check50.include("custom_checks.py")
+    check50.run("python3 custom_checks.py main_function").exit(0)
 
 
 @check50.check(exists_project)
@@ -48,7 +42,7 @@ def custom_functions():
 
 @check50.check(custom_functions)
 def unit_test():
-    """each function other than main accompanied with a unit test and can be executed with pytest"""
+    """each function other than main accompanied with a unit test"""
     check50.include("custom_checks.py")
 
     code = check50.run("python3 custom_checks.py unit_test").exit()

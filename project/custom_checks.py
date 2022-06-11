@@ -13,6 +13,14 @@ except:
 
 match sys.argv[1]:
 
+    case "main_function":
+        assert "main" in [func[0] for func in getmembers(project, isfunction)]
+
+    case "custom_functions":
+
+        # Ensure there are at least 3 top-level functions other than main
+        assert len([func for func in getmembers(project, isfunction)]) - 1 >= 3
+
     case "unit_test":
         files = os.listdir(".")
 
@@ -33,12 +41,5 @@ match sys.argv[1]:
                 if function[0] != "main":
                     assert f"test_{function[0]}" in unit_test_functions
 
-            # Ensure unit tests can be executed with pytest
-            subprocess.check_call(["pytest", "test_project.py"])
         else:
             sys.exit(2)
-    
-    case "custom_functions":
-
-        # Ensure there are at least 3 top-level functions other than main
-        assert len([func for func in getmembers(project, isfunction)]) - 1 >= 3
