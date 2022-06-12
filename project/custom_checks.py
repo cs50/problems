@@ -1,15 +1,27 @@
 import os
+import re
 import sys
-import subprocess
 from inspect import getmembers, isfunction
 
-import project
+# Ignore all import statements
+def strip_imports(filename):
+    buffer = []
+    with open(filename) as file:
+        for line in file.readlines():
+            if re.match("^\s*(?:from|import)\s+(\w+(?:\s*,\s*\w+)*)", line) is not None:
+                continue
 
-# Attempt to import test_project, if it exists
-try:
-    import test_project
-except:
-    pass
+            buffer.append(line)
+    
+    with open(f"stripped_{filename}", "w+") as file:
+        file.write("".join(buffer))
+
+strip_imports("project.py")
+strip_imports("test_project.py")
+
+import stripped_project as project
+import stripped_test_project as test_project
+
 
 match sys.argv[1]:
 

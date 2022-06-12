@@ -44,7 +44,6 @@ def custom_functions():
 def unit_test():
     """each function other than main accompanied with a unit test"""
     check50.include("custom_checks.py")
-
     code = check50.run("python3 custom_checks.py unit_test").exit()
     if (code == 2):
         raise check50.Failure("test_project.py not found")
