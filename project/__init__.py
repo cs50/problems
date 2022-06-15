@@ -12,7 +12,7 @@ def exists_readme():
 def final_readme():
     """final project details"""
     text = open("README.md").read().lower()
-    if len(text) < 2500:
+    if len(text) < 1500:
         raise check50.Failure(f"Description is not long enough.")
 
     urls = re.findall("https?:\/\/[\w/\-?=%.]+\.[\w/\-?=%.]+", text)
