@@ -76,7 +76,7 @@ def incorrect_guess():
 @check50.check(compiles)
 def partial_match_close():
     """wordle recognizes guess with close match"""
-    for word in ["smile", "bison", "ploys"]:
+    for word in ["smile", "bison", "hopes"]:
         check50.c.run(f"./wordle_test check_word crash {word}").stdout(1)
 
 
