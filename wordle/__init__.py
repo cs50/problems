@@ -62,7 +62,7 @@ def reject_length():
 @check50.check(compiles)
 def accept_length():
     """wordle accepts guesses of appropriate length"""
-    for word in ["about", "hello", "video"]:
+    for word in ["audio", "video", "cable"]:
         check50.c.run("./wordle_test get_guess").stdin(word).stdout(word)
 
 
@@ -76,7 +76,7 @@ def incorrect_guess():
 @check50.check(compiles)
 def partial_match_close():
     """wordle recognizes guess with close match"""
-    for word in ["smile", "bison", "weeks"]:
+    for word in ["smile", "bison", "plays"]:
         check50.c.run(f"./wordle_test check_word crash {word}").stdout(1)
 
 
@@ -90,5 +90,5 @@ def partial_match_exact():
 @check50.check(compiles)
 def exact_match():
     """wordle recognizes correct guess"""
-    for word in ["about", "hello", "video"]:
+    for word in ["gnome", "sized", "world"]:
         check50.c.run(f"./wordle_test check_word {word} {word}").stdout(10)
