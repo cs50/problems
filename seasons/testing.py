@@ -3,7 +3,8 @@ import seasons
 
 # Create subclass of date class with patched method, today
 class mockDate(date):
-    def today():
+    @classmethod
+    def today(cls):
         return date(2000, 1, 1)
 
 
