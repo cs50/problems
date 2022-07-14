@@ -86,6 +86,12 @@ def raise_for_invalid_format_dash():
     test_invalid_time(input="9 AM - 5 PM", error="ValueError")
 
 
+@check50.check(libraries)
+def raise_for_invalid_format_minutes():
+    """working.py raises ValueError when given \"10:7 AM - 5:1 PM\""""
+    test_invalid_time(input="10:7 AM - 5:1 PM", error="ValueError")
+
+
 """
 test_working.py checks
 """
