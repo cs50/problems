@@ -24,7 +24,7 @@ def test_integer_level():
 @check50.check(exists)
 def test_valid_level():
     """game.py accepts valid level"""
-    check50.run("python3 game.py").stdin("10", prompt=True).stdout(regex("Guess"), "Guess:", regex=True).kill()
+    check50.run("python3 game.py").stdin("1", prompt=True).stdout(regex("Guess"), "Guess:", regex=True).kill()
 
 
 @check50.check(test_valid_level)
