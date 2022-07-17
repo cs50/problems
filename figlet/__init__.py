@@ -6,6 +6,7 @@ from re import escape
 def exists():
     """figlet.py exists"""
     check50.exists("figlet.py")
+    check50.include("testing.py")
 
 
 @check50.check(exists)
@@ -50,6 +51,12 @@ def test_alphabet_text():
     check_font_rendering(font="alphabet", text="Moo")
 
 
+@check50.check(exists)
+def test_random_text():
+    """figlet.py renders random text"""
+    check_font_rendering(font="random", text="PYTHON")
+
+
 def regex(text):
     """match case-sensitively with any characters preceding and only whitespace after"""
     return fr'^.*{escape(text)}\s*$'
@@ -62,4 +69,23 @@ def check_font_rendering(font, text):
         output = ""
         for line in lines:
             output += line
-        check50.run(f"python3 figlet.py -f {font}").stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit(0)
+    
+    if font == "random":
+        run = check50.run("python3 testing.py")
+    else:
+        run = check50.run(f"python3 figlet.py -f {font}")
+        
+    try:
+        exit = run.exit(timeout=1)
+    except check50.Failure:
+        exit = -1
+    
+    EXIT_BEFORE_TEST = 0
+    if exit == EXIT_BEFORE_TEST:
+        raise check50.Failure("check50 couldn't run solution")
+    
+    NO_MAIN_FUNC = 12
+    if exit == NO_MAIN_FUNC:
+        raise check50.Failure("check50 couldn't run solution", help="Does your script contain a parameterless main() function?")
+    
+    run.stdin(text, prompt=True).stdout(regex(output), output, regex=True).exit()
