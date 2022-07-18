@@ -53,7 +53,7 @@ def test_alphabet_text():
 
 @check50.check(exists)
 def test_random_text():
-    """figlet.py renders random text"""
+    """figlet.py renders text with random font"""
     check_font_rendering(font="random", text="PYTHON")
 
 
@@ -74,18 +74,19 @@ def check_font_rendering(font, text):
         run = check50.run("python3 testing.py")
     else:
         run = check50.run(f"python3 figlet.py -f {font}")
-        
+    
     try:
-        exit = run.exit(timeout=1)
-    except check50.Failure:
-        exit = -1
-    
-    EXIT_BEFORE_TEST = 0
-    if exit == EXIT_BEFORE_TEST:
-        raise check50.Failure("check50 couldn't run solution")
-    
-    NO_MAIN_FUNC = 12
-    if exit == NO_MAIN_FUNC:
-        raise check50.Failure("check50 couldn't run solution", help="Does your script contain a parameterless main() function?")
-    
-    run.stdin(text, prompt=True).stdout(regex(output), output, regex=True).exit()
+        run.stdin(text, prompt=False).stdout(regex(output), output, regex=True).exit()
+    except check50.Failure as fail:
+        help = None
+        
+        # Assuming it failed because testing.py couldn't run the figlet.py file
+        if font == "random" and not isinstance(fail, check50.Mismatch):
+            help = "Does your script contain a parameterless main() function?"
+        
+        error = check50.Failure(str(fail), help=help)
+    else:
+        error = None
+
+    if error:
+        raise error

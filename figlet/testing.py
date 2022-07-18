@@ -5,17 +5,16 @@ import re
 random.seed(0)
 
 # Regex patterns to detect wanted tokens
-FUNC_DEFINITION = r"^def\s+(\w+)\("
-FUNC_CALL = r"^(\w+)\("
-IF_STATEMENT = r'^(if\s+__name__\s*==\s*"__main__"\s*:)'
-AFTER_IF_FUNC_CALL = r"^\s+(\w+)\("
+# Unneeded patterns commented out
+# FUNC_DEFINITION = r"^def\s+(\w+)\("
+# FUNC_CALL = r"^(\w+)\("
+IF_STATEMENT = r'^(if(?:\s+|\s*\(\s*)__name__\s*==\s*"__main__"(?:\s*|\s*\)\s*):)'
+AFTER_IF_FUNC_CALL = r"^\s+(\w+)\s*\(\s*\)"
 
-# Results dictionary that stores lists of matched regex results
+# Results dictionary that stores sets of matched regex results
 results = {
-    FUNC_DEFINITION: [],
-    FUNC_CALL: [],
-    IF_STATEMENT: [],
-    AFTER_IF_FUNC_CALL: [],
+    IF_STATEMENT: set(),
+    AFTER_IF_FUNC_CALL: set(),
 }
 
 with open("figlet.py", "r") as file:
@@ -29,12 +28,11 @@ with open("figlet.py", "r") as file:
             if not (result := re.search(key, line)):
                 continue
             
-            # Append result group to the correct results list
-            results[key].append(result.groups()[0])
+            # Append result group to the correct results set
+            results[key].add(result.groups()[0])
 
             # Only one result per line
             break
-
 
 # If there was no IF_STATEMENT just import and let it run
 if not results[IF_STATEMENT]:
@@ -43,7 +41,3 @@ if not results[IF_STATEMENT]:
 elif "main" in results[AFTER_IF_FUNC_CALL]:
     import figlet
     figlet.main()
-# Exit with error 12 when there was an IF_STATEMENT, but no main function
-else:
-    import sys
-    sys.exit(12)
