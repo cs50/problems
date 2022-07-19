@@ -92,8 +92,8 @@ def test_six_names():
 
 
 def regex(text):
-    """match case-sensitively with any characters preceding and only whitespace after"""
-    return fr'^.*{escape(text)}\s*$'
+    """match case-sensitively with any characters preceding and only 1 period and whitespace after"""
+    return fr'^.*{escape(text)}\.?\s*$'
 
 
 def multi_name_test(input, output):
