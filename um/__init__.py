@@ -51,8 +51,8 @@ def test_multiple():
 
 @check50.check(exists)
 def test_part_of_word():
-    """um.py yields 2 for \"Um? Mum? Is this that album where, um, the clumsy alums play drums?\""""
-    test_phrase(input="Um? Mum? Is this that album where, um, the clumsy alums play drums?", count="2")
+    """um.py yields 2 for \"Um? Mum? Is this that album where, um, umm, the clumsy alums play drums?\""""
+    test_phrase(input="Um? Mum? Is this that album where, um, umm, the clumsy alums play drums?", count="2")
 
 
 """
