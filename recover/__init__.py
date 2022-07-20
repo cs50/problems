@@ -91,3 +91,8 @@ def last_image():
     check50.run("./recover card.raw").exit(0, timeout=10)
     if check50.hash("049.jpg") != HASHES[-1]:
         raise check50.Failure("recovered image does not match")
+
+@check50.check(last_image)
+def memory():
+    """program is free of memory errors"""
+    check50.c.valgrind("./recover card.raw").exit(0, timeout=10)
