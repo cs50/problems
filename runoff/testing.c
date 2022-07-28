@@ -11,19 +11,25 @@ int main(int argc, string argv[])
     int setup = atoi(argv[1]);
     int test = atoi(argv[2]);
 
+    //Candidate names initlised as none string literals
+    char alice[] = "Alice";
+    char bob[] = "Bob";
+    char charlie[] = "Charlie";
+    char david[] = "David";
+
     // Setup
     switch (setup)
     {
         case 0:
             voter_count = 5;
             candidate_count = 3;
-            candidates[0].name = "Alice";
+            candidates[0].name = alice;
             candidates[0].votes = 0;
             candidates[0].eliminated = false;
-            candidates[1].name = "Bob";
+            candidates[1].name = bob;
             candidates[1].votes = 0;
             candidates[1].eliminated = false;
-            candidates[2].name = "Charlie";
+            candidates[2].name = charlie;
             candidates[2].votes = 0;
             candidates[2].eliminated = false;
             break;
@@ -31,16 +37,16 @@ int main(int argc, string argv[])
         case 1:
             voter_count = 7;
             candidate_count = 4;
-            candidates[0].name = "Alice";
+            candidates[0].name = alice;
             candidates[0].votes = 0;
             candidates[0].eliminated = false;
-            candidates[1].name = "Bob";
+            candidates[1].name = bob;
             candidates[1].votes = 0;
             candidates[1].eliminated = false;
-            candidates[2].name = "Charlie";
+            candidates[2].name = charlie;
             candidates[2].votes = 0;
             candidates[2].eliminated = false;
-            candidates[3].name = "David";
+            candidates[3].name = david;
             candidates[3].votes = 0;
             candidates[3].eliminated = false;
             preferences[0][0] = preferences[1][0] = 0;
@@ -64,16 +70,16 @@ int main(int argc, string argv[])
         case 2:
             voter_count = 28;
             candidate_count = 4;
-            candidates[0].name = "Alice";
+            candidates[0].name = alice;
             candidates[0].votes = 8;
             candidates[0].eliminated = false;
-            candidates[1].name = "Bob";
+            candidates[1].name = bob;
             candidates[1].votes = 15;
             candidates[1].eliminated = false;
-            candidates[2].name = "Charlie";
+            candidates[2].name = charlie;
             candidates[2].votes = 4;
             candidates[2].eliminated = false;
-            candidates[3].name = "David";
+            candidates[3].name = david;
             candidates[3].votes = 1;
             candidates[3].eliminated = false;
             break;

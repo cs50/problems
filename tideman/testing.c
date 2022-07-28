@@ -11,14 +11,22 @@ int main(int argc, string argv[])
     int setup = atoi(argv[1]);
     int test = atoi(argv[2]);
 
+    //Candidate names initlised as none string literals
+    char alice[] = "Alice";
+    char bob[] = "Bob";
+    char charlie[] = "Charlie";
+    char david[] = "David";
+    char eric[] = "Eric";
+    char frank[] = "Frank";
+
     // Setup
     switch (setup)
     {
         case 0:
             candidate_count = 3;
-            candidates[0] = "Alice";
-            candidates[1] = "Bob";
-            candidates[2] = "Charlie";
+            candidates[0] = alice;
+            candidates[1] = bob;
+            candidates[2] = charlie;
             for (int i = 0; i < candidate_count; i++)
                 for (int j = 0; j < candidate_count; j++)
                     preferences[i][j] = 0;
@@ -72,29 +80,29 @@ int main(int argc, string argv[])
 
         case 4:
             candidate_count = 4;
-            candidates[0] = "Alice";
-            candidates[1] = "Bob";
-            candidates[2] = "Charlie";
-            candidates[3] = "David";
+            candidates[0] = alice;
+            candidates[1] = bob;
+            candidates[2] = charlie;
+            candidates[3] = david;
             break;
 
         case 5:
             candidate_count = 5;
-            candidates[0] = "Alice";
-            candidates[1] = "Bob";
-            candidates[2] = "Charlie";
-            candidates[3] = "David";
-            candidates[4] = "Erin";
+            candidates[0] = alice;
+            candidates[1] = bob;
+            candidates[2] = charlie;
+            candidates[3] = david;
+            candidates[4] = eric;
             break;
 
         case 6:
             candidate_count = 6;
-            candidates[0] = "Alice";
-            candidates[1] = "Bob";
-            candidates[2] = "Charlie";
-            candidates[3] = "David";
-            candidates[4] = "Eric";
-            candidates[5] = "Frank";
+            candidates[0] = alice;
+            candidates[1] = bob;
+            candidates[2] = charlie;
+            candidates[3] = david;
+            candidates[4] = eric;
+            candidates[5] = frank;
             break;
     }
 
