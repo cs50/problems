@@ -23,7 +23,7 @@ def test_level_high():
     
 @check50.check(exists)
 def test_level_nonint():
-    """Little Professor rejects level of one"""
+    """Little Professor rejects level of \"one\""""
     check50.run("python3 testing.py get_level").stdin("one", prompt=False).reject()
     
     
