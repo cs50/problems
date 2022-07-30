@@ -10,22 +10,17 @@ int main(int argc, string argv[])
     // Determine which test to run
     int setup = atoi(argv[1]);
     int test = atoi(argv[2]);
-    
-    //Candidate names initlised as none string literals
-    char alice[] = "Alice";
-    char bob[] = "Bob";
-    char charlie[] = "Charlie";
 
     // Setup
     switch (setup)
     {
         case 0:
             candidate_count = 3;
-            candidates[0].name = alice;
+            candidates[0].name = "Alice";
             candidates[0].votes = 0;
-            candidates[1].name = bob;
+            candidates[1].name = "Bob";
             candidates[1].votes = 0;
-            candidates[2].name = charlie;
+            candidates[2].name = "Charlie";
             candidates[2].votes = 0;
             break;
     }
