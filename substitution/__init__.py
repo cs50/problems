@@ -69,7 +69,7 @@ def handles_invalid_length():
 @check50.check(compiles)
 def handles_invalid_key_chars():
     """handles invalid characters in key"""
-    check50.run("./substitution ZWGKPMJRYISHFEXQON2DLUACVT").exit(1)
+    check50.run("./substitution ZWGKPMJ}YISHFEXQON2DLUA[VT").exit(1)
 
 @check50.check(compiles)
 def handles_duplicate_chars():
