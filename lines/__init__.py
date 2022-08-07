@@ -28,9 +28,9 @@ def test_invalid_file():
 @check50.check(test_invalid_file)
 def test_more_arguments():
     """lines.py exits given more than one command-line argument"""
-    check50.include("4.py")
-    check50.include("2058.py")
-    exit = check50.run("python3 lines.py 4.py 2058.py").exit()
+    check50.include("four.py")
+    check50.include("two-thousand-fifty-eight.py")
+    exit = check50.run("python3 lines.py four.py two-thousand-fifty-eight.py").exit()
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -38,36 +38,36 @@ def test_more_arguments():
 @check50.check(exists)
 def test_plain():
     """lines.py yields 3 given a file with 3 lines of code"""
-    test_line_count(3)
+    check50.include(f"three.py")
+    check50.run(f"python3 lines.py three.py").stdout(regex(3), "3", regex=True).exit(0)
 
 
 @check50.check(test_plain)
 def test_whitespace():
     """lines.py yields 4 given a file with 4 lines and whitespace"""
-    test_line_count(4)
+    check50.include(f"four.py")
+    check50.run(f"python3 lines.py four.py").stdout(regex(4), "4", regex=True).exit(0)
 
 
 @check50.check(test_whitespace)
 def test_comment():
     """lines.py yields 5 given a file with 5 lines, whitespace, and comments"""
-    test_line_count(5)
+    check50.include(f"five.py")
+    check50.run(f"python3 lines.py five.py").stdout(regex(5), "5", regex=True).exit(0)
 
 
 @check50.check(test_comment)
 def test_docstring():
     """lines.py yields 9 given a file with 9 lines, whitespace, comments, and docstrings"""
-    test_line_count(9)
+    check50.include(f"nine.py")
+    check50.run(f"python3 lines.py nine.py").stdout(regex(9), "9", regex=True).exit(0)
 
 
 @check50.check(test_docstring)
 def test_open_source():
     """lines.py yields 2058 given 2058 lines of code in an open-source library file"""
-    test_line_count(2058)
-    
-
-def test_line_count(lines):
-    check50.include(f"{lines}.py")
-    check50.run(f"python3 lines.py {lines}.py").stdout(regex(lines), f"{lines}", regex=True).exit(0)
+    check50.include(f"two-thousand-fifty-eight.py")
+    check50.run(f"python3 lines.py two-thousand-fifty-eight.py").stdout(regex(2058), "2058", regex=True).exit(0)
 
 
 def regex(lines):
