@@ -38,31 +38,31 @@ def test_more_arguments():
 @check50.check(exists)
 def test_plain():
     """lines.py yields 3 given a file with 3 lines of code"""
-    test_line_count(3)
+    test_line_count("three")
 
 
 @check50.check(test_plain)
 def test_whitespace():
     """lines.py yields 4 given a file with 4 lines and whitespace"""
-    test_line_count(4)
+    test_line_count("four")
 
 
 @check50.check(test_whitespace)
 def test_comment():
     """lines.py yields 5 given a file with 5 lines, whitespace, and comments"""
-    test_line_count(5)
+    test_line_count("five")
 
 
 @check50.check(test_comment)
 def test_docstring():
     """lines.py yields 9 given a file with 9 lines, whitespace, comments, and docstrings"""
-    test_line_count(9)
+    test_line_count("nine")
 
 
 @check50.check(test_docstring)
 def test_open_source():
     """lines.py yields 2058 given 2058 lines of code in an open-source library file"""
-    test_line_count(2058)
+    test_line_count("two-thousand-fifty-eight")
     
 
 def test_line_count(lines):
