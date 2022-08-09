@@ -123,13 +123,13 @@ def test_raise_for_format():
 @check50.check(test_correct)
 def test_raise_for_out_of_range_time():
     """test_working.py catches working.py not raising ValueError for out-of-range times"""
-    test_implementation("working.py", "raise_for_format_test.pyc", "test_working.py", code=1)
+    test_implementation("working.py", "raise_for_out_of_range_test.pyc", "test_working.py", code=1)
 
 
 @check50.check(test_correct)
 def test_raise_for_invalid_time():
     """test_working.py catches working.py not raising ValueError for invalid time format"""
-    test_implementation("working.py", "raise_for_format_test.pyc", "test_working.py", code=1)
+    test_implementation("working.py", "raise_for_invalid_time_test.pyc", "test_working.py", code=1)
 
 
 """
