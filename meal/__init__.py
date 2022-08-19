@@ -25,6 +25,16 @@ def test_breakfast2():
 
 
 @check50.check(exists)
+def test_no_output():
+    """input of 8:01 yields no output"""
+    input = "8:01"
+    output = ""
+    output = str(check50.run("python3 meal.py").stdin(input, prompt=True).stdout())
+    if output != "":
+        raise check50.Mismatch("", output)
+
+
+@check50.check(test_no_output)
 def test_lunch():
     """input of 12:42 yields output of \"lunch time\""""
     input = "12:42"
@@ -32,7 +42,7 @@ def test_lunch():
     check50.run("python3 meal.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
-@check50.check(exists)
+@check50.check(test_no_output)
 def test_lunch():
     """input of 13:00 yields output of \"lunch time\""""
     input = "13:00"
@@ -40,19 +50,11 @@ def test_lunch():
     check50.run("python3 meal.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
-@check50.check(exists)
+@check50.check(test_no_output)
 def test_dinner():
     """input of 18:32 yields output of \"dinner time\""""
     input = "18:32"
     output = "dinner time"
-    check50.run("python3 meal.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
-
-
-@check50.check(exists)
-def test_no_output():
-    """input of 11:11 yields no output"""
-    input = "11:11"
-    output = ""
     check50.run("python3 meal.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
