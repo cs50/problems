@@ -37,6 +37,36 @@ def test6():
 
 @check50.check(exists)
 def test7():
+    """identifies 4222222222222 as VISA"""
+    check50.run("python3 credit.py").stdin("4222222222222").stdout("VISA\n").exit()
+
+@check50.check(exists)
+def test8():
     """identifies 1234567890 as INVALID"""
     check50.run("python3 credit.py").stdin("1234567890").stdout("INVALID\n").exit()
+
+@check50.check(exists)
+def test9():
+    """identifies 369421438430814 as INVALID"""
+    check50.run("python3 credit.py").stdin("369421438430814").stdout("INVALID\n").exit()
+
+@check50.check(exists)
+def test10():
+    """identifies 4062901840 as INVALID"""
+    check50.run("python3 credit.py").stdin("4062901840").stdout("INVALID\n").exit()
+
+@check50.check(exists)
+def test11():
+    """identifies 5673598276138003 as INVALID"""
+    check50.run("python3 credit.py").stdin("5673598276138003").stdout("INVALID\n").exit()
+
+@check50.check(exists)
+def test12():
+    """identifies 4111111111111113 as INVALID"""
+    check50.run("python3 credit.py").stdin("4111111111111113").stdout("INVALID\n").exit()
+
+@check50.check(exists)
+def test13():
+    """identifies 4222222222223 as INVALID"""
+    check50.run("python3 credit.py").stdin("4222222222223").stdout("INVALID\n").exit()
 
