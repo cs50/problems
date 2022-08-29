@@ -162,6 +162,7 @@ int main(int argc, string argv[])
 
         case 14:
             candidates[3].eliminated = true;
+            candidates[3].votes = 0;
             candidates[2].votes = 5;
             printf("%i", find_min());
             break;
