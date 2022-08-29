@@ -50,7 +50,7 @@ int main(int argc, string argv[])
             preferences[2][0] = preferences[3][0] = preferences[4][0] = 1;
             preferences[2][1] = preferences[3][1] = preferences[4][1] = 3;
             preferences[2][2] = preferences[3][2] = preferences[4][2] = 0;
-            preferences[2][2] = preferences[3][2] = preferences[4][2] = 2;
+            preferences[2][3] = preferences[3][3] = preferences[4][3] = 2;
             preferences[5][0] = 2;
             preferences[5][1] = 1;
             preferences[5][2] = 3;
