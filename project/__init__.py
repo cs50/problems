@@ -20,7 +20,7 @@ def final_readme():
         raise check50.Failure(f"Video URL is missing.")
 
 
-@check50.check()
+@check50.check(final_readme)
 def exists_project():
     """project.py exists"""
     check50.exists("project.py")
