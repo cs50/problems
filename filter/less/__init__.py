@@ -51,7 +51,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """filter compiles"""
-    check50.c.compile("testing.c", "helpers.c")
+    check50.run("make").exit(0)
 
 @check50.check(compiles)
 def grayscale_single_pixel():
