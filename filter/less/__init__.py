@@ -51,7 +51,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """filter compiles"""
-    check50.c.compile("testing.c", "helpers.c")
+    check50.run("make").exit(0)
 
 @check50.check(compiles)
 def grayscale_single_pixel():
@@ -187,7 +187,7 @@ def reflect4():
         "245 254 253\n", "225 234 243\n", "205 214 223\n", "195 204 213\n", "175 184 193\n",
         "170 170 170\n", "85 85 85\n", "255 255 255\n", "0 0 0\n", "50 28 90\n"
     ]))
-    
+
 @check50.check(compiles)
 def blur_middle():
     """blur correctly filters middle pixel"""
