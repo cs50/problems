@@ -69,14 +69,19 @@ def handles_invalid_length():
 @check50.check(compiles)
 def handles_invalid_key_chars():
     """handles invalid characters in key"""
-    check50.run("./substitution ZWGKPMJRYISHFEXQON2DLUACVT").exit(1)
+    check50.run("./substitution ZWGKPMJ^YISHFEXQON[DLUACVT").exit(1)
 
 @check50.check(compiles)
-def handles_duplicate_chars():
-    """handles duplicate characters in key"""
-    check50.run("./substitution YFDTSMPBVIEERGHWONUAKLQXCZ").exit(1)
+def handles_duplicate_chars_upper():
+    """handles duplicate characters in uppercase key"""
+    check50.run("./substitution FAZRDTMGQEJPWAXUSKVIYCLONH").exit(1)
+    
+@check50.check(compiles)
+def handles_duplicate_chars_lower():
+    """handles duplicate characters in lowercase key"""
+    check50.run("./substitution fazrdtmgqejpwaxuskviyclonh").exit(1)
     
 @check50.check(compiles)
 def handles_multiple_duplicate_chars():
     """handles multiple duplicate characters in key"""
-    check50.run("./substitution BBCCEFGHIJKLMNOPQRSTUVWXYZ").exit(1)
+    check50.run("./substitution MMCcEFGHIJKLMNOPqRqTUVWXeZ").exit(1)

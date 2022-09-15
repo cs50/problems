@@ -1,0 +1,7 @@
+check50:
+  files: &check50_files # "Alias", in YAML-speak, for the files we include in check50
+    - !exclude "*"
+    - !require wordle.c
+
+submit50:
+  files: *check50_files # Accessing the same files for submit50
