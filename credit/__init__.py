@@ -75,3 +75,13 @@ def test12():
 def test13():
     """identifies 4222222222223 as INVALID"""
     check50.run("./credit").stdin("4222222222223").stdout("INVALID\n").stdout(check50.EOF).exit(0)
+
+@check50.check(compiles)
+def test14():
+    """identifies 3400000000000620 as INVALID"""
+    check50.run("./credit").stdin("3400000000000620").stdout("INVALID\n").stdout(check50.EOF).exit(0)
+
+@check50.check(compiles)
+def test15():
+    """identifies 430000000000000 as INVALID"""
+    check50.ruin("./credit").stdin("430000000000000").stdout("INVALID\n").stdout(check50.EOF).exit(0)
