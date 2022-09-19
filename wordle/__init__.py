@@ -88,6 +88,20 @@ def partial_match_exact():
 
 
 @check50.check(compiles)
+def partial_match_exact_and_close():
+    """wordle recognizes guess with exact and close matches"""
+    for word in ["agent", "burst", "canoe"]:
+        check50.c.run(f"./wordle_test check_word arise {word}").stdout(3)
+
+        
+@check50.check(compiles)
+def partial_multiple_matches():
+    """wordle recognizes guess with multiple matches"""
+    for word in ["drops", "ghost", "ports"]:
+        check50.c.run(f"./wordle_test check_word sport {word}").stdout(5)
+
+
+@check50.check(compiles)
 def exact_match():
     """wordle recognizes correct guess"""
     for word in ["gnome", "sized", "world"]:
