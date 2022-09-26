@@ -43,5 +43,8 @@ def test_header():
 def test_reverses_audio():
     """reverse.c reverses ascending scale"""
     check50.run("./reverse input.wav output.wav").exit(0, timeout=10)
-    if check50.hash("output.wav") != "d7beb50a997b78e257cf77e1c6fa0bf835e8e59f86aa082a7a35f7ccc8d307b4":
+    file_hash = check50.hash("output.wav")
+    if file_hash != "d7beb50a997b78e257cf77e1c6fa0bf835e8e59f86aa082a7a35f7ccc8d307b4":
+        if file_hash == "e1e69515128debe5575995e89f4003bc44e2d5a362afa7314e81b621e9620934":
+            raise check50.Failure("file is not reversed as specified", help="looks like you included a reversed header at the end of your file!")
         raise check50.Failure("file is not reversed as specified")
