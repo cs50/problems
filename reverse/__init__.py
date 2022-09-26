@@ -39,7 +39,7 @@ def test_header():
                 raise check50.Failure("output file does not have WAV file signature")
 
 
-@check50.check(compiles)
+@check50.check(test_header)
 def test_reverses_audio():
     """reverse.c reverses ascending scale"""
     check50.run("./reverse input.wav output.wav").exit(0, timeout=10)
