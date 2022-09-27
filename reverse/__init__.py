@@ -51,7 +51,7 @@ def test_reverses_audio():
             raise check50.Failure("file is not reversed as specified", help="did you forget to include the last block of the input file?")
             
         # Includes reversed header (whether missing final block or not)
-        elif file_hash == "f206747786873dd0c565b048a2da1eb23d925cb862dd6c4d151a2978f6090c13" || file_hash == "e1e69515128debe5575995e89f4003bc44e2d5a362afa7314e81b621e9620934":
+        elif file_hash == "f206747786873dd0c565b048a2da1eb23d925cb862dd6c4d151a2978f6090c13" or file_hash == "e1e69515128debe5575995e89f4003bc44e2d5a362afa7314e81b621e9620934":
             raise check50.Failure("file is not reversed as specified", help="looks like you included a reversed header at the end of your file!")
         
         # All other cases
