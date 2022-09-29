@@ -45,27 +45,23 @@ int main(int argc, char *argv[])
     img2[2][2] = pixel(240, 250, 255);
 
     // Larger image
-    RGBTRIPLE img3[4][5];
+    RGBTRIPLE img3[4][4];
     img3[0][0] = pixel(10, 20, 30);
     img3[0][1] = pixel(40, 50, 60);
     img3[0][2] = pixel(70, 80, 90);
     img3[0][3] = pixel(100, 110, 120);
-    img3[0][4] = pixel(130, 140, 150);
     img3[1][0] = pixel(110, 130, 140);
     img3[1][1] = pixel(120, 140, 150);
     img3[1][2] = pixel(130, 150, 160);
     img3[1][3] = pixel(140, 160, 170);
-    img3[1][4] = pixel(150, 170, 180);
-    img3[2][0] = pixel(175, 184, 193);
-    img3[2][1] = pixel(195, 204, 213);
-    img3[2][2] = pixel(205, 214, 223);
-    img3[2][3] = pixel(225, 234, 243);
-    img3[2][4] = pixel(245, 254, 253);
+    img3[2][0] = pixel(195, 204, 213);
+    img3[2][1] = pixel(205, 214, 223);
+    img3[2][2] = pixel(225, 234, 243);
+    img3[2][3] = pixel(245, 254, 253);
     img3[3][0] = pixel(50, 28, 90);
     img3[3][1] = pixel(0, 0, 0);
     img3[3][2] = pixel(255, 255, 255);
     img3[3][3] = pixel(85, 85, 85);
-    img3[3][4] = pixel(170, 170, 170);
 
     // 1x2 row
     RGBTRIPLE row2[1][2];
@@ -124,8 +120,8 @@ int main(int argc, char *argv[])
 
             case 5:
             {
-                grayscale(4, 5, img3);
-                print_image(4, 5, img3);
+                grayscale(4, 4, img3);
+                print_image(4, 4, img3);
                 break;
             }
         }
@@ -177,8 +173,8 @@ int main(int argc, char *argv[])
 
             case 5:
             {
-                sepia(4, 5, img3);
-                print_image(4, 5, img3);
+                sepia(4, 4, img3);
+                print_image(4, 4, img3);
                 break;
             }
         }
@@ -217,8 +213,8 @@ int main(int argc, char *argv[])
 
             case 4:
             {
-                reflect(4, 5, img3);
-                print_image(4, 5, img3);
+                reflect(4, 4, img3);
+                print_image(4, 4, img3);
                 break;
             }
         }
@@ -257,8 +253,8 @@ int main(int argc, char *argv[])
 
             case 4:
             {
-                blur(4, 5, img3);
-                print_image(4, 5, img3);
+                blur(4, 4, img3);
+                print_image(4, 4, img3);
                 break;
             }
         }
