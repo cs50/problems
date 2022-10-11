@@ -26,26 +26,32 @@ int main(int argc, string argv[])
     }
 
     // Test
+
+    char alice[] = "Alice";
+    char bob[] = "Bob";
+    char charlie[] = "Charlie";
+    char david[] = "David";
+
     switch(test)
     {
         case 0:
-            printf("%s", vote("Alice") ? "true" : "false");
+            printf("%s", vote(alice) ? "true" : "false");
             break;
 
         case 1:
-            printf("%s", vote("Bob") ? "true" : "false");
+            printf("%s", vote(bob) ? "true" : "false");
             break;
 
         case 2:
-            printf("%s", vote("Charlie") ? "true" : "false");
+            printf("%s", vote(charlie) ? "true" : "false");
             break;
 
         case 3:
-            printf("%s", vote("David") ? "true" : "false");
+            printf("%s", vote(david) ? "true" : "false");
             break;
 
         case 4:
-            vote("Alice");
+            vote(alice);
             printf("%i %i %i", candidates[0].votes, candidates[1].votes, candidates[2].votes);
             break;
 
@@ -53,7 +59,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 2;
             candidates[1].votes = 7;
             candidates[2].votes = 0;
-            vote("Bob");
+            vote(bob);
             printf("%i %i %i", candidates[0].votes, candidates[1].votes, candidates[2].votes);
             break;
 
@@ -61,7 +67,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 2;
             candidates[1].votes = 8;
             candidates[2].votes = 0;
-            vote("David");
+            vote(david);
             printf("%i %i %i", candidates[0].votes, candidates[1].votes, candidates[2].votes);
             break;
 
