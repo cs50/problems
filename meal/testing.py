@@ -1,3 +1,6 @@
 from meal import convert
 
-print(convert(input("Input: ")))
+try:
+    print(convert(input("Input: ")))
+except:
+    print("Error")
