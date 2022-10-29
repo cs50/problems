@@ -27,8 +27,8 @@ def test3():
     """3.sql produces correct result"""
     check_single_col(run_query("3.sql"),
         ["Avengers: Infinity War", "Black Panther", "Eighth Grade", "Gemini Man",
-         "Happy Times", "Incredibles 2", "Kirklet", "Roma", "The Professor",
-         "Toy Story 4"],
+         "Happy Times", "Incredibles 2", "Kirklet", "Ma Rainey's Black Bottom", "Roma",
+         "The Professor", "Toy Story 4"],
         ordered=True)
 
 @check50.check(exists)
