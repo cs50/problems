@@ -131,7 +131,7 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Life of Pi"), 7.9, 545552);
 INSERT INTO movies (title, year) VALUES ("42", 2013);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
-    ((SELECT id FROM movies WHERE title = "42"), 7.5, 79004);
+    ((SELECT id FROM movies WHERE title = "42"), 7.5, 90681);
 INSERT INTO movies (title, year) VALUES ("The Wolf of Wall Street", 2013);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "The Wolf of Wall Street"), 8.2, 1064692);
@@ -141,9 +141,12 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Interstellar", 2014);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Interstellar"), 8.6, 1340748);
+INSERT INTO movies (title, year) VALUES ("Ma Rainey's Black Bottom", 2020);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Ma Rainey's Black Bottom"), 6.9, 47141);
 INSERT INTO movies (title, year) VALUES ("Get on Up", 2014);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
-    ((SELECT id FROM movies WHERE title = "Get on Up"), 6.9, 19303);
+    ((SELECT id FROM movies WHERE title = "Get on Up"), 6.9, 23959);
 INSERT INTO movies (title, year) VALUES ("Draft Day", 2014);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Draft Day"), 6.8, 49763);
@@ -159,12 +162,12 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Harry Potter: A History of Magic", 2017);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Harry Potter: A History of Magic"), 7.2, 213);
-INSERT INTO movies (title, year) VALUES ("Marshall", 2017);
-INSERT INTO ratings (movie_id, rating, votes) VALUES
-    ((SELECT id FROM movies WHERE title = "Marshall"), 7.2, 547247);
 INSERT INTO movies (title, year) VALUES ("Black Panther", 2018);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
-    ((SELECT id FROM movies WHERE title = "Black Panther"), 7.3, 546919);
+    ((SELECT id FROM movies WHERE title = "Black Panther"), 7.3, 680937);
+INSERT INTO movies (title, year) VALUES ("Marshall", 2017);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Marshall"), 7.3, 23020);
 INSERT INTO movies (title, year) VALUES ("Avengers: Infinity War", 2018);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Avengers: Infinity War"), 8.5, 718385);
@@ -355,6 +358,9 @@ INSERT INTO stars (person_id, movie_id) VALUES (
 INSERT INTO stars (person_id, movie_id) VALUES (
     (SELECT id FROM people WHERE name = "Chadwick Boseman"),
     (SELECT id FROM movies WHERE title = "Marshall"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Chadwick Boseman"),
+    (SELECT id FROM movies WHERE title = "Ma Rainey's Black Bottom"));
 INSERT INTO stars (person_id, movie_id) VALUES (
     (SELECT id FROM people WHERE name = "Chadwick Boseman"),
     (SELECT id FROM movies WHERE title = "Get on Up"));
