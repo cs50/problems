@@ -96,7 +96,7 @@ def test10():
 def test11():
     """11.sql produces correct result"""
     check_single_col(run_query("11.sql"),
-        ["42", "Black Panther", "Marshall", "Get on Up", "Draft Day"],
+        ["42", "Black Panther", "Marshall", "Ma Rainey's Black Bottom", "Get on Up"],
         ordered=True)
 
 @check50.check(exists)
