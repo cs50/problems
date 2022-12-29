@@ -6,6 +6,7 @@ import check50.c
 def exists():
     """reverse.c exists"""
     check50.include("input.wav")
+    check50.include("wav.h")
     check50.exists("reverse.c")
 
 
