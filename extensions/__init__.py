@@ -83,7 +83,7 @@ def testpdf_capital():
 @check50.check(exists)
 def testpdf_spaces():
     """input of document.PDF, with spaces on either side, yields output of application/pdf"""
-    input = " document.pdf   "
+    input = " document.PDF   "
     output = "application/pdf"
     check50.run("python3 extensions.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
