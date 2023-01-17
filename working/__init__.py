@@ -104,14 +104,14 @@ def test_correct():
 
 @check50.check(test_correct)
 def test_incorrect_hours():
-    """test_working.py catches working.py printing incorrect hours"""
+    """test_working.py catches working.py printing hours off by one"""
     test_implementation("working.py", "off_by_one_test.pyc", "test_working.py", code=1)
 
 
 @check50.check(test_correct)
 def test_incorrect_minutes():
-    """test_working.py catches working.py printing incorrect minutes"""
-    test_implementation("working.py", "incorrect_minutes_test.pyc", "test_working.py", code=1)
+    """test_working.py catches working.py printing minutes off by five"""
+    test_implementation("working.py", "off_by_five_test.pyc", "test_working.py", code=1)
 
 
 @check50.check(test_correct)
@@ -124,12 +124,6 @@ def test_raise_for_format():
 def test_raise_for_out_of_range_time():
     """test_working.py catches working.py not raising ValueError for out-of-range times"""
     test_implementation("working.py", "raise_for_out_of_range_test.pyc", "test_working.py", code=1)
-
-
-@check50.check(test_correct)
-def test_raise_for_invalid_time():
-    """test_working.py catches working.py not raising ValueError for invalid time format"""
-    test_implementation("working.py", "raise_for_invalid_time_test.pyc", "test_working.py", code=1)
 
 
 """

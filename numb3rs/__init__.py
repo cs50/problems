@@ -84,13 +84,13 @@ def test_correct():
 
 @check50.check(test_correct)
 def test_first_byte():
-    """test_numb3rs.py catches numb3rs.py only checking first byte of IPv4 address"""
+    """test_numb3rs.py catches numb3rs.py only checking if first byte of IPv4 address is in range"""
     test_implementation("numb3rs.py", "first_byte_test.pyc", "test_numb3rs.py", code=1)
 
 
 @check50.check(test_correct)
 def test_invalid_format():
-    """test_numb3rs.py catches numb3rs.py failing to return False for invalid IPv4 format"""
+    """test_numb3rs.py catches numb3rs.py accepting expecting five-byte IPv4 address"""
     test_implementation("numb3rs.py", "invalid_format_test.pyc", "test_numb3rs.py", code=1)
 
 
