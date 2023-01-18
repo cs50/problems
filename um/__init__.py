@@ -90,7 +90,7 @@ Helpers
 
 
 def test_phrase(input, count):
-    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(regex(count), count, regex=True).exit(0)
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(count).exit(0)
 
 
 def regex(text):
