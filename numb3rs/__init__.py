@@ -55,6 +55,22 @@ def test_incorrect_out_of_range2():
     output = "False"
     check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
 
+    
+@check50.check(exists)
+def test_incorrect_number_bytes():
+    """numb3rs.py prints False for 8.8.8"""
+    input = "8.8.8"
+    output = "False"
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
+ 
+
+@check50.check(exists)
+def test_incorrect_number_bytes():
+    """numb3rs.py prints False for 10.10.10.10.10"""
+    input = "10.10.10.10.10"
+    output = "False"
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
+
 
 @check50.check(exists)
 def test_incorrect_ipv6():
