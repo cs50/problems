@@ -65,7 +65,7 @@ def test_incorrect_number_bytes():
  
 
 @check50.check(exists)
-def test_incorrect_number_bytes():
+def test_incorrect_number_bytes2():
     """numb3rs.py prints False for 10.10.10.10.10"""
     input = "10.10.10.10.10"
     output = "False"
