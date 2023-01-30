@@ -17,6 +17,11 @@ def emma():
     check50.run("./hello").stdin("Emma").stdout("Emma").exit()
 
 @check50.check(compiles)
-def rodrigo():
-    """responds to name Rodrigo"""
-    check50.run("./hello").stdin("Rodrigo").stdout("Rodrigo").exit()
+def inno():
+    """responds to name Inno"""
+    check50.run("./hello").stdin("Inno").stdout("Inno").exit()
+
+@check50.check(compiles)
+def kamryn():
+    """responds to name Kamryn"""
+    check50.run("./hello").stdin("Kamryn").stdout("Kamryn").exit()
