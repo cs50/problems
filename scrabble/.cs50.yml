@@ -1,0 +1,12 @@
+lab50:
+  files:
+    - !exclude "*"
+    - !include scrabble.c
+
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require scrabble.c
+
+submit50:
+  files: *check50_files
