@@ -1,0 +1,25 @@
+lab50:
+  files:
+    - !exclude "*"
+    - !include sort1
+    - !include sort2
+    - !include sort3
+    - !include sorted5000.txt
+    - !include sorted10000.txt
+    - !include sorted50000.txt
+    - !include reversed5000.txt
+    - !include reversed10000.txt
+    - !include reversed50000.txt
+    - !include random5000.txt
+    - !include random10000.txt
+    - !include random50000.txt
+    - !include answers.txt
+
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require answers.txt
+
+submit50:
+  files: *check50_files
+  style: false
