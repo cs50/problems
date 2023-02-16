@@ -10,4 +10,5 @@ def main():
         random.seed(0)
         professor.main()
 
+        
 main()
