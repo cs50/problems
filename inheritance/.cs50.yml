@@ -1,0 +1,12 @@
+lab50:
+  files:
+    - !exclude "*"
+    - !include inheritance.c
+
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require inheritance.c
+
+submit50:
+  files: *check50_files
