@@ -1,0 +1,15 @@
+lab50:
+  files:
+    - !exclude "*"
+    - !include tournament.py
+    - !include 2018m.csv
+    - !include 2019w.csv
+
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require tournament.py
+    - !require answers.txt
+
+submit50:
+  files: *check50_files
