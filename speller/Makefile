@@ -1,4 +1,6 @@
+CC = $(shell echo $$CC)
+CFLAGS = $(shell echo $$CFLAGS)
+LDLIBS = $(shell echo $$LDLIBS)
+
 speller: dictionary.c dictionary.h speller.c Makefile
-	clang -ggdb3 -gdwarf-4 -O0 -Qunused-arguments -std=c11 -Wall -Werror -Wextra -Wno-gnu-folding-constant -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wshadow   -c -o speller.o speller.c
-	clang -ggdb3 -gdwarf-4 -O0 -Qunused-arguments -std=c11 -Wall -Werror -Wextra -Wno-gnu-folding-constant -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wshadow   -c -o dictionary.o dictionary.c
-	clang -ggdb3 -gdwarf-4 -O0 -Qunused-arguments -std=c11 -Wall -Werror -Wextra -Wno-gnu-folding-constant -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wshadow -o speller speller.o dictionary.o -lm
+	$(CC) $(CFLAGS) -o speller speller.c dictionary.c $(LDLIBS)
