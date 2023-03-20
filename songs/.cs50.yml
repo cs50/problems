@@ -1,0 +1,17 @@
+submit50:
+  files: &submit50_files
+    - !exclude "*"
+    - !include "*.sql"
+    - !require 1.sql
+    - !require 2.sql
+    - !require 3.sql
+    - !require 4.sql
+    - !require 5.sql
+    - !require 6.sql
+    - !require 7.sql
+    - !require 8.sql
+    - !include answers.txt
+  style: false
+
+check50:
+  files: *submit50_files
