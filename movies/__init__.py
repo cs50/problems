@@ -107,6 +107,16 @@ def test12():
          "Alice in Wonderland", "Alice Through the Looking Glass"},
         ordered=False)
 
+"""Alternate version of test12() to account for removing Johnny
+Depp from the specification"""
+@check50.check(exists)
+def test12():
+    """12.sql produces correct result"""
+    check_single_col(run_query("12.sql"),
+        {"Silver Linings Playbook", "Serena",
+        "American Hustle", "Joy"},
+        ordered=False)
+
 @check50.check(exists)
 def test13():
     """13.sql produces correct result"""
@@ -185,4 +195,3 @@ def check_double_col(actual, expected, ordered=False):
     if result != expected:
         raise check50.Mismatch("\n".join([str(entry) for entry in list(expected)]),
                               "\n".join([str(entry) for entry in list(result)]))
-
