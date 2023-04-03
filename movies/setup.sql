@@ -248,7 +248,6 @@ INSERT INTO people (name, birth) VALUES ("Craig T. Nelson", 1944);
 INSERT INTO people (name, birth) VALUES ("Richard Griffifths", 1947);
 INSERT INTO people (name, birth) VALUES ("Rupert Grint", 1988);
 INSERT INTO people (name, birth) VALUES ("Daniel Radcliffe", 1989);
-INSERT INTO people (name, birth) VALUES ("Jennifer Lawrence", 1990);
 INSERT INTO people (name, birth) VALUES ("Bradley Cooper", 1975);
 
 -- Stars
