@@ -102,20 +102,18 @@ def test11():
 @check50.check(exists)
 def test12():
     """12.sql produces correct result"""
-    check_single_col(run_query("12.sql"),
-        {"Corpse Bride", "Charlie and the Chocolate Factory",
-         "Alice in Wonderland", "Alice Through the Looking Glass"},
-        ordered=False)
+    try:
+        check_single_col(run_query("12.sql"),
+            {"Corpse Bride", "Charlie and the Chocolate Factory",
+            "Alice in Wonderland", "Alice Through the Looking Glass"},
+            ordered=False)
+    except (check50.Failure, check50.Mismatch):
 
-"""Alternate version of test12() to account for removing Johnny
-Depp from the specification"""
-@check50.check(exists)
-def test12():
-    """12.sql produces correct result"""
-    check_single_col(run_query("12.sql"),
-        {"Silver Linings Playbook", "Serena",
-        "American Hustle", "Joy"},
-        ordered=False)
+        # Alternate version of test12 to account for removing Johnny Depp from the specification
+        check_single_col(run_query("12.sql"),
+            {"Silver Linings Playbook", "Serena",
+            "American Hustle", "Joy"},
+            ordered=False)
 
 @check50.check(exists)
 def test13():
