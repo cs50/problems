@@ -55,7 +55,6 @@ def test14():
 @check50.check(exists)
 def test50():
     """input of 50 yields output of 4500000000000000000"""
-
     output = check50.run("python3 einstein.py").stdin("50", prompt=False).stdout()
 
     # Extract number from stdout
