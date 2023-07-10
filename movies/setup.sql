@@ -195,6 +195,21 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Kirklet", 2019);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Kirklet"), 10.0, 555);
+INSERT INTO movies (title, year) VALUES ("Silver Linings Playbook", 2012);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Silver Linings Playbook"), 7.7, 707174);
+INSERT INTO movies (title, year) VALUES ("Serena", 2014);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Serena"), 5.4, 29064);
+INSERT INTO movies (title, year) VALUES ("American Hustle", 2013);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "American Hustle"), 7.2, 478191);
+INSERT INTO movies (title, year) VALUES ("Joy", 2015);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "Joy"), 6.6, 137335);
+INSERT INTO movies (title, year) VALUES ("The Hangover", 2009);
+INSERT INTO ratings (movie_id, rating, votes) VALUES
+    ((SELECT id FROM movies WHERE title = "The Hangover"), 7.7, 781300);
 
 -- People
 INSERT INTO people (name, birth) VALUES ("Colin Firth", 1960);
@@ -233,6 +248,7 @@ INSERT INTO people (name, birth) VALUES ("Craig T. Nelson", 1944);
 INSERT INTO people (name, birth) VALUES ("Richard Griffifths", 1947);
 INSERT INTO people (name, birth) VALUES ("Rupert Grint", 1988);
 INSERT INTO people (name, birth) VALUES ("Daniel Radcliffe", 1989);
+INSERT INTO people (name, birth) VALUES ("Bradley Cooper", 1975);
 
 -- Stars
 INSERT INTO stars (person_id, movie_id) VALUES (
@@ -394,6 +410,33 @@ INSERT INTO stars (person_id, movie_id) VALUES (
 INSERT INTO stars (person_id, movie_id) VALUES (
     (SELECT id FROM people WHERE name = "Emma Watson"),
     (SELECT id FROM movies WHERE title = "Harry Potter and the Prisoner of Azkaban"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Bradley Cooper"),
+    (SELECT id FROM movies WHERE title = "Silver Linings Playbook"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Bradley Cooper"),
+    (SELECT id FROM movies WHERE title = "Serena"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Bradley Cooper"),
+    (SELECT id FROM movies WHERE title = "American Hustle"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Bradley Cooper"),
+    (SELECT id FROM movies WHERE title = "Joy"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Jennifer Lawrence"),
+    (SELECT id FROM movies WHERE title = "Silver Linings Playbook"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Jennifer Lawrence"),
+    (SELECT id FROM movies WHERE title = "Serena"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Jennifer Lawrence"),
+    (SELECT id FROM movies WHERE title = "American Hustle"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Jennifer Lawrence"),
+    (SELECT id FROM movies WHERE title = "Joy"));
+INSERT INTO stars (person_id, movie_id) VALUES (
+    (SELECT id FROM people WHERE name = "Bradley Cooper"),
+    (SELECT id FROM movies WHERE title = "The Hangover"));
 
 -- Directors
 INSERT INTO directors (person_id, movie_id) VALUES (
