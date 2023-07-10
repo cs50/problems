@@ -79,7 +79,7 @@ def test5():
 @check50.check(exists)
 def test6():
     """6.sql produces correct result"""
-    check_single_cell(run_query("6.sql"), "7.74")
+    check_single_cell(run_query("6.sql"), "7.73")
 
 
 @check50.check(exists)
