@@ -195,9 +195,9 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Kirklet", 2019);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Kirklet"), 10.0, 555);
-INSERT INTO movies (title, year) VALUES ("Silver Linings Playbook", 2012);
+INSERT INTO movies (title, year) VALUES ("Silver Linings Playbook", 2013);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
-    ((SELECT id FROM movies WHERE title = "Silver Linings Playbook"), 7.5, 707174);
+    ((SELECT id FROM movies WHERE title = "Silver Linings Playbook"), 7.7, 707174);
 INSERT INTO movies (title, year) VALUES ("Serena", 2014);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Serena"), 5.4, 29064);
