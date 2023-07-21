@@ -1,4 +1,0 @@
-submit50:
-  files:
-    - !exclude node_modules
-  style: false
