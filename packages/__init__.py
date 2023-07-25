@@ -2,10 +2,6 @@ import re
 
 import check50
 
-# global array of booleans; ith boolean designates whether answer i is right
-results = []
-
-
 @check50.check()
 def exists():
     """log.sql and answers.txt exist"""
@@ -24,8 +20,50 @@ def log_file():
 def formatting():
     """answers.txt formatted correctly"""
 
-    # for internal purposes, all formatting and answers get checked within this function
+    # check formatting
+    for i in range(7):
+        if not check_answer(i, formatting=True):
+            raise check50.Failure("invalid answers.txt formatting")
 
+@check50.check(formatting)
+def test012():
+    """Lost Letter solved"""
+
+    for i in range(0, 3):
+        if not check_answer(i):
+            raise check50.Failure("answers.txt does not correctly solve the Lost Letter mystery")
+
+@check50.check(formatting)
+def test345():
+    """Devious Delivery solved"""
+
+    for i in range(3, 6):
+        if not check_answer(i):
+            raise check50.Failure("answers.txt does not correctly solve the Devious Delivery mystery")
+
+@check50.check(formatting)
+def test6():
+    """Forgotten Gift solved"""
+
+    if not check_answer(6):
+        raise check50.Failure("answers.txt does not correctly solve the Forgotten Gift mystery")
+
+
+def check_answer(question_no, formatting=False):
+    """
+    Check answers.txt for the correct answer via regular expressions.
+
+    Args:
+        question_no (int): which number question is being checked
+    Optional Args:
+        formatting (bool): if True, only checks formatting, not provided answer
+
+    Returns:
+        (bool) whether answers.txt contains the correct answer as indicated in hex.
+    """
+
+    # reading the whole answers/template every check is a bit silly,
+    # but without ways to pass information across checks it's unclear how else to do it
     with open("answers.txt", "r") as f:
         answers = f.read().lower()
 
@@ -48,79 +86,10 @@ def formatting():
     # and the hex (the 'ciphered' solution that should follow the colon)
     solutions = list(zip(prefixes, hexes))
 
-    # store answers in results
-    for prefix, hex in solutions:
-        results.append(check_answer(prefix, hex, answers))
-
-    # check formatting
-    for prefix, _ in solutions:
-        if not check_answer(prefix, None, answers):
-            raise check50.Failure("invalid answers.txt formatting")
-
-@check50.check(formatting)
-def test1():
-    """Lost Letter located"""
-
-    if not results[0]:
-        raise check50.Failure("wrong location for Lost Letter")
-
-@check50.check(formatting)
-def test2():
-    """Lost Letter location type found"""
-
-    if not results[1]:
-        raise check50.Failure("wrong type for Lost Letter location")
-
-@check50.check(formatting)
-def test3():
-    """Lost Letter contents discovered"""
-
-    if not results[2]:
-        raise check50.Failure("wrong contents for Lost Letter")
-
-@check50.check(formatting)
-def test4():
-    """Devious Delivery located"""
-
-    if not results[3]:
-        raise check50.Failure("wrong location for Devious Delivery")
-
-@check50.check(formatting)
-def test5():
-    """Devious Delivery location type found"""
-
-    if not results[4]:
-        raise check50.Failure("wrong type for Devious Delivery location")
-
-@check50.check(formatting)
-def test6():
-    """Devious Delivery contents discovered"""
-
-    if not results[5]:
-        raise check50.Failure("wrong contents for Devious Delivery")
-
-@check50.check(formatting)
-def test7():
-    """Forgotten Gift tracked down"""
-
-    if not results[6]:
-        raise check50.Failure("wrong possessor for Forgotten Gift")
-
-
-def check_answer(prefix, hex, answers):
-    """
-    Check answers.txt for the correct answer via regular expressions.
-
-    Args:
-        prefix (str): the text up to and including the colon.
-            an example is 'The Lost Letter was located at: '
-        hex (str): the answer in hexadecimal.
-            set to None if only looking to check formatting.
-        answers (str): answers.txt as a string, converted to lowercase.
-
-    Returns:
-        (bool) whether answers.txt contains the correct answer as indicated in hex.
-    """
+    # grab specific question from solutions
+    prefix, hex = solutions[question_no]
+    if formatting:
+        hex = None
 
     try:
         # permits any amount of whitespace between words,
