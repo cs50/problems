@@ -24,9 +24,6 @@ def log_file():
 def formatting():
     """answers.txt formatted correctly"""
 
-    global results
-    results_local = []
-
     # for internal purposes, all formatting and answers get checked within this function
 
     with open("answers.txt", "r") as f:
@@ -49,25 +46,21 @@ def formatting():
     # the upshot of all this; a list of tuples, where each tuple
     # represents the prefix (e.g. 'The Lost Letter belongs to: ')
     # and the hex (the 'ciphered' solution that should follow the colon)
-    solutions = zip(prefixes, hexes)
+    solutions = list(zip(prefixes, hexes))
 
     # store answers in results
     for prefix, hex in solutions:
-        results_local.append(check_answer(prefix, hex, answers))
+        results.append(check_answer(prefix, hex, answers))
 
     # check formatting
     for prefix, _ in solutions:
         if not check_answer(prefix, None, answers):
             raise check50.Failure("invalid answers.txt formatting")
 
-    results = results_local
-
-
 @check50.check(formatting)
 def test1():
     """Lost Letter located"""
 
-    print(results)
     if not results[0]:
         raise check50.Failure("wrong location for Lost Letter")
 
