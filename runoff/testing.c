@@ -216,9 +216,9 @@ int main(int argc, string argv[])
             break;
 
         case 21:
-            candidates[0].votes = 7;
+            candidates[0].votes = 5;
             candidates[0].eliminated = true;
-            candidates[1].votes = 8;
+            candidates[1].votes = 10;
             candidates[2].votes = 6;
             candidates[3].votes = 7;
             eliminate(6);
