@@ -191,13 +191,13 @@ int main(int argc, string argv[])
             break;
 
         case 18:
-            candidates[0].votes = 7;
-            candidates[1].votes = 7;
+            candidates[0].votes = 14;
+            candidates[1].votes = 14;
             candidates[2].votes = 0;
             candidates[3].votes = 0;
             candidates[2].eliminated = true;
             candidates[3].eliminated = true;
-            printf("%s", is_tie(7) ? "true" : "false");
+            printf("%s", is_tie(14) ? "true" : "false");
             break;
 
         case 19:
