@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require "answers.txt"
+    - !require "log.sql"
+
+submit50:
+  files: *check50_files
+  style: false
