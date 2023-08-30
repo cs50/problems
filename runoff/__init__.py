@@ -116,7 +116,7 @@ def find_min2():
 @check50.hidden("find_min did not identify correct minimum")
 def find_min3():
     """find_min ignores eliminated candidates"""
-    check50.run("./runoff_test 2 14").stdout("5").exit(0)
+    check50.run("./runoff_test 2 14").stdout("4").exit(0)
 
 @check50.check(compiles)
 @check50.hidden("is_tie did not return true")

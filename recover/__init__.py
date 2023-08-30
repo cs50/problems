@@ -95,4 +95,7 @@ def last_image():
 @check50.check(last_image)
 def memory():
     """program is free of memory errors"""
-    check50.c.valgrind("./recover card.raw").exit(0, timeout=10)
+    code = check50.c.valgrind("./recover card.raw").exit(timeout=10)
+    if code != 0:
+        raise check50.Failure("valgrind returned a segfault")
+
