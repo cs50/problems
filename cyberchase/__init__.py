@@ -476,7 +476,7 @@ def _check(actual, expected, ordered=False):
     # check result of query against expected values
     if result != expected:
         raise check50.Mismatch(
-            "\\n".join(", ".join(list(sorted(entry))) for entry in list(expected)),
-            "\\n".join(", ".join(list(sorted(entry))) for entry in list(result)),
+            "\n".join(", ".join(list(sorted(entry))) for entry in list(expected)),
+            "\n".join(", ".join(list(sorted(entry))) for entry in list(result)),
         )
     return None
