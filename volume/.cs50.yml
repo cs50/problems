@@ -1,0 +1,13 @@
+lab50:
+  files:
+    - !exclude "*"
+    - !include volume.c
+    - !include input.wav
+
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require volume.c
+
+submit50:
+  files: *check50_files
