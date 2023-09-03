@@ -75,3 +75,8 @@ def test12():
 def test13():
     """identifies 4222222222223 as INVALID"""
     check50.run("./credit").stdin("4222222222223").stdout("INVALID\n").stdout(check50.EOF).exit(0)
+    
+@check50.check(compiles)
+def test14():
+    """identifies 400000000000006 as INVALID"""
+    check50.run("./credit").stdin("400000000000006").stdout("INVALID\n").stdout(check50.EOF).exit(0)
