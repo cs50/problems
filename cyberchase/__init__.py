@@ -330,8 +330,8 @@ def test12():
 
 @check50.check(exists)
 def test13():
-    """13.sql exists"""
-    check_query_existence("13.sql")
+    """13.sql runs without error"""
+    run_query("13.sql")
 
 
 def run_query(filename):
