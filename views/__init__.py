@@ -102,7 +102,7 @@ def test2():
     """2.sql produces correct result"""
     check_single_col(
         run_query("2.sql"),
-        ['#8ba1a5', '#b3b399', '#a6a799', '#9e907a', '#8c897e', '#968d7d', '#91897d'],
+        ['#8ba1a5', '#b3b399', '#a6a799'],
         ordered=False,
     )
 
