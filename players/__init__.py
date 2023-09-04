@@ -16644,7 +16644,10 @@ def test9():
     )
 
 
-# no test 10; test 10 is student's choice
+@check50.check(exists)
+def test10():
+    """10.sql runs without error"""
+    run_query("10.sql")
 
 
 def run_query(filename):
