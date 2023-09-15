@@ -1,3 +1,4 @@
+import csv
 import re
 
 import check50
@@ -7,7 +8,7 @@ import check50
 def exists():
     """log.sql and answers.txt exist"""
     check50.exists("log.sql", "answers.txt")
-    check50.include("template.txt")
+    check50.include("solutions.csv")
 
 
 @check50.check(exists)
@@ -22,104 +23,143 @@ def log_file():
 @check50.check(exists)
 def formatting():
     """answers.txt formatted correctly"""
-    try:
-        questions = read_questions("template.txt")
-    except FileNotFoundError:
-        raise check50.Failure("check50 couldn't find a template answers.txt file!")
+    solutions = read_solutions("solutions.csv")
+    answers = read_answers("answers.txt")
 
-    for i in range(len(questions)):
-        if not check_answer(i, formatting=True):
+    for question in solutions.keys():
+        regex = re.compile(
+            r"\s*".join([re.escape(word) for word in question.split()]) + r"?\s*"
+        )
+        matches = list(filter(regex.search, answers))
+        if len(matches) != 1:
             raise check50.Failure("invalid answers.txt formatting")
 
 
 @check50.check(formatting)
-def test012():
+def lost_letter():
     """Lost Letter solved"""
+    solutions = read_solutions("solutions.csv")
+    answers = read_answers("answers.txt")
 
-    for i in range(0, 3):
-        if not check_answer(i):
+    for question in list(
+        filter(lambda question: "lost letter" in question, solutions.keys())
+    ):
+        solution = solutions[question]
+        if not check_answers(question, solution, answers):
             raise check50.Failure(
                 "answers.txt does not correctly solve the Lost Letter mystery"
             )
 
 
 @check50.check(formatting)
-def test345():
+def devious_delivery():
     """Devious Delivery solved"""
+    solutions = read_solutions("solutions.csv")
+    answers = read_answers("answers.txt")
 
-    for i in range(3, 6):
-        if not check_answer(i):
+    for question in list(
+        filter(lambda question: "devious delivery" in question, solutions.keys())
+    ):
+        solution = solutions[question]
+        if not check_answers(question, solution, answers):
             raise check50.Failure(
-                "answers.txt does not correctly solve the Devious Delivery mystery"
+                "answers.txt does not correctly solve the Lost Letter mystery"
             )
 
 
 @check50.check(formatting)
-def test6():
+def forgotten_gift():
     """Forgotten Gift solved"""
+    solutions = read_solutions("solutions.csv")
+    answers = read_answers("answers.txt")
 
-    if not check_answer(6):
-        raise check50.Failure(
-            "answers.txt does not correctly solve the Forgotten Gift mystery"
+    for question in list(
+        filter(lambda question: "forgotten gift" in question, solutions.keys())
+    ):
+        solution = solutions[question]
+        if not check_answers(question, solution, answers):
+            raise check50.Failure(
+                "answers.txt does not correctly solve the Lost Letter mystery"
+            )
+
+
+def check_answers(question: str, solution: str, answers: list[str]) -> bool:
+    """
+    Checks list of student answers for solution to given question
+
+    Args:
+        question (str): the question to check
+        solution (str): the solution to the question
+        answers (list[str]): the list of student answers
+
+    Returns:
+        (bool) whether the student's list of answers contains the correct answer to the given question
+    """
+    # decode solution from hex
+    solution = bytes.fromhex(solution).decode("utf-8")
+
+    # construct regex
+    regex = re.compile(
+        r"\s*".join([re.escape(word) for word in question.split()])
+        + r"?\s*"
+        + re.escape(solution)
+    )
+
+    # check for matching answers
+    if len(list(filter(regex.search, answers))) != 1:
+        return False
+    return True
+
+
+def read_answers(filename: str) -> list[str]:
+    """
+    Reads the student's answers file
+
+    Args:
+        filename (str): the name of the filename containing the student's answers
+
+    Returns:
+        (list[str]): a list of lines on which the student has written answers
+
+    Raises:
+        FileNotFoundError
+    """
+    with open(filename, "r") as f:
+        # read and keep only the non-whitespace lines
+        return list(
+            answer.lower()
+            for answer in filter(lambda s: not s.isspace(), f.readlines())
         )
 
 
-def check_answer(question_no, formatting=False):
+def read_solutions(filename: str) -> dict:
     """
-    Check answers.txt for the correct answer via regular expressions.
+    Reads the accompanying solutions CSV file into a dictionary in which questions are keys and solutions are values
 
     Args:
-        question_no (int): which number question is being checked
-    Optional Args:
-        formatting (bool): if True, only checks formatting, not provided answer
+        filename (str): the name of the CSV file containing question and solutions
 
     Returns:
-        (bool) whether answers.txt contains the correct answer as indicated in hex.
+        (dict): a dictionary in which questions are keys and solutions are values
+
+    Raises:
+        FileNotFoundError
     """
+    if not filename.endswith(".csv"):
+        return {}
 
-    # reading the whole answers/template every check is a bit silly,
-    # but without ways to pass information across checks it's unclear how else to do it
-    with open("answers.txt", "r") as f:
-        answers = f.read().lower()
-
-    with open("template.txt", "r") as f:
-        # keep only the non-whitespace lines
-        prefixes = filter(lambda s: not s.isspace(), f.readlines())
-
-    hexes = [
-        "322066696E6E6967616E20737472656574",
-        "7265736964656E7469616C",
-        "636F6E67726174756C61746F7279206C6574746572",
-        "372068756D626F6C647420706C616365",
-        "706F6C6963652073746174696F6E",
-        "6475636B206465627567676572",
-    ]
-
-    # the upshot of all this; a list of tuples, where each tuple
-    # represents the prefix (e.g. 'The Lost Letter belongs to: ')
-    # and the hex (the 'ciphered' solution that should follow the colon)
-    solutions = list(zip(prefixes, hexes))
-
-    # grab specific question from solutions
-    prefix, hex = solutions[question_no]
-    if formatting:
-        hex = None
-
-    try:
-        # permits any amount of whitespace between words,
-        # and keeps the colon optional
-        regex = "\s*".join(prefix.lower().split()) + "?\s*"
-
-        # add decoded hex if hex exists; otherwise, just checking formatting
-        if hex:
-            regex += bytes.fromhex(hex).decode("utf-8")
-
-        return bool(re.search(regex, answers))
-    except Exception as e:
-        raise check50.Failure(f"Error when checking answers.txt: {str(e)}")
-
-
-def read_questions(filename: str) -> list[str]:
-    # read and keep only the non-whitespace lines
     with open(filename, "r") as f:
-        return list(filter(lambda s: not s.isspace(), f.readlines()))
+        reader = csv.DictReader(f)
+
+        solutions = {}
+        for row in reader:
+            try:
+                question = row["question"].lower()
+                solution = row["answer"]
+            except KeyError:
+                check50.log("solutions.csv is not properly formatted")
+                break
+
+            solutions[question] = solution
+
+    return solutions
