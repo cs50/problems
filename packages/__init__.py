@@ -2,8 +2,6 @@ import re
 
 import check50
 
-NUM_QUESTIONS = 6
-
 
 @check50.check()
 def exists():
@@ -24,9 +22,12 @@ def log_file():
 @check50.check(exists)
 def formatting():
     """answers.txt formatted correctly"""
-
-    # check formatting
-    for i in range(NUM_QUESTIONS):
+    try:
+        questions = read_questions("template.txt")
+    except FileNotFoundError:
+        raise check50.Failure("check50 couldn't find a template answers.txt file!")
+    
+    for i in range(len(questions)):
         if not check_answer(i, formatting=True):
             raise check50.Failure("invalid answers.txt formatting")
 
@@ -116,3 +117,9 @@ def check_answer(question_no, formatting=False):
         return bool(re.search(regex, answers))
     except Exception as e:
         raise check50.Failure(f"Error when checking answers.txt: {str(e)}")
+
+
+def read_questions(filename: str) -> list[str]:
+    with open(filename, "r") as f:
+        # keep only the non-whitespace lines
+        return filter(lambda s: not s.isspace(), f.readlines())
