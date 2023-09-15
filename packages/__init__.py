@@ -2,11 +2,13 @@ import re
 
 import check50
 
+
 @check50.check()
 def exists():
     """log.sql and answers.txt exist"""
     check50.exists("log.sql", "answers.txt")
     check50.include("template.txt")
+
 
 @check50.check(exists)
 def log_file():
@@ -15,6 +17,7 @@ def log_file():
     log = open("log.sql").read().lower()
     if "select" not in log:
         raise check50.Failure(f"missing SELECT queries in log.sql")
+
 
 @check50.check(exists)
 def formatting():
@@ -25,13 +28,17 @@ def formatting():
         if not check_answer(i, formatting=True):
             raise check50.Failure("invalid answers.txt formatting")
 
+
 @check50.check(formatting)
 def test012():
     """Lost Letter solved"""
 
     for i in range(0, 3):
         if not check_answer(i):
-            raise check50.Failure("answers.txt does not correctly solve the Lost Letter mystery")
+            raise check50.Failure(
+                "answers.txt does not correctly solve the Lost Letter mystery"
+            )
+
 
 @check50.check(formatting)
 def test345():
@@ -39,14 +46,19 @@ def test345():
 
     for i in range(3, 6):
         if not check_answer(i):
-            raise check50.Failure("answers.txt does not correctly solve the Devious Delivery mystery")
+            raise check50.Failure(
+                "answers.txt does not correctly solve the Devious Delivery mystery"
+            )
+
 
 @check50.check(formatting)
 def test6():
     """Forgotten Gift solved"""
 
     if not check_answer(6):
-        raise check50.Failure("answers.txt does not correctly solve the Forgotten Gift mystery")
+        raise check50.Failure(
+            "answers.txt does not correctly solve the Forgotten Gift mystery"
+        )
 
 
 def check_answer(question_no, formatting=False):
@@ -78,7 +90,7 @@ def check_answer(question_no, formatting=False):
         "372068756D626F6C647420706C616365",
         "706F6C6963652073746174696F6E",
         "6475636B206465627567676572",
-        "6D696B656C"
+        "6D696B656C",
     ]
 
     # the upshot of all this; a list of tuples, where each tuple
