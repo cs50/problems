@@ -26,7 +26,7 @@ def formatting():
         questions = read_questions("template.txt")
     except FileNotFoundError:
         raise check50.Failure("check50 couldn't find a template answers.txt file!")
-    
+
     for i in range(len(questions)):
         if not check_answer(i, formatting=True):
             raise check50.Failure("invalid answers.txt formatting")
@@ -122,4 +122,4 @@ def check_answer(question_no, formatting=False):
 def read_questions(filename: str) -> list[str]:
     # read and keep only the non-whitespace lines
     with open(filename, "r") as f:
-        return filter(lambda s: not s.isspace(), f.readlines())
+        return list(filter(lambda s: not s.isspace(), f.readlines()))
