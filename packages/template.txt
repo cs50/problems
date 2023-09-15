@@ -1,10 +1,9 @@
 
-The Lost Letter was located at:
-The Lost Letter's location type was:
-The Lost Letter's contents were:
+At what type of address did the Lost Letter end up?:
+At what address did the Lost Letter end up?:
 
-The Devious Delivery was located at:
-The Devious Delivery's location type was:
-The Devious Delivery's contents were:
+At what type of address did the Devious Delivery end up?:
+What were the contents of the Devious Delivery?:
 
-The Forgotten Gift is in the hands of:     
+What are the contents of the Forgotten Gift?:
+Who has the Forgotten Gift?:
