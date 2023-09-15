@@ -120,6 +120,6 @@ def check_answer(question_no, formatting=False):
 
 
 def read_questions(filename: str) -> list[str]:
+    # read and keep only the non-whitespace lines
     with open(filename, "r") as f:
-        # keep only the non-whitespace lines
         return filter(lambda s: not s.isspace(), f.readlines())
