@@ -2,6 +2,8 @@ import re
 
 import check50
 
+NUM_QUESTIONS = 6
+
 
 @check50.check()
 def exists():
@@ -24,7 +26,7 @@ def formatting():
     """answers.txt formatted correctly"""
 
     # check formatting
-    for i in range(7):
+    for i in range(NUM_QUESTIONS):
         if not check_answer(i, formatting=True):
             raise check50.Failure("invalid answers.txt formatting")
 
@@ -90,7 +92,6 @@ def check_answer(question_no, formatting=False):
         "372068756D626F6C647420706C616365",
         "706F6C6963652073746174696F6E",
         "6475636B206465627567676572",
-        "6D696B656C",
     ]
 
     # the upshot of all this; a list of tuples, where each tuple
