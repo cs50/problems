@@ -107,4 +107,4 @@ venv.bak/
 
 # CS50 SQL solution files
 *.sql
-solutions/
+solution/
