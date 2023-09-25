@@ -17,26 +17,26 @@ def test_first_place():
 
 
 @check50.check(exists)
-def test_money_bag():
-    """input of \":money_bag:\" yields output of 💰"""
-    input = ":money_bag:"
-    output = "💰"
+def test_thumbsup_alias():
+    """input of \":thumbsup:\" yields output of 👍"""
+    input = ":thumbsup:"
+    output = "👍"
     check50.run("python3 emojize.py").stdin(input, prompt=False).stdout(regex(output), output, regex=True).exit(0)
 
 
 @check50.check(exists)
-def test_smile_cat():
-    """input of \":smile_cat:\" yields output of 😸"""
-    input = ":smile_cat:"
-    output = "😸"
+def test_alias_in_phrase():
+    """input of \"hello, :earth_asia:\" yields output of hello, 🌏"""
+    input = "hello, :earth_asia:"
+    output = "hello, 🌏"
     check50.run("python3 emojize.py").stdin(input, prompt=False).stdout(regex(output), output, regex=True).exit(0)
 
 
 @check50.check(exists)
-def test_smile_cat():
-    """input of \":candy:\" yields output of 🍬"""
-    input = ":candy:"
-    output = "🍬"
+def test_multiple():
+    """input of \":candy: or :ice_cream:?\" yields output of 🍬 or 🍨?"""
+    input = ":candy: or :ice_cream:?"
+    output = "🍬 or 🍨?"
     check50.run("python3 emojize.py").stdin(input, prompt=False).stdout(regex(output), output, regex=True).exit(0)
 
 
