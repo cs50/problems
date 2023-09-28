@@ -137,7 +137,7 @@ def run_statements(db: SQL, filename: str) -> None:
         queries = re.findall(r".*?;", contents, re.DOTALL)
         if not queries:
             raise check50.Failure(
-                "Could not find queries.",
+                "Could not find statements.",
                 help="Did you write statements separated by semicolons?",
             )
         try:
