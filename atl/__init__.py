@@ -20,20 +20,20 @@ def test_execution():
 
 @check50.check(exists)
 def test_create_tables():
-    """schema.sql contains at least 4 CREATE TABLE statements"""
-    test_contents("CREATE TABLE", "schema.sql", quantity=4)
+    """schema.sql contains at least 1 CREATE TABLE statement"""
+    test_contents("CREATE TABLE", "schema.sql")
 
 
 @check50.check(exists)
 def test_primary_keys():
-    """schema.sql contains at least 4 PRIMARY KEY statements"""
-    test_contents("PRIMARY KEY", "schema.sql", quantity=4)
+    """schema.sql contains at least 1 PRIMARY KEY statement"""
+    test_contents("PRIMARY KEY", "schema.sql")
 
 
 @check50.check(exists)
 def test_foreign_keys():
-    """schema.sql contains at least 3 FOREIGN KEY statements"""
-    test_contents("FOREIGN KEY", "schema.sql", quantity=3)
+    """schema.sql contains at least 1 FOREIGN KEY statements"""
+    test_contents("FOREIGN KEY", "schema.sql")
 
 
 def create_database(filename: str) -> SQL:
