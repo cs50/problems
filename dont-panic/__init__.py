@@ -147,7 +147,7 @@ def run_statements(db: SQL, filename: str) -> None:
             raise check50.Failure(f"Error when executing statements: {str(e)}")
 
 
-def run_query(db: SQL, query: str) -> list[str]:
+def run_query(db: SQL, query: str) -> list[dict]:
     """
     Runs the SQL query contained in 'filename' and returns its output.
 
