@@ -20,7 +20,6 @@ def test_view(db: SQL, filename: Path, expected: list[set]) -> None:
     # except Exception as e:
     #     raise check50.Failure(f"Error when creating view: {str(e)}")
     match = re.search(r"(SELECT.*?;)", statement, re.DOTALL)
-    check50.log(str(match.group(1)))
 
     # SELECT from view to see contents
     try:
