@@ -20,33 +20,6 @@ def run_query(filename):
         raise check50.Failure(f"Error when executing query: {str(e)}")
 
 
-def check_query_existence(filename, keywords=[]):
-    """
-    Checks that filename exists and contains keywords in keywords.
-
-    positional arguments:
-        filename (str)       filename to check
-        keywords (list[str]) keywords to ensure are in filename
-
-    returns:
-        None
-
-    raises:
-        check50.Failure
-    """
-    try:
-        with open(filename, "r") as f:
-            contents = f.read().upper()
-            for keyword in keywords:
-                if keyword.upper() not in contents:
-                    raise check50.Failure(
-                        f"Expected to find {keyword.upper()} in {filename}.",
-                        help=f"Did you include {keyword.upper()} in {filename}?",
-                    )
-    except FileNotFoundError:
-        raise check50.Failure(f"Could not find file {filename}")
-
-
 def check_single_col(actual, expected, ordered=False):
     """
     Checks that the single column in 'actual' matches 'expected'.

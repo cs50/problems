@@ -24,21 +24,118 @@ def main():
     """
 
     # parse command line arguments
-    parser = argparse.ArgumentParser(description='Generate check50 scripts for movies-like problems.')
-    parser.add_argument('db', type=str,
-                        help='database to run queries on')
-    parser.add_argument('solutions', type=str,
-                        help='path to directory containing solutions, numbered 1.sql, 2.sql...')
-    parser.add_argument('helpers_template', type=str,
-                        help='path to directory containing template for helpers file')
+    parser = argparse.ArgumentParser(
+        description="Generate check50 scripts for movies-like problems."
+    )
+    parser.add_argument("db", type=str, help="database to run queries on")
+    parser.add_argument(
+        "solutions",
+        type=str,
+        help="path to directory containing solutions, numbered 1.sql, 2.sql...",
+    )
+    parser.add_argument(
+        "helpers_template",
+        type=str,
+        help="file containing helpers",
+    )
     args = parser.parse_args()
 
     # open command line arguments
-    files = natsorted(os.listdir(args.solutions))
-    file_num = len(files)
-    db = SQL(f"sqlite:///{args.db}")
+    relative_db_path = args.db
+    relative_solution_path = args.solutions
+    helpers_template = args.helpers_template
+    files = os.listdir(relative_solution_path)
 
-    # slightly specialized version of run_query for our uses
+    # write .cs50.yml config
+    write_check_config(files)
+    write_check_file(files, relative_db_path, relative_solution_path, helpers_template)
+
+
+def write_check_config(required_files: list[str]) -> None:
+    """
+    Create a .cs50.yml file that requires the given list of files
+
+    Args:
+        files (list[str]): a list of files to require as part of the check
+
+    Returns:
+        None
+    """
+    HEADER = """\
+    check50:
+      files: &check50_files
+      - !exclude "*"
+      - !include "*.sql"
+    """
+    FOOTER = """\
+    
+    submit50:
+      files: *check50_files
+      style: false
+    """
+
+    with open(".cs50.yml", "w") as f:
+        f.write(dedent(HEADER))
+        for i, file in enumerate(required_files):
+            f.write(f'    - !require "{i + 1}".sql\n')
+        f.write(dedent(FOOTER))
+
+
+def write_check_file(
+    solution_files: list[str],
+    db_path: str,
+    solution_directory: str,
+    path_to_helpers_template: str,
+) -> None:
+    DEPENDENCIES = """\
+        from cs50 import SQL
+                        
+        import check50
+        import sqlparse
+
+        
+        """
+
+    db_filename = db_path.split("/")[-1]
+    exists_check = construct_exists_check(solution_files, db_filename)
+
+    with open("__init__.py", "w") as check_file:
+        check_file.write(dedent(DEPENDENCIES))
+        check_file.write(dedent(exists_check))
+
+        db = SQL(f"sqlite:///{db_path}")
+        for i, file in enumerate(natsorted(solution_files)):
+            check_file.write(
+                dedent(construct_check(i + 1, file, db, solution_directory))
+            )
+
+        with open(path_to_helpers_template, "r") as helpers_file:
+            helpers = helpers_file.read()
+        helpers = helpers.replace("DATABASE", db_filename)
+        check_file.write(dedent(helpers))
+
+
+def construct_exists_check(
+    files_to_check_if_exists: list[str], db_filename: str
+) -> str:
+    last_filename = natsorted(files_to_check_if_exists)[-1]
+    last_file_number = last_filename[0:-4]
+    exists_check = f'''\
+        @check50.check()
+        def exists():
+            """SQL files exist"""
+            for i in range({last_file_number}):
+                check50.exists(f"{{i + 1}}.sql")
+            check50.include("{db_filename}")
+        '''
+    return exists_check + "\n\n"
+
+
+def construct_check(
+    check_number: int, check_file: str, db, solution_directory: str
+) -> str:
+    INDENT_AMOUNT = 4
+
     def run_query(filename):
         with open(filename) as f:
             query = f.read().strip()
@@ -47,112 +144,58 @@ def main():
         result = db.execute(query)
         return result, ordered
 
-    # write to __init__.py
-    with open('__init__.py', 'w') as f:
+    actual, ordered = run_query(os.path.join(solution_directory, check_file))
+    if actual is None or actual == []:
+        raise Exception("Query did not return result")
 
-        # top of file; exists check
-        header = dedent(f'''\
-        from cs50 import SQL
-
-        import check50
-        import sqlparse
-
-
-        @check50.check()
-        def exists():
-            """SQL files exist"""
-            for i in range({file_num}):
-                check50.exists(f"{{i + 1}}.sql")
-            check50.include("{args.db}")
-
-
-        ''')
-
-        f.write(header)
-
-        # write test function for each .sql subproblem
-        for i, file in enumerate(files):
-
-            # run query; confirm result returned
-            actual, ordered = run_query(os.path.join(args.solutions, file))
-            if actual is None or actual == []:
-                raise Exception("Query did not return result")
-
-            test = f'''\
-            @check50.check(exists)
-            def test{i + 1}():
-                """{i + 1}.sql produces correct result"""
-            '''
-            test = dedent(test)
-
-            # if single cell, single string
-            if len(actual) == 1 and len(list(actual[0].values())) == 1:
-                result = str(list(actual[0].values())[0])
-                test_string = f'''\
-                check_single_cell(run_query("{i + 1}.sql"), '{result}')
-
-
-                '''
-                test += indent(dedent(test_string), '    ')
-
-            # if single column, list of strings
-            elif max([len(list(row_dict.values())) for row_dict in actual]) == 1:
-                result = [str(list(row_dict.values())[0]) for row_dict in actual]
-                test_string = f'''\
-                check_single_col(
-                    run_query("{i + 1}.sql"),
-                    {indent(pformat(result), '    ' * 5, lambda line: line[0] != '[')},
-                    ordered={ordered},
-                )
-
-
-                '''
-                test += indent(dedent(test_string), '    ')
-
-            # if multi column, list of sets of strings
-            else:
-                result = [{str(elt) for elt in list(row_dict.values())} for row_dict in actual]
-                test_string = f'''\
-                check_multi_col(
-                    run_query("{i + 1}.sql"),
-                    {indent(pformat(result), '    ' * 5, lambda line: line[0] != '[')},
-                    ordered={ordered},
-                )
-
-
-                '''
-                test += indent(dedent(test_string), '    ')
-
-            f.write(test)
-
-        # print helpers at end of check50 file;
-        # replace DATABASE substring with provided database in command line args
-        with open(args.helpers_template, 'r') as f2:
-            helpers = f2.read()
-        helpers = helpers.replace("DATABASE", args.db)
-        f.write(dedent(helpers))
-
-    # write .cs50.yml config
-    with open('.cs50.yml', 'w') as f:
-        header = '''\
-        check50:
-          files: &check50_files
-            - !exclude "*"
-            - !include "*.sql"
-            '''
-        f.write(dedent(header))
- 
-        for i, file in enumerate(files):
-            f.write(f'    - !require "{i + 1}.sql"\n')
-
-        footer = '''\
-
-        submit50:
-          files: *check50_files
-          style: false
+    check = dedent(
+        f'''\
+        @check50.check(exists)
+        def test{check_number}():
+            """{check_file} produces correct result"""
         '''
-        f.write(dedent(footer))
+    )
+
+    # if single cell, single string
+    if len(actual) == 1 and len(list(actual[0].values())) == 1:
+        result = str(list(actual[0].values())[0])
+        function_call = dedent(
+            f"""\
+            check_single_cell(run_query("{check_file}"), '{result}')
+            """
+        )
+        check += indent(function_call, INDENT_AMOUNT * " ")
+
+    # if single column, list of strings
+    elif max([len(list(row_dict.values())) for row_dict in actual]) == 1:
+        result = [str(list(row_dict.values())[0]) for row_dict in actual]
+        function_call = dedent(
+            f"""\
+            check_single_col(
+                run_query("{check_file}"),
+                {indent(pformat(result), '    ' * 4, lambda line: line[0] != '[')},
+                ordered={ordered},
+            )
+            """
+        )
+        check += indent(function_call, INDENT_AMOUNT * " ")
+
+    # if multi column, list of sets of strings
+    else:
+        result = [{str(elt) for elt in list(row_dict.values())} for row_dict in actual]
+        function_call = dedent(
+            f"""\
+            check_multi_col(
+                run_query("{check_file}"),
+                {indent(pformat(result), '    ' * 4, lambda line: line[0] != '[')},
+                ordered={ordered},
+            )
+            """
+        )
+        check += indent(function_call, INDENT_AMOUNT * " ")
+
+    return check + "\n\n"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
