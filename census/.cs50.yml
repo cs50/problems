@@ -1,0 +1,12 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.sql"
+    - !require "rural.sql"
+    - !require "total.sql"
+    - !require "by_district.sql"
+    - !require "most_populated.sql"
+
+submit50:
+  files: *check50_files
+  style: false
