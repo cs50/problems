@@ -1,0 +1,13 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.sql"
+    - !require "available.sql"
+    - !require "frequently_reviewed.sql"
+    - !require "june_vacancies.sql"
+    - !require "no_descriptions.sql"
+    - !require "one_bedrooms.sql"
+
+submit50:
+  files: *check50_files
+  style: false
