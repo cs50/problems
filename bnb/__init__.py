@@ -23,14 +23,13 @@ def exists():
 def test_available():
     """available.sql produces correct view"""
 
-    # Set filename to test
-    filename = Path("available.sql")
+    # Test view in available.sql on bnb.db
+    test_view(SQL("sqlite:///bnb.db"), Path("available.sql"))
 
-    # Get view name from filename (e.g., "available" from "available.sql")
+
+def test_view(db: SQL, filename: Path, expected: list[set]) -> None:
+    # Infer view name
     view_name = filename.stem
-
-    # Connect to database
-    db = SQL("sqlite:///bnb.db")
 
     # Read SQL file
     with open(filename, "r") as f:
@@ -52,7 +51,7 @@ def test_available():
 
     # SELECT from view to see contents
     try:
-        results = db.execute(
+        actual = db.execute(
             f"""\
             SELECT *
             FROM "{view_name}";
@@ -61,7 +60,42 @@ def test_available():
     except Exception as e:
         raise check50.Failure(f"Error when selecting from view: {str(e)}")
 
-    # TODO: Compare results with expected contents of view, using helpers below
+    # Compare actual contents with expected contents
+    # Single cell of results
+    if len(actual) == 1 and len(list(actual[0].values())) == 1:
+        check_single_cell(actual, expected)
+
+    # Single column of results
+    elif max([len(list(row.values())) for row in actual]) == 1:
+        check_single_col(actual, expected)
+
+    # Multiple columns of results
+    else:
+        check_multi_col(actual, expected)
+
+
+def check_single_cell(actual, expected):
+    """
+    Checks that the single cell in 'actual' matches 'expected'.
+
+    positional arguments:
+        actual (list[dict])       result returned by run_query
+        expected (single element) expected result to match against
+
+    returns:
+        None
+
+    raises:
+        check50.Mismatch if actual does not match expected
+        check50.Failure if error occurs
+    """
+
+    # convert element to list of frozen set; ordered doesn't matter
+    try:
+        expected = [frozenset([expected])]
+    except Exception as e:
+        raise check50.Failure(f"Error when reading expected result: {str(e)}")
+    return _check(actual, expected, ordered=True)
 
 
 def check_single_col(actual, expected, ordered=False):
@@ -92,30 +126,6 @@ def check_single_col(actual, expected, ordered=False):
     except Exception as e:
         raise check50.Failure(f"Error when reading expected result: {str(e)}")
     return _check(actual, expected, ordered)
-
-
-def check_single_cell(actual, expected):
-    """
-    Checks that the single cell in 'actual' matches 'expected'.
-
-    positional arguments:
-        actual (list[dict])       result returned by run_query
-        expected (single element) expected result to match against
-
-    returns:
-        None
-
-    raises:
-        check50.Mismatch if actual does not match expected
-        check50.Failure if error occurs
-    """
-
-    # convert element to list of frozen set; ordered doesn't matter
-    try:
-        expected = [frozenset([expected])]
-    except Exception as e:
-        raise check50.Failure(f"Error when reading expected result: {str(e)}")
-    return _check(actual, expected, ordered=True)
 
 
 def check_multi_col(actual, expected, ordered=False):
