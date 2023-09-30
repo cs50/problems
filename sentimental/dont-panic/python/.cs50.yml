@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.py"
+    - !require "hack.py"
+
+submit50:
+  files: *check50_files
+  style: false
