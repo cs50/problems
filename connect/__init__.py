@@ -18,19 +18,19 @@ def test_execution():
     run_statements(db, "schema.sql")
 
 
-@check50.check(exists)
+@check50.check(test_execution)
 def test_create_tables():
     """schema.sql contains at least 1 CREATE TABLE statement"""
     test_contents("CREATE TABLE", "schema.sql")
 
 
-@check50.check(exists)
+@check50.check(test_execution)
 def test_primary_keys():
     """schema.sql contains at least 1 PRIMARY KEY statement"""
     test_contents("PRIMARY KEY", "schema.sql")
 
 
-@check50.check(exists)
+@check50.check(test_execution)
 def test_foreign_keys():
     """schema.sql contains at least 1 FOREIGN KEY statement"""
     test_contents("FOREIGN KEY", "schema.sql")
@@ -48,6 +48,7 @@ def create_database(filename: str) -> SQL:
     """
     open(filename, "w").close()
     return SQL(f"sqlite:///{filename}")
+
 
 def run_statements(db: SQL, filename: str) -> None:
     """
@@ -73,7 +74,6 @@ def run_statements(db: SQL, filename: str) -> None:
                 db.execute(query.strip())
         except Exception as e:
             raise check50.Failure(f"Error when executing statements: {str(e)}")
-
 
 
 def test_contents(pattern: str, filename: str, quantity: int = 1) -> None:
