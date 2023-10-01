@@ -1,5 +1,4 @@
 from cs50 import SQL
-from pathlib import Path
 
 import check50
 import re
@@ -8,16 +7,16 @@ import sqlparse
 
 @check50.check()
 def exists():
-    """view.sql exists"""
-    check50.exists("view.sql")
+    """private.sql exists"""
+    check50.exists("private.sql")
     check50.include("private.db")
 
 
 @check50.check(exists)
-def test_rural():
-    """view.sql runs without error"""
+def test_execution():
+    """private.sql runs without error"""
     db = SQL("sqlite:///private.db")
-    run_statements(db, "view.sql")
+    run_statements(db, "private.sql")
 
 
 def run_statements(db: SQL, filename: str) -> None:
