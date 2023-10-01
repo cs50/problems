@@ -1,8 +1,5 @@
-from cs50 import SQL
-
 import check50
 import re
-import sqlparse
 
 
 @check50.check()
