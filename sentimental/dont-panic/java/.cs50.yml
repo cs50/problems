@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.java"
+    - !require "Hack.java"
+
+submit50:
+  files: *check50_files
+  style: false
