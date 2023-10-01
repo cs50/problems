@@ -63,7 +63,7 @@ def devious_delivery():
         solution = solutions[question]
         if not check_answers(question, solution, answers):
             raise check50.Failure(
-                "answers.txt does not correctly solve the Lost Letter mystery"
+                "answers.txt does not correctly solve the Devious Delivery mystery"
             )
 
 
@@ -79,7 +79,7 @@ def forgotten_gift():
         solution = solutions[question]
         if not check_answers(question, solution, answers):
             raise check50.Failure(
-                "answers.txt does not correctly solve the Lost Letter mystery"
+                "answers.txt does not correctly solve the Forgotten Gift mystery"
             )
 
 
