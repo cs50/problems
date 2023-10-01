@@ -13,10 +13,10 @@ def exists():
 def compiles():
     """Hack.java compiles"""
     check50.run("javac Hack.java").exit(0)
-    check50.include("Hack.class")
 
 
 @check50.check(compiles)
 def test_execution():
     """Hack.java runs without error"""
+    check50.run("javac Hack.java").exit(0)
     check50.run("java -cp .:sqlite-jdbc-3.43.0.0.jar Hack").exit(0)
