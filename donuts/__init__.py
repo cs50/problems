@@ -26,13 +26,13 @@ def test_create_tables():
 
 @check50.check(test_execution)
 def test_primary_keys():
-    """schema.sql contains at least 1 PRIMARY KEY statement"""
+    """schema.sql contains at least 1 PRIMARY KEY constraint"""
     test_contents("PRIMARY KEY", "schema.sql")
 
 
 @check50.check(test_execution)
 def test_foreign_keys():
-    """schema.sql contains at least 1 FOREIGN KEY statement"""
+    """schema.sql contains at least 1 FOREIGN KEY constraint"""
     test_contents("FOREIGN KEY", "schema.sql")
 
 
