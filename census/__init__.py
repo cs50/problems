@@ -52,7 +52,7 @@ def test_view(db: SQL, filename: Path) -> None:
 
         # Check for intent
         if not re.search(
-            rf'^CREATE\s+VIEW\s+"?{re.escape(view_name)}"?', statement, re.IGNORECASE
+            rf'CREATE\s+VIEW\s+"?{re.escape(view_name)}"?', statement, re.IGNORECASE
         ):
             raise check50.Failure(
                 f'{filename} does not create a view named "{view_name}"'
