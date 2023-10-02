@@ -3,6 +3,7 @@ from pathlib import Path
 
 import check50
 import re
+import sqlparse
 
 
 @check50.check()
@@ -48,7 +49,7 @@ def test_view(db: SQL, filename: Path) -> None:
 
     # Read SQL file
     with open(filename, "r") as f:
-        statement = f.read().strip()
+        statement = sqlparse.format(f.read().strip(), strip_comments=True)
 
         # Check for intent
         if not re.search(
