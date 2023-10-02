@@ -32,7 +32,7 @@ def test_primary_keys():
 
 @check50.check(test_execution)
 def test_foreign_keys():
-    """schema.sql contains at least 1 FOREIGN KEY statements"""
+    """schema.sql contains at least 1 FOREIGN KEY statement"""
     test_contents("FOREIGN KEY", "schema.sql")
 
 
