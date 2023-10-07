@@ -15120,6 +15120,7 @@ def test10():
          {'100000', '1991', 'Zupcic', '1', 'Bob'},
          {'Zuvella', '145000', '2', '1989', 'Paul'}],
         ordered=True,
+        show_expected=False,
     )
 
 
@@ -15260,7 +15261,7 @@ def check_single_cell(actual, expected):
     return _check(actual, expected, ordered=True)
 
 
-def check_multi_col(actual, expected, ordered=False):
+def check_multi_col(actual, expected, ordered=False, show_expected=True):
     """
     Checks that the columns in 'actual' matches 'expected'.
 
@@ -15287,10 +15288,10 @@ def check_multi_col(actual, expected, ordered=False):
             expected = {frozenset(unfrozen_set) for unfrozen_set in expected}
     except Exception as e:
         raise check50.Failure(f"Error when reading expected result: {str(e)}")
-    return _check(actual, expected, ordered)
+    return _check(actual, expected, ordered, show_expected)
 
 
-def _check(actual, expected, ordered=False):
+def _check(actual, expected, ordered=False, show_expected=True):
     """
     Checks that the SQL output in 'actual' matches 'expected'.
 
@@ -15328,8 +15329,11 @@ def _check(actual, expected, ordered=False):
 
     # check result of query against expected values
     if result != expected:
-        raise check50.Mismatch(
-            "\n".join(", ".join(list(sorted(entry))) for entry in list(expected)),
-            "\n".join(", ".join(list(sorted(entry))) for entry in list(result)),
-        )
+        if show_expected:
+            raise check50.Mismatch(
+                "\n".join(", ".join(list(sorted(entry))) for entry in list(expected)),
+                "\n".join(", ".join(list(sorted(entry))) for entry in list(result)),
+            )
+        else:
+            raise check50.Failure(f"Query returned incorrect results")
     return None
