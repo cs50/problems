@@ -11,31 +11,21 @@ def exists():
 
 
 @check50.check(exists)
-def check_design_length():
-    """DESIGN.md is of sufficient length"""
+def check_design():
+    """DESIGN.md is of sufficient length and contains video URL"""
     text = open("DESIGN.md").read().lower()
     if len(text) < 3000:
         raise check50.Failure(f"DESIGN.md is not long enough.")
 
-
-@check50.check(exists)
-def check_design_url():
-    """DESIGN.md contains video URL"""
-    text = open("DESIGN.md").read().lower()
     urls = re.findall("https?:\/\/[\w/\-?=%.]+\.[\w/\-?=%.]+", text)
     if not urls:
         raise check50.Failure(f"Video URL is missing.")
 
 
 @check50.check(exists)
-def check_schema():
-    """schema.sql contains at least 2 CREATE TABLE statements"""
+def check_sql():
+    """schema.sql and queries.sql contain relevant statements"""
     test_contents("CREATE TABLE", "schema.sql", 2)
-
-
-@check50.check(exists)
-def check_queries():
-    """queries.sql contains at least 2 SELECT statements"""
     test_contents("SELECT", "queries.sql", 2)
 
 
