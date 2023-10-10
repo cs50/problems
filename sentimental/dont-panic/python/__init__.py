@@ -17,5 +17,5 @@ def test_execution():
     db = SQL("sqlite:///dont-panic.db")
     result = db.execute("SELECT password FROM users WHERE username = 'admin'")[0]["password"]
     if result != new_password:
-        raise check50.Mismatch(str(expected), str(rows))
+        raise check50.Mismatch(new_password, result)
 
