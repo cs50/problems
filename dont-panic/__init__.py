@@ -141,7 +141,7 @@ def run_statements(db: SQL, filename: str) -> None:
         statements = sqlparse.split(contents)
         if not statements:
             raise check50.Failure(
-                f"Could not find SQL statements in {filename}."
+                f"Could not find SQL statements in {filename}"
             )
         
         # Execute each statement starting from top of file
