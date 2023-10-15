@@ -31,15 +31,20 @@ def run_statements(db: SQL, filename: str) -> None:
     """
 
     with open(filename) as f:
+
+        # Read contents and strip comments
         contents = sqlparse.format(f.read().strip(), strip_comments=True)
-        queries = re.findall(r".*?;", contents, re.DOTALL)
-        if not queries:
+
+        # Parse contents into list of SQL statements
+        statements = sqlparse.split(contents)
+        if not statements:
             raise check50.Failure(
-                "Could not find statements.",
-                help="Did you write statements separated by semicolons?",
+                f"Could not find SQL statements in {filename}."
             )
+        
+        # Execute each statement starting from top of file
         try:
-            for query in queries:
-                db.execute(query.strip())
+            for statement in statements:
+                db.execute(statement.strip())
         except Exception as e:
             raise check50.Failure(f"Error when executing statements: {str(e)}")
