@@ -16,6 +16,10 @@ class FakeResponse():
                     }
                 }
             }
+    
+    # Mock raise_for_status
+    def raise_for_status(self):
+        pass
 
 import requests
 requests.get = lambda x, *args, **kwargs: FakeResponse()
