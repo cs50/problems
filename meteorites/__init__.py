@@ -88,7 +88,7 @@ def test_columns_exist():
 @check50.check(test_columns_exist)
 def test_data_imported():
     """data from CSV has been imported"""
-    db=SQL("sqlite:///meteorites.db")
+    db = SQL("sqlite:///meteorites.db")
     results = db.execute(
         """
         SELECT * 
@@ -98,7 +98,7 @@ def test_data_imported():
     )
     if not results:
         raise check50.Failure(
-            'no rows found in "meteorites" table',
+            'No rows found in "meteorites" table',
             help="Does your file not contain a .import statement?",)
 
 
