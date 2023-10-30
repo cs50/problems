@@ -86,6 +86,23 @@ def test_columns_exist():
 
 
 @check50.check(test_columns_exist)
+def test_data_imported():
+    """data from CSV has been imported"""
+    db = SQL("sqlite:///meteorites.db")
+    results = db.execute(
+        """
+        SELECT * 
+        FROM "meteorites"
+        LIMIT 5
+        """
+    )
+    if not results:
+        raise check50.Failure(
+            'No rows found in "meteorites" table',
+            help="Does your file not contain a .import statement?",)
+
+
+@check50.check(test_data_imported)
 def test_empty_values_null():
     """no empty values from CSV are present in \"meteorites\" table"""
     db = SQL("sqlite:///meteorites.db")
@@ -118,7 +135,7 @@ def test_empty_values_null():
         raise check50.Failure('NULL values are not present in "meteorites" table')
 
 
-@check50.check(test_columns_exist)
+@check50.check(test_data_imported)
 def test_rounded_values():
     """all decimal values in \"meteorites\" table are rounded to two places"""
     db = SQL("sqlite:///meteorites.db")
@@ -140,7 +157,7 @@ def test_rounded_values():
                     )
 
 
-@check50.check(test_columns_exist)
+@check50.check(test_data_imported)
 def test_no_relicts():
     """no meteorites of type \"relict\" found in \"meteorites\" table"""
     db = SQL("sqlite:///meteorites.db")
@@ -301,3 +318,4 @@ def _check(actual, expected, ordered=False):
             "\n".join(", ".join(list(sorted(entry))) for entry in list(result)),
         )
     return None
+    
