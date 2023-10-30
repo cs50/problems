@@ -140,7 +140,7 @@ def test_frequently_reviewed():
         raise check50.Failure('View does not have column called "property_type"')
     
     # bnb.db used by check is smaller than bnb.db used by students
-    if host_name != "Edmund" or property_type != "Private room in rental unit":
+    if host_name != "Thatch" or property_type != "Entire serviced apartment":
         raise check50.Failure("frequently_reviewed.sql does not include most-reviewed property as first row")
 
 
