@@ -77,7 +77,7 @@ def write_check_config(required_files: list[str]) -> None:
     with open(".cs50.yml", "w") as f:
         f.write(dedent(HEADER))
         for i, file in enumerate(required_files):
-            f.write(f'    - !require "{i + 1}".sql\n')
+            f.write(f'  - !require "{i + 1}.sql"\n')
         f.write(dedent(FOOTER))
 
 
@@ -173,7 +173,7 @@ def construct_check(
             f"""\
             check_single_col(
                 run_query("{check_file}"),
-                {indent(pformat(result), '    ' * 4, lambda line: line[0] != '[')},
+                {indent(pformat(result), '   ' * 5, lambda line: line[0] != '[')},
                 ordered={ordered},
             )
             """
@@ -187,7 +187,7 @@ def construct_check(
             f"""\
             check_multi_col(
                 run_query("{check_file}"),
-                {indent(pformat(result), '    ' * 4, lambda line: line[0] != '[')},
+                {indent(pformat(result), '   ' * 5, lambda line: line[0] != '[')},
                 ordered={ordered},
             )
             """
