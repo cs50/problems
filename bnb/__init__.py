@@ -34,6 +34,8 @@ def test_execution():
 def test_no_descriptions():
     """no_descriptions.sql produces correct view"""
     db = SQL("sqlite:///bnb.db")
+
+    # Find count of rows in view
     try:
         result = db.execute(
             """\
@@ -43,12 +45,37 @@ def test_no_descriptions():
         )
     except Exception as e:
         raise check50.Failure(f"Error when querying view: {str(e)}")
+    no_descriptions_rows = int(result[0]["rows"])
+
+    # Find count of rows in listings table
+    try:
+        result = db.execute(
+            """\
+            SELECT COUNT(*) AS "rows"
+            FROM "listings";
+            """
+        )
+    except Exception as e:
+        raise check50.Failure(f'Error when querying "listings" table: {str(e)}')
+    listings_rows = int(result[0]["rows"])
+
+    # View should have same number of rows as listings
+    if no_descriptions_rows != listings_rows:
+        raise check50.Failure('"no_descriptions" view does not contain all listings in "listings" table')
     
-    rows = int(result[0]["rows"])
-    
-    # bnb.db used by check is smaller than bnb.db used by students
-    if rows != 50:
-        raise check50.Failure("no_descriptions.sql does not contain the correct number of rows")
+    # Test available column names in view
+    try:
+        result = db.execute(
+            """\
+            SELECT "name" FROM pragma_table_info("no_descriptions")
+            """
+        )
+    except Exception as e:
+        raise check50.Failure(f"Error when finding columns available in view: {str(e)}")
+
+    for row in result:
+        if row["name"] == "description":
+            raise check50.Failure('"no_descriptions" view contains a column named "description"')
 
 
 @check50.check(test_execution)
@@ -68,8 +95,8 @@ def test_one_bedrooms():
     rows = int(result[0]["rows"])
     
     # bnb.db used by check is smaller than bnb.db used by students
-    if rows != 12:
-        raise check50.Failure("one_bedrooms.sql does not contain the correct number of rows")
+    if rows != 1:
+        raise check50.Failure('"one_bedrooms" view does not contain the correct number of rows')
 
 
 @check50.check(test_execution)
@@ -89,7 +116,7 @@ def test_available():
     rows = int(result[0]["rows"])
     
     # bnb.db used by check is smaller than bnb.db used by students
-    if rows != 0:
+    if rows != 564:
         raise check50.Failure("available.sql does not contain the correct number of rows")
 
 
@@ -110,7 +137,7 @@ def test_june_vacancies():
     rows = int(result[0]["rows"])
     
     # bnb.db used by check is smaller than bnb.db used by students
-    if rows != 0:
+    if rows != 2:
         raise check50.Failure("june_vacancies.sql does not contain the correct number of rows")
 
 
@@ -140,7 +167,7 @@ def test_frequently_reviewed():
         raise check50.Failure('View does not have column called "property_type"')
     
     # bnb.db used by check is smaller than bnb.db used by students
-    if host_name != "Thatch" or property_type != "Entire serviced apartment":
+    if host_name != "John" or property_type != "Private room in rental unit":
         raise check50.Failure("frequently_reviewed.sql does not include most-reviewed property as first row")
 
 
