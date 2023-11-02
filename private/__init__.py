@@ -1,4 +1,5 @@
 from cs50 import SQL
+from pathlib import Path
 
 import check50
 import re
@@ -14,37 +15,80 @@ def exists():
 
 @check50.check(exists)
 def test_execution():
-    """private.sql runs without error"""
+    """private.sql creates a view named "message" without error"""
     db = SQL("sqlite:///private.db")
-    run_statements(db, "private.sql")
+    test_view(db, Path("private.sql"), view_name="message")
 
 
-def run_statements(db: SQL, filename: str) -> None:
-    """
-    Runs the SQL queries contained in 'filename' and checks for errors
+@check50.check(test_execution)
+def test_message():
+    """private.sql produces view that reveals secret message"""
+    db = SQL("sqlite:///private.db")
+    try:
+        result = db.execute(
+            """\
+            SELECT "phrase"
+            FROM "message";
+            """
+        )
+    except Exception as e:
+        raise check50.Failure(f"Error when querying view: {str(e)}")
 
-    positional arguments:
-        filename (str)      file containing SQL query
+    if not result:
+        raise check50.Failure('"message" view does not contain any rows')
 
-    returns:
-        None
-    """
+    if "phrase" not in result[0].keys():
+        raise check50.Failure('"message" view does not have a column named "phrase"')
 
-    with open(filename) as f:
+    sentence = " ".join([row["phrase"] for row in result]).lower()
+    expected = "find me in the place you least expect. behind the books"
+    if sentence != expected:
+        raise check50.Failure(
+            'Sentence retrieved from "message" view does not match secret message',
+            help="Do you have any leading or trailing whitespace in any of your phrases?",
+        )
 
-        # Read contents and strip comments
+
+def test_view(db: SQL, filename: Path, view_name: str = "") -> None:
+    # Infer view name
+    if not view_name:
+        view_name = filename.stem
+
+    # Read SQL file
+    with open(filename, "r") as f:
         contents = sqlparse.format(f.read().strip(), strip_comments=True)
-
-        # Parse contents into list of SQL statements
         statements = sqlparse.split(contents)
-        if not statements:
-            raise check50.Failure(
-                f"Could not find SQL statements in {filename}"
-            )
-        
-        # Execute each statement starting from top of file
+    
+    # Check for statements
+    if not statements:
+        raise check50.Failure(f"Could not find SQL statements in {filename}")
+
+    # Check for intent
+    found = False
+    for statement in statements:
+        if re.search(
+            rf'CREATE\s+VIEW\s+"?{re.escape(view_name)}"?', statement, re.IGNORECASE
+        ):
+            found = True
+    if not found:
+        raise check50.Failure(
+            f'{filename} does not create a view named "{view_name}"'
+        )
+
+    # Run statements on database
+    for statement in statements:
         try:
-            for statement in statements:
-                db.execute(statement.strip())
+            db.execute(statement.strip())
         except Exception as e:
-            raise check50.Failure(f"Error when executing statements: {str(e)}")
+            raise check50.Failure(f"Error when executing statement: {str(e)}")
+
+    # SELECT from view to see contents
+    try:
+        db.execute(
+            f"""\
+            SELECT *
+            FROM "{view_name}";
+            """
+        )
+    except Exception as e:
+        raise check50.Failure(f"Error when selecting from view: {str(e)}")
