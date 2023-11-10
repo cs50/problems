@@ -7,11 +7,11 @@ import sqlparse
 
 
 FILES = [
-        "rural.sql",
-        "total.sql",
-        "by_district.sql",
-        "most_populated.sql",
-    ]
+    "rural.sql",
+    "total.sql",
+    "by_district.sql",
+    "most_populated.sql",
+]
 
 
 @check50.check()
@@ -60,14 +60,16 @@ def test_total():
         )
     except Exception as e:
         raise check50.Failure(f"Error when querying view: {str(e)}")
-    
+
     try:
         households = int(result[0]["households"])
     except KeyError:
         raise check50.Failure('View does not have a column named "households"')
-    
+
     if households != 5642674:
-        raise check50.Failure("total.sql does not contain the correct number of households")
+        raise check50.Failure(
+            "total.sql does not contain the correct number of households"
+        )
 
 
 @check50.check(test_execution)
@@ -84,14 +86,26 @@ def test_by_district():
         )
     except Exception as e:
         raise check50.Failure(f"Error when querying view: {str(e)}")
-    
+
     try:
-        families = int(result[0]["families"])
+        first_result = result[0]
+    except IndexError:
+        raise check50.Failure("View does not include all districts")
+
+    try:
+        families = first_result["families"]
     except KeyError:
         raise check50.Failure('View does not have a colum named "families"')
 
+    try:
+        families = int(families)
+    except ValueError:
+        raise check50.Failure('"families" column of view does not contain a number')
+
     if families != 3751:
-        raise check50.Failure("by_district.sql does not contain the correct number of families in the Mustang district")
+        raise check50.Failure(
+            "by_district.sql does not contain the correct number of families in the Mustang district"
+        )
 
 
 @check50.check(test_execution)
@@ -108,14 +122,16 @@ def test_most_populated():
         )
     except Exception as e:
         raise check50.Failure(f"Error when querying view: {str(e)}")
-    
+
     try:
         district = result[0]["district"]
     except KeyError:
         raise check50.Failure('View does not have a colum named "district"')
 
     if district != "Kathmandu":
-        raise check50.Failure("most_populated.sql does not list Kathmandu as most populated district")
+        raise check50.Failure(
+            "most_populated.sql does not list Kathmandu as most populated district"
+        )
 
 
 def test_view_execution(db: SQL, filename: Path) -> None:
