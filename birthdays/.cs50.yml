@@ -1,0 +1,11 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require app.py
+    - !require birthdays.db
+    - !require static/styles.css
+    - !require templates/index.html
+  style: false
+
+submit50:
+  files: *check50_files
