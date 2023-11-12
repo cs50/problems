@@ -90,7 +90,7 @@ def test_by_district():
     try:
         first_result = result[0]
     except IndexError:
-        raise check50.Failure("View does not include all districts")
+        raise check50.Failure("View does not include all districts", help='Does your view contain a "district" column?')
 
     try:
         families = first_result["families"]
