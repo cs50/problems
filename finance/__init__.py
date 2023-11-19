@@ -121,10 +121,11 @@ def buy_handles_incorrect_shares():
 def buy_handles_valid():
     """buy handles valid purchase"""
     (Finance().login("_cs50", "ohHai28!")
-              .transaction("/buy", "AAAA", "4")
+              .transaction("/buy", "AAAA", "1")
+              .transaction("/buy", "AAAA", "3")
               .content(r"112\.00", "112.00")
               .content(r"9,?888\.00", "9,888.00"))
-
+    
 
 @check50.check(buy_handles_valid)
 def sell_page():
@@ -148,6 +149,13 @@ def sell_handles_valid():
               .content(r"56\.00", "56.00")
               .content(r"9,?944\.00", "9,944.00"))
 
+
+@check50.check(sell_handles_valid)
+def history_page():
+    """history page shows transactions"""
+    (Finance().login("_cs50", "ohHai28!")
+              .get("/history").content(r"28\.00", "28.00")
+                              .content("AAAA"))
 
 
 class Finance(check50.flask.app):
