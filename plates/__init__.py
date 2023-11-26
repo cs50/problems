@@ -42,7 +42,15 @@ def test_CS05():
     output = "Invalid"
     check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
-    
+
+# First two chars are not letters
+def test_50():
+    """input of 50 yields output of Invalid"""
+    input = "50"
+    output = "Invalid"
+    check50.run("python plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+
+
 # Numbers before letters (after the first 2 letters)
 @check50.check(exists)
 def test_CS50P2():
