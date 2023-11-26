@@ -64,22 +64,28 @@ def invalid_vote_votes_unchanged():
     check50.run("./plurality_test 0 6").stdout("2 8 0").exit(0)
 
 @check50.check(compiles)
-@check50.hidden("print_winner function did not print winner of election")
+# @check50.hidden("print_winner function did not print winner of election")
 def print_winner0():
     """print_winner identifies Alice as winner of election"""
-    check50.run("./plurality_test 0 7").stdout("^Alice\n?$").exit(0)
+    out = check50.run("./plurality_test 0 7").stdout()
+    check_winner(out, "Alice\n")
+
 
 @check50.check(compiles)
-@check50.hidden("print_winner function did not print winner of election")
+# @check50.hidden("print_winner function did not print winner of election")
 def print_winner1():
     """print_winner identifies Bob as winner of election"""
-    check50.run("./plurality_test 0 8").stdout("^Bob\n?$").exit(0)
+    out = check50.run("./plurality_test 0 8").stdout()
+    check_winner(out, "Bob\n")
+
 
 @check50.check(compiles)
-@check50.hidden("print_winner function did not print winner of election")
+# @check50.hidden("print_winner function did not print winner of election")
 def print_winner2():
     """print_winner identifies Charlie as winner of election"""
-    check50.run("./plurality_test 0 9").stdout("^Charlie\n?$").exit(0)
+    out = check50.run("./plurality_test 0 9").stdout()
+    check_winner(out, "Charlie\n")
+
 
 @check50.check(compiles)
 @check50.hidden("print_winner function did not print both winners of election")
@@ -96,3 +102,23 @@ def print_winner4():
     result = check50.run("./plurality_test 0 11").stdout()
     if set(result.split("\n")) - {""} != {"Alice", "Bob", "Charlie"}:
         raise check50.Mismatch("Alice\nBob\nCharlie\n", result)
+
+
+# Note that check needs to be unhidden in order for help to be displayed
+def check_winner(result, correct):
+    if result == correct:
+        return
+
+    help = None
+    r = result.rstrip()
+    c = correct.rstrip()
+    if r == c:
+        if result[-1] == "\n":
+            if result[-2].isspace():
+                help = "did you print an extra space?"
+        elif result[-1].isspace():
+            help = "did you print a space instead of a newline?"
+        else:
+            help = "did you forget the newline after the name?"
+    
+    raise check50.Mismatch(correct, result, help=help)
