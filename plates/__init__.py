@@ -52,6 +52,7 @@ def test_CS05():
 
 
 # First two chars are not letters
+@check50.check(exists)
 def test_50():
     """input of 50 yields output of Invalid"""
     input = "50"
