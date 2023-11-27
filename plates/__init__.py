@@ -48,7 +48,7 @@ def test_50():
     """input of 50 yields output of Invalid"""
     input = "50"
     output = "Invalid"
-    check50.run("python plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
+    check50.run("python3 plates.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit()
 
 
 # Numbers before letters (after the first 2 letters)
