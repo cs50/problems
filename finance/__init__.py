@@ -30,7 +30,7 @@ def register_page():
 
 @check50.check(register_page)
 def simple_register():
-    """registering user succeeds"""
+    """registering user succeeds and portfolio page is displayed"""
     Finance().register("_cs50", "ohHai28!", "ohHai28!").status(200)
 
 
