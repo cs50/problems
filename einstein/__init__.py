@@ -14,10 +14,10 @@ def test1():
     output = check50.run("python3 einstein.py").stdin("1", prompt=False).stdout()
 
     # Extract number from stdout
-    match = re.search(r"([.,]?(?:\d[.,]?)+)", output)
+    match = re.findall(r"([.,]?(?:\d[.,]?)+)", output)
     if match is None:
         raise check50.Failure("Looks like your program didn't output a number!")
-    number = match.group(0)
+    number = match[-1]
 
     # Match correct number
     if not re.match(r"^90(?:,?0{3}){5}(?:\.0+)?$", number) and not re.match(
