@@ -37,7 +37,11 @@ def simple_register():
 @check50.check(register_page)
 def register_empty_field_fails():
     """registration with an empty field fails"""
-    for user in [("", "crimson", "crimson"), ("jharvard", "crimson", ""), ("jharvard", "", "")]:
+    for user in [
+        ("", "crimson", "crimson"),
+        ("jharvard", "crimson", ""),
+        ("jharvard", "", ""),
+    ]:
         Finance().register(*user).status(400)
 
 
@@ -66,7 +70,9 @@ def login_page():
 @check50.check(simple_register)
 def can_login():
     """logging in as registered user succceeds"""
-    Finance().login("_cs50", "ohHai28!").status(200).get("/", follow_redirects=False).status(200)
+    Finance().login("_cs50", "ohHai28!").status(200).get(
+        "/", follow_redirects=False
+    ).status(200)
 
 
 @check50.check(can_login)
@@ -90,10 +96,13 @@ def quote_handles_blank():
 @check50.check(quote_page)
 def quote_handles_valid():
     """quote handles valid ticker symbol"""
-    (Finance().login("_cs50", "ohHai28!")
-              .quote("AAAA")
-              .status(200)
-              .content(r"28\.00", "28.00", name="body"))
+    (
+        Finance()
+        .login("_cs50", "ohHai28!")
+        .quote("AAAA")
+        .status(200)
+        .content(r"28\.00", "28.00", name="body")
+    )
 
 
 @check50.check(can_login)
@@ -111,28 +120,40 @@ def buy_handles_invalid():
 @check50.check(buy_page)
 def buy_handles_incorrect_shares():
     """buy handles fractional, negative, and non-numeric shares"""
-    (Finance().login("_cs50", "ohHai28!")
-              .transaction("/buy", "AAAA", "-1").status(400)
-              .transaction("/buy", "AAAA", "1.5").status(400)
-              .transaction("/buy", "AAAA", "foo").status(400))
+    (
+        Finance()
+        .login("_cs50", "ohHai28!")
+        .transaction("/buy", "AAAA", "-1")
+        .status(400)
+        .transaction("/buy", "AAAA", "1.5")
+        .status(400)
+        .transaction("/buy", "AAAA", "foo")
+        .status(400)
+    )
 
 
 @check50.check(buy_page)
 def buy_handles_valid():
     """buy handles valid purchase"""
-    (Finance().login("_cs50", "ohHai28!")
-              .transaction("/buy", "AAAA", "1")
-              .transaction("/buy", "AAAA", "3")
-              .content(r"112\.00", "112.00")
-              .content(r"9,?888\.00", "9,888.00"))
-    
+    (
+        Finance()
+        .login("_cs50", "ohHai28!")
+        .transaction("/buy", "AAAA", "1")
+        .transaction("/buy", "AAAA", "3")
+        .content(r"112\.00", "112.00")
+        .content(r"9,?888\.00", "9,888.00")
+    )
+
 
 @check50.check(buy_handles_valid)
 def sell_page():
     """sell page has all required elements"""
-    (Finance().login("_cs50", "ohHai28!")
-              .validate_form("/sell", ["shares"])
-              .validate_form("/sell", ["symbol"], field_tag="select"))
+    (
+        Finance()
+        .login("_cs50", "ohHai28!")
+        .validate_form("/sell", ["shares"])
+        .validate_form("/sell", ["symbol"], field_tag="select")
+    )
 
 
 @check50.check(buy_handles_valid)
@@ -144,18 +165,25 @@ def sell_handles_invalid():
 @check50.check(buy_handles_valid)
 def sell_handles_valid():
     """sell handles valid sale"""
-    (Finance().login("_cs50", "ohHai28!")
-              .transaction("/sell", "AAAA", "2")
-              .content(r"56\.00", "56.00")
-              .content(r"9,?944\.00", "9,944.00"))
+    (
+        Finance()
+        .login("_cs50", "ohHai28!")
+        .transaction("/sell", "AAAA", "2")
+        .content(r"56\.00", "56.00")
+        .content(r"9,?944\.00", "9,944.00")
+    )
 
 
 @check50.check(sell_handles_valid)
 def history_page():
     """history page shows transactions"""
-    (Finance().login("_cs50", "ohHai28!")
-              .get("/history").content(r"28\.00", "28.00")
-                              .content("AAAA"))
+    (
+        Finance()
+        .login("_cs50", "ohHai28!")
+        .get("/history")
+        .content(r"28\.00", "28.00")
+        .content("AAAA")
+    )
 
 
 class Finance(check50.flask.app):
@@ -169,7 +197,11 @@ class Finance(check50.flask.app):
 
     def register(self, username, password, confirmation):
         """Register new user"""
-        form = {"username": username, "password": password, "confirmation": confirmation}
+        form = {
+            "username": username,
+            "password": password,
+            "confirmation": confirmation,
+        }
         return self.post("/register", data=form)
 
     def login(self, username, password):
@@ -198,11 +230,11 @@ class Finance(check50.flask.app):
             try:
                 name = tag.attrs["name"]
                 if required[name]:
-                    raise Error("found more than one field called \"{}\"".format(name))
+                    raise Error('found more than one field called "{}"'.format(name))
             except KeyError:
                 pass
             else:
-                check50.log("found required \"{}\" field".format(name))
+                check50.log('found required "{}" field'.format(name))
                 required[name] = True
 
         try:
@@ -210,7 +242,9 @@ class Finance(check50.flask.app):
         except StopIteration:
             pass
         else:
-            raise check50.Failure(f"expected to find {field_tag} field with name \"{missing}\", but none found")
+            raise check50.Failure(
+                f'expected to find {field_tag} field with name "{missing}", but none found'
+            )
 
         if content.find("button", type="submit") is None:
             raise check50.Failure("expected button to submit form, but none was found")
