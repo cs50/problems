@@ -17,7 +17,6 @@ try:
     # Look for __name__ check
     if '__name__ == "__main__":' in source:
         game.main()
-
 except AttributeError:
     # game has no main function
     pass
