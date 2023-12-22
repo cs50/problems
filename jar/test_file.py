@@ -48,3 +48,22 @@ def test_empty():
     jar.deposit(12)
     with pytest.raises(ValueError):
         jar.withdraw(13)
+
+
+def test_four_functions():
+    import inspect
+    import re
+    import test_jar
+
+    members = inspect.getmembers(test_jar, inspect.isfunction)
+    functions = 0
+    for m in members:
+        source = re.sub(r"(#|\.\.\.|pass).*(?:\n|$)", r"", inspect.getsource(m[1]))
+        source = re.sub(r"def[^\r\n]+", r"", source)
+        source = re.sub(r"\s+", r" ", source).strip()
+        if len(source):
+            functions += 1
+        if functions >= 4:
+            break
+
+    assert functions >= 4
