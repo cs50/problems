@@ -51,7 +51,9 @@ def two_backdrops(project):
         raise check50.Failure(f"only {num_backdrops} backdrop{'' if num_backdrops == 1 else 's'} found, at least 2 required")
 
 
-# helper functions
+################################################################################
+# Helper functions
+################################################################################
 def parse_blocks(targets):
     stages = [target for target in targets if target["isStage"] == True]
     return {
@@ -188,3 +190,4 @@ def count_costumes(targets):
         if len(target["costumes"]) > 1:
             count += len(target["costumes"]) - 1
     return count
+################################################################################
