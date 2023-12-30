@@ -27,8 +27,6 @@ def valid():
 
     with open("project.json") as f:
         project = json.load(f)
-    
-    check50.include("helpers.py")
 
     return project["targets"]
 
