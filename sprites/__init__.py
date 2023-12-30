@@ -32,7 +32,7 @@ def valid():
 
 
 @check50.check(valid)
-def two_sprites(project):
+def three_sprites(project):
     """project contains at least three sprites"""
 
     num_sprites = parse_blocks(project)["sprites"]
