@@ -38,7 +38,7 @@ def one_ask(project):
     num_asks = parse_blocks(project)["asks"]
 
     if num_asks < 1:
-        raise check50.Failure("at least 1 ask and wait block required")
+        raise check50.Failure("project should include an ask and wait block")
 
 
 @check50.check(valid)
@@ -48,7 +48,7 @@ def one_answer(project):
     num_answers = parse_blocks(project)["answers"]
 
     if num_answers < 1:
-        raise check50.Failure("at least 1 answer block required")
+        raise check50.Failure("project should include an answer block")
 
 
 @check50.check(valid)
@@ -58,7 +58,7 @@ def one_join(project):
     num_joins = parse_blocks(project)["joins"]
 
     if num_joins < 1:
-        raise check50.Failure("at least 1 join block required")
+        raise check50.Failure("project should include a join block")
 
 
 ################################################################################
