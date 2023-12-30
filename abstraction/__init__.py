@@ -41,16 +41,6 @@ def one_custom(project):
         raise check50.Failure("at least one custom block required")
 
 
-@check50.check(valid)
-def one_repeat(project):
-    """project contains at least one repeat block"""
-
-    num_repeats = parse_blocks(project)["repeats"]
-
-    if num_repeats < 1:
-        raise check50.Failure("at least one repeat block required")
-
-
 ################################################################################
 # Helper functions
 ################################################################################
