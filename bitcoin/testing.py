@@ -24,6 +24,7 @@ class FakeResponse:
 import requests
 
 requests.get = lambda x, *args, **kwargs: FakeResponse()
+requests.request = lambda x, *args, **kwargs: FakeResponse()
 
 # Run bitcoin via import
 import bitcoin
