@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "*.md"
+    - !require "answers.md"
+
+submit50:
+  files: *check50_files
+  style: false
