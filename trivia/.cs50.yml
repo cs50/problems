@@ -3,7 +3,7 @@ check50:
     - !exclude "*"
     - !require index.html
     - !require styles.css
-  style: false
 
 submit50:
   files: *check50_files
+  style: false
