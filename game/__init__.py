@@ -34,9 +34,17 @@ def test_string_guess():
 
 
 @check50.check(test_valid_level)
-def test_integer_guess():
-    """game.py rejects out-of-range guess"""
-    check50.run("python3 game.py").stdin("1", prompt=True).stdin("0", prompt=True).reject()
+def test_out_of_range_small():
+    """game.py rejects guess below specified range with \"Too small!\""""
+    output = "Too small!"
+    check50.run("python3 game.py").stdin("1", prompt=True).stdin("0", prompt=True).stdout(regex(output), output, regex=True).reject()
+
+
+@check50.check(test_valid_level)
+def test_out_of_range_large():
+    """game.py rejects guess above specified range with \"Too large!\""""
+    output = "Too large!"
+    check50.run("python3 testing.py").stdin("4", prompt=True).stdin("8", prompt=True).stdout(regex(output), output, regex=True).reject()
 
 
 @check50.check(test_valid_level)
