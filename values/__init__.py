@@ -189,8 +189,11 @@ def count_blocks(targets, blocks):
     count = 0
     for target in targets:
         for block in target["blocks"]:
-            if target["blocks"][block]["opcode"] in blocks:
-                count += 1
+            try:
+                if target["blocks"][block]["opcode"] in blocks:
+                    count += 1
+            except:
+                pass
     return count
 
 
