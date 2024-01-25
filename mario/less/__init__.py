@@ -42,9 +42,9 @@ def test8():
 
 @check50.check(compiles)
 def test9():
-    """rejects a height of -1, and then accepts a height of 2"""
-    out = check50.run("./mario").stdin("-1").reject().stdin("2").stdout()
-    check_pyramid(out, open("2.txt").read())
+    """rejects a height of -1, and then accepts a height of 12"""
+    out = check50.run("./mario").stdin("-1").reject().stdin("12").stdout()
+    check_pyramid(out, open("12.txt").read())
 
 @check50.check(compiles)
 def test_reject_foo():
