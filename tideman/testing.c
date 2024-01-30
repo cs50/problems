@@ -62,12 +62,12 @@ int main(int argc, string argv[])
             preferences[2][0] = 2;
             preferences[2][1] = 5;
             preferences[2][2] = 0;
-            pairs[0].winner = 0;
+            pairs[0].winner = 2;
             pairs[0].loser = 1;
             pairs[1].winner = 0;
-            pairs[1].loser = 2;
-            pairs[2].winner = 2;
-            pairs[2].loser = 1;
+            pairs[1].loser = 1;
+            pairs[2].winner = 0;
+            pairs[2].loser = 2;
             break;
 
         case 4:
