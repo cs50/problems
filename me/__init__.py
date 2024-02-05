@@ -34,15 +34,17 @@ def kamryn():
 
 
 def check_name(name):
+    # Define expected, actual outputs
     expected = f"hello, {name}\n"
     actual = check50.run("./hello").stdin(name).stdout()
 
+    # Check output
     if not re.match(regex(name), actual):
         if actual[-1] != "\n":
             raise check50.Mismatch(
                 expected=expected,
                 actual=actual,
-                help=r"Did you forget a \n at the end of your output?",
+                help=r"Forgot to print a newline at the end of your output?",
             )
         raise check50.Mismatch(expected=expected, actual=actual)
 
