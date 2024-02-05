@@ -1,5 +1,6 @@
 import check50
 import check50.c
+import re
 
 
 @check50.check()
@@ -17,16 +18,32 @@ def compiles():
 @check50.check(compiles)
 def emma():
     """responds to name Emma"""
-    check50.run("./hello").stdin("Emma").stdout("Emma").exit()
+    check_name("Emma")
 
 
 @check50.check(compiles)
 def inno():
     """responds to name Inno"""
-    check50.run("./hello").stdin("Inno").stdout("Inno").exit()
+    check_name("Inno")
 
 
 @check50.check(compiles)
 def kamryn():
     """responds to name Kamryn"""
-    check50.run("./hello").stdin("Kamryn").stdout("Kamryn").exit()
+    check_name("Kamryn")
+
+
+def check_name(name):
+    output = check50.run("./hello").stdin(name).stdout()
+    if not re.match(regex(name), output):
+        if output[-1] != "\n":
+            raise check50.Mismatch(
+                f"hello, {name}\n",
+                actual=output,
+                help=r"Did you forget a \n at the end of your output?",
+            )
+        raise check50.Mismatch(f"hello, {name}\n", actual=output)
+
+
+def regex(string):
+    return f"^[Hh]ello, {re.escape(string)}\n$"
