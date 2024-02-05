@@ -16,19 +16,19 @@ def compiles():
 
 
 @check50.check(compiles)
-def emma():
+def mario():
     """responds to name Mario"""
     check_name("Mario")
 
 
 @check50.check(compiles)
-def inno():
+def peach():
     """responds to name Peach"""
     check_name("Peach")
 
 
 @check50.check(compiles)
-def kamryn():
+def bowser():
     """responds to name Bowser"""
     check_name("Bowser")
 
