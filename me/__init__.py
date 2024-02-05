@@ -17,20 +17,20 @@ def compiles():
 
 @check50.check(compiles)
 def emma():
-    """responds to name Emma"""
-    check_name("Emma")
+    """responds to name Mario"""
+    check_name("Mario")
 
 
 @check50.check(compiles)
 def inno():
-    """responds to name Inno"""
-    check_name("Inno")
+    """responds to name Peach"""
+    check_name("Peach")
 
 
 @check50.check(compiles)
 def kamryn():
-    """responds to name Kamryn"""
-    check_name("Kamryn")
+    """responds to name Bowser"""
+    check_name("Bowser")
 
 
 def check_name(name):
