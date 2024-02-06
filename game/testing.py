@@ -1,9 +1,7 @@
 import random
 
-# Monkey-patch randint, randrange, choice
-random.randint = lambda x, y : 4
-random.randrange = lambda x, *args, **kwargs : 4
-random.choice = lambda x : 4
+# Setting seed to have static "random" results
+random.seed(0)
 
 # Run game via import
 import game
