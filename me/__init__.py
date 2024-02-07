@@ -40,7 +40,12 @@ def check_name(name):
 
     # Check output
     if not re.match(regex(name), actual):
-        if actual[-1] != "\n":
+        try:
+            last_character = actual[-1]
+        except IndexError:
+            raise check50.Mismatch(expected=expected, actual=actual)
+
+        if last_character != "\n":
             raise check50.Mismatch(
                 expected=expected,
                 actual=actual,
