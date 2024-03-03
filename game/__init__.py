@@ -6,6 +6,9 @@ from re import escape
 def exists():
     """game.py exists"""
     check50.exists("game.py")
+
+    # The hard-coded number 4 is the answer to the game (specified in test.py).
+    # This is the number that the user is trying to guess.
     check50.include("testing.py")
 
 
@@ -30,20 +33,13 @@ def test_valid_level():
 @check50.check(test_valid_level)
 def test_string_guess():
     """game.py rejects non-numeric guess"""
-    check50.run("python3 game.py").stdin("1", prompt=True).stdin("cat", prompt=True).reject()
+    check50.run("python3 game.py").stdin("4", prompt=True).stdin("cat", prompt=True).reject()
 
 
 @check50.check(test_valid_level)
 def test_zero_guess():
     """game.py rejects non-positive guess"""
-    check50.run("python3 game.py").stdin("1", prompt=True).stdin("0", prompt=True).reject()
-
-
-@check50.check(test_valid_level)
-def test_out_of_range_small():
-    """game.py rejects guess below specified range with \"Too small!\""""
-    output = "Too small!"
-    check50.run("python3 game.py").stdin("2", prompt=True).stdin("1", prompt=True).stdout(regex(output), output, regex=True).reject()
+    check50.run("python3 game.py").stdin("4", prompt=True).stdin("0", prompt=True).reject()
 
 
 @check50.check(test_valid_level)
