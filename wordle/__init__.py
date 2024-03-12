@@ -110,5 +110,5 @@ def partial_multiple_matches():
 @check50.check(compiles)
 def exact_match():
     """wordle recognizes correct guess"""
-    for word in ["gnome", "sized", "world"]:
+    for word in ["grill", "sized", "world"]:
         check50.c.run(f"./wordle_test check_word {word} {word}").stdout(10)
