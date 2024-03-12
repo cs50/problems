@@ -81,7 +81,7 @@ int main(int argc, string argv[])
         case 8:
             candidates[0].votes = 1;
             candidates[1].votes = 8;
-            candidates[2].votes = 2;
+            candidates[2].votes = 1;
             print_winner();
             break;
 
