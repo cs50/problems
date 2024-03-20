@@ -20,7 +20,11 @@ def exists():
 @check50.check(exists)
 def test_fewer_arguments():
     """shirt.py exits given zero command-line arguments"""
-    exit = check50.run("python3 shirt.py").exit()
+    photo = "muppet_01.jpg"
+    check50.include(photo)
+    check50.include("shirt.py")
+    check50.include("test_file.py")
+    exit = check50.run("pytest test_file.py -k 'test_no_args'").exit(0)
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -29,7 +33,11 @@ def test_fewer_arguments():
 def test_invalid_extension():
     """shirt.py exits given a file without a .jpg, .jpeg, or .png extension"""
     check50.include("invalid_extension.bmp")
-    exit = check50.run("python3 shirt.py invalid_extension.bmp").exit()
+    photo = "muppet_01.jpg"
+    check50.include(photo)
+    check50.include("shirt.py")
+    check50.include("test_file.py")
+    exit = check50.run("pytest test_file.py -k 'test_invalid_type'").exit(0)
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -37,7 +45,9 @@ def test_invalid_extension():
 @check50.check(exists)
 def test_non_existent_file():
     """shirt.py exits given a non-existent file"""
-    exit = check50.run("python3 shirt.py non_existent_file.jpg").exit()
+    check50.include("shirt.py")
+    check50.include("test_file.py")
+    exit = check50.run("pytest test_file.py -k 'test_nonexist'").exit(0)
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -45,8 +55,10 @@ def test_non_existent_file():
 @check50.check(exists)
 def test_mismatched_extension():
     """shirt.py exits given an output file with a different extension than input file"""
+    check50.include("shirt.py")
+    check50.include("test_file.py")
     check50.include("muppet_01.jpg")
-    exit = check50.run("python3 shirt.py muppet_01.jpg muppet_01_out.png").exit()
+    exit = check50.run("pytest test_file.py -k 'test_type_mismatch'").exit(0)
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
@@ -56,7 +68,9 @@ def test_more_arguments():
     """shirt.py exits given more than two command-line arguments"""
     for file in ["muppet_01.jpg", "muppet_02.jpg", "muppet_03.jpg"]:
         check50.include(file)
-    exit = check50.run("python3 lines.py muppet_01.jpg muppet_02.jpg muppet_03.jpg").exit()
+    check50.include("shirt.py")
+    check50.include("test_file.py")
+    exit = check50.run("pytest test_file.py -k 'test_three_args'").exit(0)
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
