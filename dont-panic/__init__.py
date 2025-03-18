@@ -22,10 +22,7 @@ def test_execution():
 @check50.check(test_execution)
 def test_admin_password():
     """hack.sql correctly modifies password of admin user"""
-
-    # Run hack.sql on database
     db = SQL("sqlite:///dont-panic.db")
-    run_statements(db, "hack.sql")
 
     # Query for password
     try:
@@ -43,7 +40,7 @@ def test_admin_password():
     # Check password
     expected_password = "982c0381c279d139fd221fce974916e7"
     if password != expected_password:
-        helper_text = None
+        helper_text = "Looks like this isn't the correct hash value! Did you hash \"oops!\" exactly?"
         if password == "oops!":
             helper_text = "Did you forget to put the password through an MD5 hash?"
         raise check50.Mismatch(
@@ -55,17 +52,14 @@ def test_admin_password():
 
 @check50.check(test_admin_password)
 def test_erase_logs():
-    """hack.sql leaves no trace of true update to admin password"""
-
-    # Run hack.sql on database
+    """hack.sql leaves no trace of \"oops!\" update to admin password"""
     db = SQL("sqlite:///dont-panic.db")
-    run_statements(db, "hack.sql")
 
     # Check for update logs referencing admin
     results = run_query(
         db,
         """
-        SELECT "type", "old_username", "new_password"
+        SELECT *
         FROM "user_logs"
         WHERE "type" = 'update'
         AND ("old_username" = 'admin' OR "new_username" = 'admin')
@@ -74,17 +68,14 @@ def test_erase_logs():
     )
     if results:
         raise check50.Failure(
-            "Expected not to find a record of changing the admin's password"
+            "Found record of changing admin's password to \"oops!\""
         )
 
 
 @check50.check(test_erase_logs)
 def test_add_data():
     """hack.sql correctly adds false log of changing admin's password"""
-
-    # Run hack.sql on database
     db = SQL("sqlite:///dont-panic.db")
-    run_statements(db, "hack.sql")
 
     # Check for update logs referencing admin
     results = run_query(
@@ -154,10 +145,10 @@ def run_statements(db: SQL, filename: str) -> None:
 
 def run_query(db: SQL, query: str) -> list[dict]:
     """
-    Runs the SQL query contained in 'filename' and returns its output.
+    Runs the SQL query contained in 'query' and returns its output.
 
     positional arguments:
-        filename (str)      file containing SQL query
+        query (str)      file containing SQL query
 
     returns:
         list[dict]
