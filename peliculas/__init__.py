@@ -17,7 +17,7 @@ def test1():
     """1.sql produce resultado correcto"""
     check_single_col(
         run_query("1.sql"),
-        {"Iron Man", "The Dark Knight", "Slumdog Millionaire", "Kung Fu Panda"},
+        {"Deadpool & Wolverine", "Venom: The Last Dance", "Immaculate", "Kraven the Hunter"},
         ordered=False,
     )
 
@@ -25,7 +25,7 @@ def test1():
 @check50.check(exists)
 def test2():
     """2.sql produce resultado correcto"""
-    check_single_cell(run_query("2.sql"), "1988")
+    check_single_cell(run_query("2.sql"), "1996")
 
 
 @check50.check(exists)
@@ -34,17 +34,17 @@ def test3():
     check_single_col(
         run_query("3.sql"),
         [
-            "Avengers: Infinity War",
-            "Black Panther",
-            "Eighth Grade",
-            "Gemini Man",
-            "Happy Times",
-            "Incredibles 2",
-            "Kirklet",
-            "Ma Rainey's Black Bottom",
-            "Roma",
-            "The Professor",
-            "Toy Story 4",
+            "Barbie",
+            "Oppenheimer",
+            "Tenet",
+            "The Batman",
+            "Avatar: The Way of Water",
+            "Black Panther: Wakanda Forever",
+            "Top Gun: Maverick",
+            "Everything Everywhere All at Once",
+            "Encanto",
+            "No Time to Die",
+            "Soul",
         ],
         ordered=True,
     )
@@ -53,7 +53,7 @@ def test3():
 @check50.check(exists)
 def test4():
     """4.sql produce resultado correcto"""
-    check_single_cell(run_query("4.sql"), "2")
+    check_single_cell(run_query("4.sql"), "99")
 
 
 @check50.check(exists)
@@ -62,15 +62,22 @@ def test5():
     check_double_col(
         run_query("5.sql"),
         [
-            {"Harry Potter and the Sorcerer's Stone", "2001"},
-            {"Harry Potter and the Chamber of Secrets", "2002"},
-            {"Harry Potter and the Prisoner of Azkaban", "2004"},
-            {"Harry Potter and the Goblet of Fire", "2005"},
-            {"Harry Potter and the Order of the Phoenix", "2007"},
-            {"Harry Potter and the Half-Blood Prince", "2009"},
-            {"Harry Potter and the Deathly Hallows: Part 1", "2010"},
-            {"Harry Potter and the Deathly Hallows: Part 2", "2011"},
-            {"Harry Potter: A History of Magic", "2017"},
+            {"The Lord of the Rings", "1978"},
+            {"The Lord of the Rings: The Fellowship of the Ring", "2001"},
+            {"The Lord of the Rings: The Two Towers", " 2002 "},
+            {"The Lord of the Rings - The Appendices Part 1: From Book to Vision", "2002"},
+            {"The Lord of the Rings: The Return of the King", "2003"},
+            {"The Lord of the Rings Symphony", "2003"},
+            {"The Hobbit: An Unexpected Journey", "2012"},
+            {"The Hobbit: The Desolation of Smaug", "2013"},
+            {"The Hobbit: The Battle of the Five Armies", "2014"},
+            {"The Hobbit: The Swedolation of Smaug", "2014"},
+            {"À la recherche du Hobbit", "2014"},
+            {"Le Hobbit: Le Retour du Roi du Cantal", "2015"},
+            {"Music of the Lord of the Rings", "2019"},
+            {"Darla's Book Club: Discussing the Lord of the Rings", "2021"},
+            {"The Lord of the Rings: The War of the Rohirrim", "2024"},
+            {"The Lord of the Rings: The Hunt for Gollum", "2026"},
         ],
         ordered=True,
     )
@@ -79,26 +86,26 @@ def test5():
 @check50.check(exists)
 def test6():
     """6.sql produce resultado correcto"""
-    check_single_cell(run_query("6.sql"), "7.74")
+    check_double_col(
+        run_query("6.sql"),
+        [
+            {"A Story for Winter", "10.0"},
+            {"El encanto de las ballenas", "9.6"},
+            {"The Irish Wedding", "9.1"},
+            {"The Last Resort", "9.0"},
+            {"Before I Die", "8.9"},
+            {"Boys", "8.8"},
+            {"The Garden of Evil", "8.7"},
+            {"A Spy Movie", "8.2"},
+        ],
+        ordered=True,
+    )
 
 
 @check50.check(exists)
 def test7():
     """7.sql produce resultado correcto"""
-    check_double_col(
-        run_query("7.sql"),
-        [
-            {"Inception", "8.8"},
-            {"Toy Story 3", "8.3"},
-            {"How to Train Your Dragon", "8.1"},
-            {"Shutter Island", "8.1"},
-            {"The King's Speech", "8.0"},
-            {"Harry Potter and the Deathly Hallows: Part 1", "7.7"},
-            {"Iron Man 2", "7.0"},
-            {"Alice in Wonderland", "6.4"},
-        ],
-        ordered=True,
-    )
+    check_single_cell(run_query("7.sql"), "6.2382")
 
 
 @check50.check(exists)
@@ -106,9 +113,19 @@ def test8():
     """8.sql produce resultado correcto"""
     check_single_col(
         run_query("8.sql"),
-        {"Don Rickles", "Jim Varney", "Tom Hanks", "Tim Allen"},
-        ordered=False,
+        [
+            "Andy Rossi",
+            "Paola Calvo",
+            "Zachary James",
+            "Sherif Nagib",
+            "Vincenzo Della Corte",
+            "Renee Chandler",
+            "Tim Fehlbaum",
+            "Max Landis",
+        ],
+        ordered=True,
     )
+
 
 
 @check50.check(exists)
@@ -116,18 +133,10 @@ def test9():
     """9.sql produce resultado correcto"""
     check_single_col(
         run_query("9.sql"),
-        [
-            "Craig T. Nelson",
-            "Richard Griffifths",
-            "Samuel L. Jackson",
-            "Holly Hunter",
-            "Jason Lee",
-            "Rupert Grint",
-            "Daniel Radcliffe",
-            "Emma Watson",
-        ],
-        ordered=True,
+        {"Robert Downey Jr.", "Chris Evans", "Mark Ruffalo", "Chris Hemsworth", "Scarlett Johansson", "Jeremy Renner", "Don Cheadle", "Paul Rudd", "Benedict Cumberbatch", "Chadwick Boseman"},
+        ordered=False,
     )
+
 
 
 @check50.check(exists)
@@ -135,7 +144,7 @@ def test10():
     """10.sql produce resultado correcto"""
     check_single_col(
         run_query("10.sql"),
-        {"Christopher Nolan", "Frank Darabont", "Yimou Zhang"},
+        {"Marlon Brando", "Diane Keaton", "Ben Kingsley", "Morgan Freeman"},
         ordered=False,
     )
 
@@ -143,9 +152,15 @@ def test10():
 @check50.check(exists)
 def test11():
     """11.sql produce resultado correcto"""
-    check_single_col(
+    check_double_col(
         run_query("11.sql"),
-        ["42", "Black Panther", "Marshall", "Ma Rainey's Black Bottom", "Get on Up"],
+        [
+            {"One Night: Joshua vs. Ruiz", "8.5"},
+            {"Rocky", "8.1"},
+            {"Body of Work", "7.9"},
+            {"First Blood", "7.7"},
+            {"Creed", "7.6"},
+        ],
         ordered=True,
     )
 
@@ -157,21 +172,18 @@ def test12():
         check_single_col(
             run_query("12.sql"),
             {
+                "Edward Scissorhands",
+                "Ed Wood",
                 "Corpse Bride",
+                "Sleepy Hollow",
                 "Charlie and the Chocolate Factory",
+                "Sweeney Todd: The Demon Barber of Fleet Street",
                 "Alice in Wonderland",
-                "Alice Through the Looking Glass",
+                "Dark Shadows",
             },
             ordered=False,
         )
-    except (check50.Failure, check50.Mismatch):
 
-        # Alternate version of test12 to account for removing Johnny Depp from the specification
-        check_single_col(
-            run_query("12.sql"),
-            {"Silver Linings Playbook", "Serena", "American Hustle", "Joy"},
-            ordered=False,
-        )
 
 
 @check50.check(exists)
@@ -180,13 +192,13 @@ def test13():
     check_single_col(
         run_query("13.sql"),
         {
-            "Bill Paxton",
-            "Gary Sinise",
-            "James McAvoy",
-            "Jennifer Lawrence",
-            "Tom Cruise",
-            "Michael Fassbender",
-            "Tom Hanks",
+            "Don Scardino",
+            "Barbara Stuart",
+            "Carrie Fisher",
+            "Jim Belushi",
+            "Dan Aykroyd",
+            "Sally Field",
+            "Melanie Griffith",
         },
         ordered=False,
     )
