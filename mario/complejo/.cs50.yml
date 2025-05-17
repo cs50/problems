@@ -2,7 +2,6 @@ check50:
   files: &check50_files
     - !exclude "*"
     - !require mario.c
-    - !require pseudocode.txt
 
 submit50:
   files: *check50_files
