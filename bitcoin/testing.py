@@ -31,8 +31,15 @@ class FakeResponse:
         pass
 
 
+def request(method, url, **kwargs):
+    if method == "GET":
+        return FakeResponse()
+    else:
+        return None
+
+
 requests.get = lambda *args, **kwargs: FakeResponse()
-requests.request = lambda *args, **kwargs: FakeResponse()
+requests.request = request
 
 # Run bitcoin via import
 
