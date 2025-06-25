@@ -1,5 +1,6 @@
 from jar import Jar
 import pytest
+import inspect
 
 
 def test_init():
@@ -48,3 +49,22 @@ def test_empty():
     jar.deposit(12)
     with pytest.raises(ValueError):
         jar.withdraw(13)
+
+
+def test_testfile():
+    import test_jar as t
+
+    num_tests = 0
+    for member in inspect.getmembers(t):
+        if inspect.isfunction(member[1]) and member[0].startswith("test"):
+            source = inspect.getsource(member[1]).split("\n")[1:]
+            for line in source:
+                line = line.strip().replace("...", "").replace("pass", "")
+                if line and not line.startswith("#"):
+                    num_tests += 1
+                    break
+
+        if num_tests >= 4:
+            break
+
+    assert num_tests >= 4

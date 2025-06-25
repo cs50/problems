@@ -58,4 +58,4 @@ def testWhats_up():
 
 def regex(amount):
     """match amount, allowing for characters (not numbers) on either side"""
-    return fr'^[^\d]*{escape(amount)}[^\d]*$'
+    return fr'^([^\d](?<!\$None)(?<!\$nan))*{escape(amount)}([^\d](?<!\$None)(?<!\$nan))*$'

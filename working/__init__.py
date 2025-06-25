@@ -17,7 +17,7 @@ def libraries():
     """working.py does not import libraries other than sys and re"""
     with open("working.py", "r") as file:
         contents = file.read()
-        if search(r'(?<!#)(?<! )((import(?![ \t]*(re|sys)\b))|(\bfrom\b(?![ \t]*(re|sys)\b)))', contents):
+        if search(r'(?<!#)(?<! )(((?:^|\n\s*)\bimport(?![ \t]*(re|sys)\b))|((?:^|\n\s*)\bfrom\b(?![ \t]*(re|sys)\b)))', contents):
             raise check50.Failure("working.py imports libraries other than sys and re", help="Be sure only to use \"import re\" and \"import sys\", or \"from re import ...\" and \"from sys import ...\"")
 
 

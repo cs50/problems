@@ -20,20 +20,35 @@ def test_level_high():
     """Little Professor rejects level of 4"""
     check50.run("python3 testing.py get_level").stdin("4", prompt=False).reject()
 
-    
+
 @check50.check(exists)
 def test_level_nonint():
-    """Little Professor rejects level of \"one\""""
+    """Little Professor rejects level of \"one\" """
     check50.run("python3 testing.py get_level").stdin("one", prompt=False).reject()
-    
-    
+
+
 @check50.check(exists)
 def test_valid_level():
     """Little Professor accepts valid level"""
 
     # Test all levels 1–3
     for level in range(1, 4):
-        check50.run("python3 testing.py get_level").stdin(str(level), prompt=False).exit(0)
+        check50.run("python3 testing.py get_level").stdin(
+            str(level), prompt=False
+        ).exit(0)
+
+
+@check50.check(test_valid_level)
+def test_random():
+    """Little Professor generates random numbers correctly"""
+    level = "1"
+
+    # With random.seed(500) in testing.py, we expect these numbers from .randint(0, 9);
+    # this should catch students if they're using .randrange(0, 9) by accident
+    output = "[7, 8, 9, 7, 4, 6, 3, 1, 5, 9, 1, 0, 3, 5, 3, 6, 4, 0, 1, 5]"
+    check50.run("python3 testing.py rand_test").stdin(level, prompt=False).stdout(
+        regex(output), output, regex=True
+    )
 
 
 @check50.check(test_valid_level)
@@ -43,7 +58,9 @@ def test_range_level_1():
 
     # With random.seed(0) in testing.py, 6 + 6 is expected output from randint and randrange with range of 0–9
     output = "6 + 6 ="
-    check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(regex(output), output, regex=True)
+    check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(
+        regex(output), output, regex=True
+    )
 
 
 @check50.check(test_valid_level)
@@ -53,7 +70,9 @@ def test_range_level_2():
 
     # With random.seed(0) in testing.py, 59 + 63 is expected output from randint and randrange with range of 10–99
     output = "59 + 63 ="
-    check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(regex(output), output, regex=True)
+    check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(
+        regex(output), output, regex=True
+    )
 
 
 @check50.check(test_valid_level)
@@ -63,7 +82,9 @@ def test_range_level_3():
 
     # With random.seed(0) in testing.py, 964 + 494 is expected output from randint and randrange with range of 100–999
     output = "964 + 494 ="
-    check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(regex(output), output, regex=True)
+    check50.run("python3 testing.py main").stdin(level, prompt=False).stdout(
+        regex(output), output, regex=True
+    )
 
 
 @check50.check(test_range_level_1)
@@ -88,9 +109,22 @@ def test_score():
 
 
 @check50.check(test_generate_problems)
+def test_score_complicated():
+    """Little Professor displays number of problems correct in more complicated case"""
+    solutions = [12, 4, 15, 8, 8, 8, 12, 13, 12, 10, 6, 10, 3, 2, 1]
+    program = check50.run("python3 testing.py main").stdin("1", prompt=False)
+    for solution in solutions:
+        program.stdin(str(solution), prompt=False)
+    program.stdout(score_regex("8"), "8", regex=True)
+    program.exit(0)
+
+
+@check50.check(test_generate_problems)
 def test_EEE():
     """Little Professor displays EEE when answer is incorrect"""
-    check50.run("python3 testing.py main").stdin("1", prompt=False).stdin("0", prompt=False).stdout(regex("EEE"), "EEE", regex=True)
+    check50.run("python3 testing.py main").stdin("1", prompt=False).stdin(
+        "0", prompt=False
+    ).stdout(regex("EEE"), "EEE", regex=True)
 
 
 @check50.check(test_generate_problems)
@@ -104,9 +138,9 @@ def test_show_solution():
 
 def regex(text):
     """match case-sensitively with any characters on either side"""
-    return fr'^.*{escape(text)}.*$'
+    return rf"^.*{escape(text)}.*$"
 
 
 def score_regex(score):
     """match case-insensitively with only final printing of score"""
-    return fr'(?i)[^\d+=]*{score}[^\d+=]*$'
+    return rf"(?i)[^\d+=]*{score}[^\d+=]*$"

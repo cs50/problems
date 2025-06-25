@@ -66,9 +66,25 @@ def test_non_youtube():
 
 
 @check50.check(exists)
+def test_escape_characters():
+    """watch.py returns None when given YouTube link with slight typo"""
+    link = "https://www.youtube?com/embed/xvFZjo5PgG0"
+    output = "None"
+    test_simple_iframe(link, output)
+
+
+@check50.check(exists)
+def test_outside_src():
+    """watch.py returns None when given YouTube link outside of a src attribute"""
+    input = "https://www.youtube.com/embed/xvFZjo5PgG0"
+    output = "None"
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
+
+
+@check50.check(exists)
 def test_outside_iframe():
     """watch.py returns None when given YouTube link outside of an iframe"""
-    input = "https://www.youtube.com/embed/xvFZjo5PgG0"
+    input = "src=\"https://www.youtube.com/embed/xvFZjo5PgG0\""
     output = "None"
     check50.run("python3 testing.py").stdin(input, prompt=True).stdout(regex(output), output, regex=True).exit(0)
 
