@@ -11,7 +11,7 @@ def exists():
 @check50.check(exists)
 def test1():
     """input of 1 yields output of 90000000000000000"""
-    output = check50.run("python3 einstein.py").stdin("1", prompt=False).stdout()
+    output = check50.run("python3 einstein.py").stdin("1", prompt=True).stdout()
 
     # Extract number from stdout
     match = re.search(r"([.,]?(?:\d[.,]?)+)", output)
@@ -33,7 +33,7 @@ def test1():
 @check50.check(exists)
 def test14():
     """input of 14 yields output of 1260000000000000000"""
-    output = check50.run("python3 einstein.py").stdin("14", prompt=False).stdout()
+    output = check50.run("python3 einstein.py").stdin("14", prompt=True).stdout()
 
     # Extract number from stdout
     match = re.search(r"([.,]?(?:\d[.,]?)+)", output)
@@ -55,7 +55,7 @@ def test14():
 @check50.check(exists)
 def test50():
     """input of 50 yields output of 4500000000000000000"""
-    output = check50.run("python3 einstein.py").stdin("50", prompt=False).stdout()
+    output = check50.run("python3 einstein.py").stdin("50", prompt=True).stdout()
 
     # Extract number from stdout
     match = re.search(r"([.,]?(?:\d[.,]?)+)", output)
