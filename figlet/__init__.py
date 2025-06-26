@@ -54,7 +54,7 @@ def test_alphabet_text():
 def test_no_arguments():
     """figlet.py runs error free given no command-line arguments"""
     text = 'Random text'
-    exit = check50.run("python3 figlet.py").stdin(text, prompt=False).exit()
+    exit = check50.run("python3 figlet.py").stdin(text, prompt=True).exit()
     if exit != 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
