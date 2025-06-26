@@ -56,7 +56,7 @@ def test_no_arguments():
     text = 'Random text'
     exit = check50.run("python3 figlet.py").stdin(text, prompt=True).exit()
     if exit != 0:
-        raise check50.Failure(f"Expected non-zero exit code.")
+        raise check50.Failure(f"Expected exit code zero.")
 
 
 def regex(text):
