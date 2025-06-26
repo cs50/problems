@@ -28,11 +28,11 @@ class FakeResponse:
 
 
 import requests
-def request(method, url, **kwargs):
+def fake_request(method, url, **kwargs):
     if method == "GET":
         return FakeResponse()
     else:
-        return None
+        return requests.request(method, url, **kwargs)
 
 
 requests.get = lambda *args, **kwargs: FakeResponse()
