@@ -36,7 +36,7 @@ def fake_request(method, url, **kwargs):
 
 
 requests.get = lambda *args, **kwargs: FakeResponse()
-requests.request = request
+requests.request = fake_request
 
 # Run bitcoin via import
 import bitcoin
