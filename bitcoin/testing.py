@@ -1,7 +1,3 @@
-import bitcoin
-import requests
-
-
 class FakeResponse:
     def __init__(self):
         self.status_code = 200
@@ -31,6 +27,7 @@ class FakeResponse:
         pass
 
 
+import requests
 def request(method, url, **kwargs):
     if method == "GET":
         return FakeResponse()
@@ -42,6 +39,7 @@ requests.get = lambda *args, **kwargs: FakeResponse()
 requests.request = request
 
 # Run bitcoin via import
+import bitcoin
 
 # Run bitcoin's main function if not via import
 try:
