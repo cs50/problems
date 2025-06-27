@@ -9,6 +9,15 @@ def exists():
 
 
 @check50.check(exists)
+def test_no_arguments():
+    """figlet.py exits given no command-line arguments"""
+    text = 'test'
+    exit = check50.run("python3 figlet.py").stdin(text, prompt=True).exit()
+    if exit != 0:
+        raise check50.Failure(f"Expected exit code zero.")
+
+
+@check50.check(exists)
 def test_one_argument():
     """figlet.py exits given one command-line argument"""
     exit = check50.run("python3 figlet.py test").exit()
