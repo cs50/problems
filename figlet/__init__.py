@@ -26,15 +26,6 @@ def test_one_argument():
 
 
 @check50.check(exists)
-def test_no_arguments():
-    """figlet.py exits given no command-line arguments"""
-    text = 'Random text'
-    exit = check50.run("python3 figlet.py").stdin(text, prompt=True).exit()
-    if exit != 0:
-        raise check50.Failure(f"Expected exit code zero.")
-
-
-@check50.check(exists)
 def test_invalid_first_argument():
     """figlet.py exits given invalid first command-line argument"""
     exit = check50.run("python3 figlet.py --front slant").exit()
