@@ -75,6 +75,12 @@ def raise_for_invalid_spaces():
 
 
 @check50.check(libraries)
+def raise_for_leading_zero():
+    """working.py raises ValueError when given \"09 AM to 5:001 PM\""""
+    test_invalid_time(input="09 AM to 5:001 PM", error="ValueError")
+
+
+@check50.check(libraries)
 def raise_for_invalid_format_24_hour():
     """working.py raises ValueError when given \"09:00 to 17:00\""""
     test_invalid_time(input="09:00 to 17:00", error="ValueError")
