@@ -55,14 +55,14 @@ def test_incorrect_out_of_range2():
     output = "False"
     check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
 
-    
+
 @check50.check(exists)
 def test_incorrect_number_bytes():
     """numb3rs.py prints False for 8.8.8"""
     input = "8.8.8"
     output = "False"
     check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
- 
+
 
 @check50.check(exists)
 def test_incorrect_number_bytes2():
@@ -84,6 +84,22 @@ def test_incorrect_ipv6():
 def test_non_ip():
     """numb3rs.py prints False for cat"""
     input = "cat"
+    output = "False"
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
+
+
+@check50.check(exists)
+def test_invalid_octet():
+    """numb3rs.py prints False for 1.1.1.11111"""
+    input = "1.1.1.11111"
+    output = "False"
+    check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
+
+
+@check50.check(exists)
+def test_leading_zero():
+    """numb3rs.py prints False for 000.001.010.100"""
+    input = "000.000.001.010"
     output = "False"
     check50.run("python3 testing.py").stdin(input, prompt=True).stdout(output).exit(0)
 
