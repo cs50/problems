@@ -26,6 +26,15 @@ def test_fewer_arguments():
 
 
 @check50.check(exists)
+def test_one_argument():
+    """shirt.py exits given one command-line argument"""
+    check50.include("muppet_01.jpg")
+    exit = check50.run("python3 shirt.py muppet_01.jpg").exit()
+    if exit == 0:
+        raise check50.Failure(f"Expected non-zero exit code.")
+
+
+@check50.check(exists)
 def test_invalid_extension():
     """shirt.py exits given a file without a .jpg, .jpeg, or .png extension"""
     check50.include("invalid_extension.bmp")
@@ -37,7 +46,7 @@ def test_invalid_extension():
 @check50.check(exists)
 def test_non_existent_file():
     """shirt.py exits given a non-existent file"""
-    exit = check50.run("python3 shirt.py non_existent_file.jpg").exit()
+    exit = check50.run("python3 shirt.py non_existent_file.jpg out.jpg").exit()
     if exit == 0:
         raise check50.Failure(f"Expected non-zero exit code.")
 
