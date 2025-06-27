@@ -28,7 +28,15 @@ class FakeResponse:
 
 
 import requests
+def fake_request(method, url, **kwargs):
+    if method == "GET":
+        return FakeResponse()
+    else:
+        return requests.request(method, url, **kwargs)
+
+
 requests.get = lambda *args, **kwargs: FakeResponse()
+requests.request = fake_request
 
 # Run bitcoin via import
 import bitcoin
