@@ -6,7 +6,7 @@ from re import sub
 def exists():
     """test_fuel.py exist"""
     check50.exists("test_fuel.py")
-    
+
     # Include testing fuel.py
     check50.include("fuel.py")
 
@@ -25,8 +25,14 @@ def test_convert():
 
 @check50.check(test_correct)
 def test_value_error():
-    """test_fuel catches fuel.py not raising ValueError in convert"""
+    """test_fuel catches fuel.py not raising ValueError in convert (1/2)"""
     test_implementation("value_error_test", code=1)
+
+
+@check50.check(test_correct)
+def test_negative_fraction_error():
+    """test_fuel catches fuel.py not raising ValueError in convert (2/2)"""
+    test_implementation("negative_fraction_test", code=1)
 
 
 @check50.check(test_correct)
