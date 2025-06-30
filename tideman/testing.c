@@ -108,7 +108,7 @@ int main(int argc, string argv[])
             ranks3[0] = ranks3[1] = ranks3[2] = 0;
 
             // Creating a copy of string "Bob"
-            char *bob_cpy = malloc((strlen("Bob) + 1) * sizeof(char));
+            char *bob_cpy = malloc((strlen("Bob") + 1) * sizeof(char));
             strcpy(bob_cpy, "Bob");
             printf("%s", vote(0, bob_cpy, ranks3) ? "true" : "false");
             free(bob_cpy);
