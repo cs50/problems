@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, string argv[])
 {
@@ -105,9 +106,13 @@ int main(int argc, string argv[])
     {
         case 0:
             ranks3[0] = ranks3[1] = ranks3[2] = 0;
-            printf("%s", vote(0, "Bob", ranks3) ? "true" : "false");
-            break;
 
+            // Creating a copy of string "Bob"
+            char *bob_cpy = malloc((strlen("Bob") + 1) * sizeof(char));
+            strcpy(bob_cpy, "Bob");
+            printf("%s", vote(0, bob_cpy, ranks3) ? "true" : "false");
+            free(bob_cpy);
+            break;
         case 1:
             ranks3[0] = ranks3[1] = ranks3[2] = 0;
             printf("%s", vote(0, "David", ranks3) ? "true" : "false");
