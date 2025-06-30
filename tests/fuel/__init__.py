@@ -25,13 +25,13 @@ def test_convert():
 
 @check50.check(test_correct)
 def test_value_error():
-    """test_fuel catches fuel.py not raising ValueError in convert (1/2)"""
+    """test_fuel catches fuel.py not raising ValueError in convert"""
     test_implementation("value_error_test", code=1)
 
 
 @check50.check(test_correct)
 def test_negative_fraction_error():
-    """test_fuel catches fuel.py not raising ValueError in convert (2/2)"""
+    """test_fuel catches fuel.py not raising ValueError in convert for negative fractions"""
     test_implementation("negative_fraction_test", code=1)
 
 
