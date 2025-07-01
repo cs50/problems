@@ -48,6 +48,11 @@ def inheritance_rules_3():
     check50.run("./inheritance_test").stdout(".*allele_true.*").exit(0)
 
 @check50.check(compiles_test)
+def inheritance_rules_4():
+    """create_family follows inheritance rules 4"""
+    check50.run("export CHECK50_STATIC_INHERITANCE_ENABLED=1 && ./inheritance_test").stdout(".*allele_true.*").exit(0)
+
+@check50.check(compiles_test)
 def frees_memory():
     """free_family results in no memory leakages"""
     check50.c.valgrind("./inheritance").exit(0)
