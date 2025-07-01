@@ -77,3 +77,15 @@ def test_number_functions():
         raise check50.Failure(
             "test_jar.py does not contain at least four valid functions"
         )
+
+@check50.check(test_student_file_passes)
+def test_named_functions():
+    """test_jar.py defines test_init, test_str, test_deposit, and test_withdraw"""
+    with open("test_jar.py") as t:
+        contents = t.read()
+
+    funcs = ["test_init", "test_str", "test_deposit", "test_withdraw"]
+    for func in funcs:
+        matches = re.search(rf"def\s+{func}\s*\(", contents)
+        if not matches:
+            raise check50.Failure(f"{func} not found in test_jar.py")
