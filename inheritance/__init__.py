@@ -21,6 +21,7 @@ def compiles_test():
     inheritance = re.sub(r"int\s+main\(", "int distro_main(", open("inheritance.c").read())
     testing = open("testing.c").read()
     with open("inheritance_test.c", "w") as f:
+        f.write("#include <string.h>\n")
         f.write(inheritance)
         f.write("\n")
         f.write(testing)
@@ -46,6 +47,11 @@ def inheritance_rules_2():
 def inheritance_rules_3():
     """create_family follows inheritance rules 3"""
     check50.run("./inheritance_test").stdout(".*allele_true.*").exit(0)
+
+@check50.check(compiles_test)
+def inheritance_rules_4():
+    """create_family follows inheritance rules 4"""
+    check50.run("export CHECK50_STATIC_INHERITANCE_ENABLED=1 && ./inheritance_test").stdout(".*allele_true.*").exit(0)
 
 @check50.check(compiles_test)
 def frees_memory():

@@ -37,7 +37,20 @@ int check_size(person *p, int n)
 
 int main(void)
 {
-    srand(time(0));
+    // check50 incorporates an environment variable in case a deterministic
+    // testcase is needed. Set this variable to 1 in order to set a fixed seed.
+    // Otherwise, don't provide it or set it as anything other than 1, and the
+    // tests will be randomly generated.
+    char *mode = getenv("CHECK50_STATIC_INHERITANCE_ENABLED");
+    if (mode && strcmp(mode, "1") == 0)
+    {
+        srand(2); // fixed seed for deterministic tests
+    }
+    else
+    {
+        srand(time(0));
+    }
+
     person *p = create_family(3);
 
     printf(check_size(p, 3) ? "size_true " : "size_false ");
