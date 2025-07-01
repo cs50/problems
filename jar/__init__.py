@@ -97,7 +97,7 @@ def test_valid_testing():
     """test_jar.py contains implemented functions"""
     
     # https://stackoverflow.com/questions/845058/how-to-get-the-line-count-of-a-large-file-cheaply-in-python
-    with open("test_jar.py", "rbU") as t:
+    with open("test_jar.py", "rb") as t:
         num_lines = sum(1 for _ in t)
 
     if num_lines < 20:
