@@ -1,3 +1,5 @@
+#include <string.h>
+
 int check_alleles(person *p)
 {
     if (p -> parents[0] == NULL)

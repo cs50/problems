@@ -21,7 +21,6 @@ def compiles_test():
     inheritance = re.sub(r"int\s+main\(", "int distro_main(", open("inheritance.c").read())
     testing = open("testing.c").read()
     with open("inheritance_test.c", "w") as f:
-        f.write("#include <string.h>\n")
         f.write(inheritance)
         f.write("\n")
         f.write(testing)
