@@ -1,5 +1,6 @@
 import check50
 import re
+import ast
 
 
 @check50.check()
@@ -82,23 +83,65 @@ def test_number_functions():
 @check50.check(test_student_file_passes)
 def test_named_functions():
     """test_jar.py defines test_init, test_str, test_deposit, and test_withdraw"""
-    with open("test_jar.py") as t:
-        contents = t.read()
+    result = check50.run("pytest test_jar.py --collect-only -q").stdout()
+    collected_tests = []
+    for line in result.strip().split('\n'):
+        if '::test_' in line:
+            test_name = line.split('::')[1].strip()
+            collected_tests.append(test_name)
 
-    funcs = ["test_init", "test_str", "test_deposit", "test_withdraw"]
-    for func in funcs:
-        matches = re.search(rf"def\s+{func}\s*\(", contents)
-        if not matches:
-            raise check50.Failure(f"{func} not found in test_jar.py")
+    required_funcs = ["test_init", "test_str", "test_deposit", "test_withdraw"]
+    missing_funcs = []
+    for func in required_funcs:
+        if func not in collected_tests:
+            missing_funcs.append(func)
+
+    if missing_funcs:
+        raise check50.Failure(
+            f"Function(s) not collected by pytest in test_jar.py: {', '.join(missing_funcs)}")
 
 
 @check50.check(test_student_file_passes)
 def test_valid_testing():
     """test_jar.py contains implemented functions"""
-    
-    # https://stackoverflow.com/questions/845058/how-to-get-the-line-count-of-a-large-file-cheaply-in-python
-    with open("test_jar.py", "rb") as t:
-        num_lines = sum(1 for _ in t)
+    with open("test_jar.py") as f:
+        contents = f.read()
 
-    if num_lines < 20:
-        raise check50.Failure("test_jar.py functions not implemented")
+    try:
+        tree = ast.parse(contents)
+    except SyntaxError:
+        raise check50.Failure("test_jar.py contains syntax errors")
+
+    required_funcs = ["test_init", "test_str", "test_deposit", "test_withdraw"]
+    implemented_funcs = []
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef) and node.name in required_funcs:
+            has_test_content = False
+
+            # Walk through all nodes in the function to find test-related code
+            for child in ast.walk(node):
+                # Check for assert statements
+                if isinstance(child, ast.Assert):
+                    has_test_content = True
+                    break
+                # Check for pytest.raises or with statements (for context managers)
+                elif isinstance(child, ast.With):
+                    has_test_content = True
+                    break
+                # Check for calls to pytest functions or assert methods
+                elif isinstance(child, ast.Call):
+                    if isinstance(child.func, ast.Attribute):
+                        # Check for pytest.* or self.assert* calls
+                        if (hasattr(child.func.value, 'id') and child.func.value.id == 'pytest') or \
+                           child.func.attr.startswith('assert'):
+                            has_test_content = True
+                            break
+
+            if has_test_content:
+                implemented_funcs.append(node.name)
+
+    missing_or_empty = set(required_funcs) - set(implemented_funcs)
+    if missing_or_empty:
+        raise check50.Failure(
+            f"Missing or empty function(s) in test_jar.py: {', '.join(sorted(missing_or_empty))}")
