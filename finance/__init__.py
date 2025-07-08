@@ -38,8 +38,8 @@ def simple_register():
 def register_empty_field_fails():
     """registration with an empty field fails"""
     for user in [
-        ("", "Crimson!!", "Crimson!!"),
-        ("jharvard", "Crimson!!", ""),
+        ("", "Cr1mson!", "Cr1mson!"),
+        ("jharvard", "Cr1mson!", ""),
         ("jharvard", "", ""),
     ]:
         Finance().register(*user).status(400)
@@ -49,6 +49,32 @@ def register_empty_field_fails():
 def register_password_mismatch_fails():
     """registration with password mismatch fails"""
     Finance().register("check50user1", "thisiscs50", "crimson").status(400)
+
+
+@check50.check(register_page)
+def register_password_validation_fails():
+    """registration with invalid passwords fail"""
+    for user in [
+        ("jharvard", "cr1mson!", "cr1mson!"),   # no uppercase letters
+        ("jharvard", "CR1MSON!", "CR1MSON!"),   # no lowercase letters
+        ("jharvard", "Crimson!", "Crimson!"),   # no digits
+        ("jharvard", "Cr1mson1", "Cr1mson1"),   # no special char
+        ("jharvard", "Cr1m!", "Cr!m!"),         # len(password) < 8
+        ("jharvard", "Cr1m!"*10, "Cr1m!"*10)    # len(password) > 32
+    ]:
+        Finance().register(*user).status(400)
+
+
+@check50.check(register_page)
+def register_username_validation_fails():
+    """registration with invalid usernames fail"""
+    for user in [
+        ("-jharvard", "Cr1mson!", "Cr1mson!"),  # starts with dash
+        (";.,~",      "Cr1mson!", "Cr1mson!"),  # non-alphanumeric
+        ("jh",        "Cr1mson!", "Cr1mson!"),  # len(username) < 3
+        ("j" * 40,    "Cr1mson!", "Cr1mson!")   # len(username) > 39
+    ]:
+        Finance().register(*user).status(400)
 
 
 @check50.check(register_page)
