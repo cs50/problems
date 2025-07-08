@@ -38,8 +38,8 @@ def simple_register():
 def register_empty_field_fails():
     """registration with an empty field fails"""
     for user in [
-        ("", "crimson", "crimson"),
-        ("jharvard", "crimson", ""),
+        ("", "Crimson!!", "Crimson!!"),
+        ("jharvard", "Crimson!!", ""),
         ("jharvard", "", ""),
     ]:
         Finance().register(*user).status(400)
