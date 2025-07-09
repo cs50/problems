@@ -20,7 +20,7 @@ def valid():
 
     filename = filenames[0]
 
-    # Ensure that unzipped .sb2 file contains .json file.
+    # Ensure that unzipped .sb3 file contains .json file.
     if check50.run(f"unzip {shlex.quote(filename)}").exit():
         raise check50.Failure("invalid .sb3 file")
     check50.exists("project.json")
