@@ -69,16 +69,16 @@ INSERT INTO ratings (movie_id, rating, votes) VALUES
 INSERT INTO movies (title, year) VALUES ("Harry Potter and the Order of the Phoenix", 2007);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Harry Potter and the Order of the Phoenix"), 7.5, 464255);
-INSERT INTO movies (title, year) VALUES ("The Dark Knight", 2008);
+INSERT INTO movies (title, year) VALUES ("Venom: The Last Dance", 2024);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "The Dark Knight"), 9.0, 2121210);
-INSERT INTO movies (title, year) VALUES ("Iron Man", 2008);
+INSERT INTO movies (title, year) VALUES ("Kraven the Hunter", 2024);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Iron Man"), 7.9, 884358);
-INSERT INTO movies (title, year) VALUES ("Slumdog Millionaire", 2008);
+INSERT INTO movies (title, year) VALUES ("Deadpool & Wolverine", 2024);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Slumdog Millionaire"), 8.0, 757439);
-INSERT INTO movies (title, year) VALUES ("Kung Fu Panda", 2008);
+INSERT INTO movies (title, year) VALUES ("Immaculate", 2024);
 INSERT INTO ratings (movie_id, rating, votes) VALUES
     ((SELECT id FROM movies WHERE title = "Kung Fu Panda"), 7.5, 389857);
 INSERT INTO movies (title, year) VALUES ("Harry Potter and the Half-Blood Prince", 2009);
