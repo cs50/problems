@@ -64,7 +64,7 @@ def test5():
         [
             {"The Lord of the Rings", "1978"},
             {"The Lord of the Rings: The Fellowship of the Ring", "2001"},
-            {"The Lord of the Rings: The Two Towers", "2002"},
+            {"The Lord of the Rings: The Two Towers", " 2002 "},
             {"The Lord of the Rings - The Appendices Part 1: From Book to Vision", "2002"},
             {"The Lord of the Rings: The Return of the King", "2003"},
             {"The Lord of the Rings Symphony", "2003"},
@@ -168,7 +168,6 @@ def test11():
 @check50.check(exists)
 def test12():
     """12.sql produce resultado correcto"""
-    try:
         check_single_col(
             run_query("12.sql"),
             {
@@ -183,8 +182,7 @@ def test12():
             },
             ordered=False,
         )
-    except Exception as e:
-        raise check50.Failure(f"Error al ejecutar 12.sql: {str(e)}")
+
 
 
 @check50.check(exists)
