@@ -12,6 +12,67 @@ def exists():
     check50.include("movies.db")
 
 
+def run_query(filename):
+    try:
+        with open(filename) as f:
+            query = f.read().strip()
+            query = sqlparse.format(query, strip_comments=True).strip()
+        db = SQL("sqlite:///movies.db")
+        result = db.execute(query)
+        return result
+    except Exception as e:
+        raise check50.Failure(f"Error al ejecutar consulta: {str(e)}")
+
+
+def check_single_col(actual, expected, ordered=False):
+    if actual is None or actual == []:
+        raise check50.Failure("La consulta no arrojó resultados")
+
+    row_counts = {len(list(row.values())) for row in actual}
+    if row_counts != {1}:
+        raise check50.Failure("La consulta solo debe devolver una sola columna")
+
+    result = [str(list(row.values())[0]) for row in actual]
+    result = result if ordered else set(result)
+
+    expected = [str(value) for value in expected]
+    expected = expected if ordered else set(expected)
+
+    if result != expected:
+        raise check50.Mismatch("\n".join(expected), "\n".join(list(result)))
+
+
+def check_single_cell(actual, expected):
+    return check_single_col(actual, [expected], ordered=True)
+
+
+def check_double_col(actual, expected, ordered=False):
+    if actual is None or actual == []:
+        raise check50.Failure("La consulta no arrojó resultados")
+
+    row_counts = {len(list(row.values())) for row in actual}
+    if row_counts != {2}:
+        raise check50.Failure("La consulta debe devolver exactamente dos columnas")
+
+    result = []
+    for row in actual:
+        values = list(row.values())
+        result.append({str(values[0]).strip(), str(values[1]).strip()})
+    result = result if ordered else set(result)
+
+    cleaned_expected = [
+        {str(list(e)[0]).strip(), str(list(e)[1]).strip()} if isinstance(e, set) else e
+        for e in expected
+    ]
+    cleaned_expected = cleaned_expected if ordered else set(cleaned_expected)
+
+    if result != cleaned_expected:
+        raise check50.Mismatch(
+            "\n".join([str(entry) for entry in list(cleaned_expected)]),
+            "\n".join([str(entry) for entry in list(result)])
+        )
+
+
 @check50.check(exists)
 def test1():
     """1.sql produce resultado correcto"""
@@ -127,16 +188,18 @@ def test8():
     )
 
 
-
 @check50.check(exists)
 def test9():
     """9.sql produce resultado correcto"""
     check_single_col(
         run_query("9.sql"),
-        {"Robert Downey Jr.", "Chris Evans", "Mark Ruffalo", "Chris Hemsworth", "Scarlett Johansson", "Jeremy Renner", "Don Cheadle", "Paul Rudd", "Benedict Cumberbatch", "Chadwick Boseman"},
+        {
+            "Robert Downey Jr.", "Chris Evans", "Mark Ruffalo", "Chris Hemsworth",
+            "Scarlett Johansson", "Jeremy Renner", "Don Cheadle", "Paul Rudd",
+            "Benedict Cumberbatch", "Chadwick Boseman"
+        },
         ordered=False,
     )
-
 
 
 @check50.check(exists)
@@ -172,21 +235,14 @@ def test12():
         check_single_col(
             run_query("12.sql"),
             {
-                "Edward Scissorhands",
-                "Ed Wood",
-                "Corpse Bride",
-                "Sleepy Hollow",
-                "Charlie and the Chocolate Factory",
-                "Sweeney Todd: The Demon Barber of Fleet Street",
-                "Alice in Wonderland",
-                "Dark Shadows",
+                "Edward Scissorhands", "Ed Wood", "Corpse Bride", "Sleepy Hollow",
+                "Charlie and the Chocolate Factory", "Sweeney Todd: The Demon Barber of Fleet Street",
+                "Alice in Wonderland", "Dark Shadows"
             },
             ordered=False,
         )
     except Exception as e:
         raise check50.Failure(f"Error al ejecutar 12.sql: {str(e)}")
-
-
 
 
 @check50.check(exists)
@@ -195,90 +251,8 @@ def test13():
     check_single_col(
         run_query("13.sql"),
         {
-            "Don Scardino",
-            "Barbara Stuart",
-            "Carrie Fisher",
-            "Jim Belushi",
-            "Dan Aykroyd",
-            "Sally Field",
-            "Melanie Griffith",
+            "Don Scardino", "Barbara Stuart", "Carrie Fisher", "Jim Belushi",
+            "Dan Aykroyd", "Sally Field", "Melanie Griffith"
         },
         ordered=False,
     )
-
-
-def run_query(filename):
-    try:
-        with open(filename) as f:
-            query = f.read().strip()
-            query = sqlparse.format(query, strip_comments=True).strip()
-        db = SQL("sqlite:///movies.db")
-        result = db.execute(query)
-        return result
-    except Exception as e:
-        raise check50.Failure(f"Error al ejecutar consulta: {str(e)}")
-
-
-def check_single_col(actual, expected, ordered=False):
-    """
-    Comprueba las consultas que devuelven solo una columna y garantiza resultados correctos.
-    """
-
-    # Make sure query returned results
-    if actual is None or actual == []:
-        raise check50.Failure("La consulta no arrojó resultados")
-
-    # Make sure there is only a single column
-    row_counts = {len(list(row.values())) for row in actual}
-    if row_counts != {1}:
-        raise check50.Failure("La consulta solo debe devolver una sola columna")
-
-    # Get data from column
-    try:
-        result = [str(list(row.values())[0]) for row in actual]
-        result = result if ordered else set(result)
-    except IndexError:
-        return None
-
-    # Check column data against expected values
-    expected = [str(value) for value in expected]
-    if not ordered:
-        expected = set(expected)
-    if result != expected:
-        raise check50.Mismatch("\n".join(expected), "\n".join(list(result)))
-
-
-def check_single_cell(actual, expected):
-    return check_single_col(actual, [expected], ordered=True)
-
-
-def check_double_col(actual, expected, ordered=False):
-    """
-    Comprueba las consultas que devuelven solo una columna y garantiza resultados correctos.
-    """
-
-    # Make sure query returned results
-    if actual is None or actual == []:
-        raise check50.Failure("La consulta no arrojó resultados")
-
-    # Make sure there are only two columns
-    row_counts = {len(list(row.values())) for row in actual}
-    if row_counts != {2}:
-        raise check50.Failure("La consulta debe devolver exactamente dos columnas")
-
-    # Get data from column
-    try:
-        result = []
-        for row in actual:
-            values = list(row.values())
-            result.append({str(values[0]), str(values[1])})
-        result = result if ordered else set(result)
-    except IndexError:
-        return None
-
-    # Check column data against expected values
-    if result != expected:
-        raise check50.Mismatch(
-            "\n".join([str(entry) for entry in list(expected)]),
-            "\n".join([str(entry) for entry in list(result)]),
-        )
