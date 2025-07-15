@@ -1,7 +1,7 @@
 import check50
 import check50.c
 
-check50.configure(truncate_len=10)
+check50.configure(truncate_len=14)
 
 @check50.check()
 def exists():
