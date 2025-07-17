@@ -4,6 +4,7 @@ import check50
 def exists():
     """dna.py exists"""
     check50.exists("dna.py")
+    check50.include("generate_dynamic_test.py")
     check50.include("sequences", "databases")
 
 @check50.check(exists)
@@ -106,3 +107,7 @@ def test20():
     """correctly identifies sequences/20.txt"""
     check50.run("python3 dna.py databases/large.csv sequences/20.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
 
+@check50.check(exists)
+def test21():
+    """correctly identifies sequences/dynamic.txt"""
+    check50.run("python3 generate_dynamic_test.py && python3 dna.py databases/dynamic.csv sequences/dynamic.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
