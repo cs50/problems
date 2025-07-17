@@ -1,4 +1,5 @@
 import check50
+import random
 
 @check50.check()
 def exists():
@@ -131,3 +132,21 @@ def test24():
 def test25():
     """correctly identifies sequences/dynamic_5.txt"""
     check50.run("python3 generate_dynamic_test.py dynamic_5.csv dynamic_5.txt 142 && python3 dna.py databases/dynamic_5.csv sequences/dynamic_5.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+
+@check50.check(exists)
+def test26():
+    """correctly identifies sequences/dynamic_6.txt"""
+    random_seed = random.randint(8,20)
+    check50.run(f"python3 generate_dynamic_test.py dynamic_6.csv dynamic_6.txt {random_seed} && python3 dna.py databases/dynamic_6.csv sequences/dynamic_6.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+
+@check50.check(exists)
+def test27():
+    """correctly identifies sequences/dynamic_7.txt"""
+    random_seed = random.randint(8,20)
+    check50.run(f"python3 generate_dynamic_test.py dynamic_7.csv dynamic_7.txt {random_seed} && python3 dna.py databases/dynamic_7.csv sequences/dynamic_7.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+
+@check50.check(exists)
+def test28():
+    """correctly identifies sequences/dynamic_8.txt"""
+    random_seed = random.randint(8,20)
+    check50.run(f"python3 generate_dynamic_test.py dynamic_8.csv dynamic_8.txt {random_seed} && python3 dna.py databases/dynamic_8.csv sequences/dynamic_8.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
