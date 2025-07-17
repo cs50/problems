@@ -6,9 +6,8 @@ Generates dynamic.csv and dynamic.txt with random STR sequences.
 
 import random
 import csv
-
-CSV_OUTPUT_PATH = 'databases/dynamic.csv'
-TXT_OUTPUT_PATH = 'sequences/dynamic.txt'
+import sys
+import os
 
 def generate_random_str_sequence(length):
     """Generate a random STR sequence of given length."""
@@ -40,8 +39,11 @@ def generate_dna_sequence_with_strs(str_counts):
     
     return ''.join(sequence_parts)
 
-def generate_test_files():
-    """Generate dynamic.csv and dynamic_sequence.txt with random STRs."""
+def generate_test_files(csv_filename, txt_filename):
+    """Generate CSV and TXT files with random STRs."""
+
+    csv_output_path = os.path.join('databases', csv_filename)
+    txt_output_path = os.path.join('sequences', txt_filename)
     
     # Generate 6-8 random STR sequences of different lengths
     num_strs = random.randint(6, 8)
@@ -74,7 +76,7 @@ def generate_test_files():
     profiles.append(philosopher_profile)
     
     # Generate CSV file
-    with open(CSV_OUTPUT_PATH, 'w', newline='') as csvfile:
+    with open(csv_output_path, 'w', newline='') as csvfile:
         fieldnames = ['name'] + str_sequences
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -86,8 +88,16 @@ def generate_test_files():
     dna_sequence = generate_dna_sequence_with_strs(philosopher_counts)
     
     # Save DNA sequence
-    with open(TXT_OUTPUT_PATH, 'w') as f:
+    with open(txt_output_path, 'w') as f:
         f.write(dna_sequence)
 
 if __name__ == "__main__":
-    generate_test_files() 
+    if len(sys.argv) != 3:
+        print("Usage: python3 generate_dynamic_test.py <csv_filename> <txt_filename>")
+        print("Example: python3 generate_dynamic_test.py arg-1.csv arg-2.txt")
+        sys.exit(1)
+    
+    csv_filename = sys.argv[1]
+    txt_filename = sys.argv[2]
+    
+    generate_test_files(csv_filename, txt_filename)
