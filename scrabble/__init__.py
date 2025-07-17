@@ -56,3 +56,29 @@ def complex_case():
     """correctly identifies 'Skating!' as winner over 'figure?'"""
     check50.run("./scrabble").stdin("figure?").stdin("Skating!").stdout("[Pp]layer 2 [Ww]ins!?", "Player 2 wins!").exit(0)
 
+@check50.check(compiles)
+def test_scoring_accuracy():
+    """ensures correct Scrabble point values are used"""
+    # Test cases designed to fail if incorrect point values are used
+    # Each tuple: (player1_word, player2_word, expected_winner, description)
+    test_cases = [
+        ("z", "aa", 1, "high-value letter vs multiple low-value letters"),
+        ("q", "aaa", 1, "Q worth more than three A's"),
+        ("j", "aa", 1, "J worth more than two A's"),
+        ("x", "aaaa", 1, "X worth more than four A's"),
+        ("q", "ww", 1, "Q worth more than two W's")
+    ]
+    
+    for word1, word2, expected_winner, description in test_cases:
+        if expected_winner == 1:
+            expected_output = "[Pp]layer 1 [Ww]ins!?"
+            message = "Player 1 wins!"
+        elif expected_winner == 2:
+            expected_output = "[Pp]layer 2 [Ww]ins!?"
+            message = "Player 2 wins!"
+        else:
+            expected_output = "[Tt]ie!?"
+            message = "Tie!"
+        
+        check50.run("./scrabble").stdin(word1).stdin(word2).stdout(expected_output, message).exit(0)
+
