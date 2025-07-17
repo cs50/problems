@@ -86,7 +86,8 @@ def complex_case():
 
 @check50.check(complex_case)
 def test_strict_order():
-    """implementation respects strict order of the points table"""
+    """implementation passes pairwise ordering tests"""
+    # Check that the implementation respects the strict order of Scrabble points 
     for i in range(len(POINTS)-1):
         check50.run("./scrabble").stdin(chr(i + ord('a'))).stdin(chr(i + 1 + ord('a'))).stdout(*RESULTS[i]).exit(0)
 
