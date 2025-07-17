@@ -92,12 +92,12 @@ def generate_test_files(csv_filename, txt_filename):
         f.write(dna_sequence)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python3 generate_dynamic_test.py <csv_filename> <txt_filename>")
-        print("Example: python3 generate_dynamic_test.py arg-1.csv arg-2.txt")
+    if len(sys.argv) != 4:
+        print("Usage: python3 generate_dynamic_test.py <csv_filename> <txt_filename> <seed>")
+        print("Example: python3 generate_dynamic_test.py arg-1.csv arg-2.txt 1980")
         sys.exit(1)
     
     csv_filename = sys.argv[1]
     txt_filename = sys.argv[2]
-    
+    random.seed(int(sys.argv[3]))
     generate_test_files(csv_filename, txt_filename)

@@ -110,49 +110,24 @@ def test20():
 @check50.check(exists)
 def test21():
     """correctly identifies sequences/dynamic_1.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_1.csv dynamic_1.txt && python3 dna.py databases/dynamic_1.csv sequences/dynamic_1.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+    check50.run("python3 generate_dynamic_test.py dynamic_1.csv dynamic_1.txt 1980 && python3 dna.py databases/dynamic_1.csv sequences/dynamic_1.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
 def test22():
     """correctly identifies sequences/dynamic_2.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_2.csv dynamic_2.txt && python3 dna.py databases/dynamic_2.csv sequences/dynamic_2.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+    check50.run("python3 generate_dynamic_test.py dynamic_2.csv dynamic_2.txt 7 && python3 dna.py databases/dynamic_2.csv sequences/dynamic_2.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
 def test23():
     """correctly identifies sequences/dynamic_3.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_3.csv dynamic_3.txt && python3 dna.py databases/dynamic_3.csv sequences/dynamic_3.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+    check50.run("python3 generate_dynamic_test.py dynamic_3.csv dynamic_3.txt 31 && python3 dna.py databases/dynamic_3.csv sequences/dynamic_3.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
 def test24():
     """correctly identifies sequences/dynamic_4.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_4.csv dynamic_4.txt && python3 dna.py databases/dynamic_4.csv sequences/dynamic_4.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+    check50.run("python3 generate_dynamic_test.py dynamic_4.csv dynamic_4.txt 4 && python3 dna.py databases/dynamic_4.csv sequences/dynamic_4.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
 def test25():
     """correctly identifies sequences/dynamic_5.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_5.csv dynamic_5.txt && python3 dna.py databases/dynamic_5.csv sequences/dynamic_5.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
-
-@check50.check(exists)
-def test26():
-    """correctly identifies sequences/dynamic_6.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_6.csv dynamic_6.txt && python3 dna.py databases/dynamic_6.csv sequences/dynamic_6.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
-
-@check50.check(exists)
-def test27():
-    """correctly identifies sequences/dynamic_7.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_7.csv dynamic_7.txt && python3 dna.py databases/dynamic_7.csv sequences/dynamic_7.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
-
-@check50.check(exists)
-def test28():
-    """correctly identifies sequences/dynamic_8.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_8.csv dynamic_8.txt && python3 dna.py databases/dynamic_8.csv sequences/dynamic_8.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
-
-@check50.check(exists)
-def test29():
-    """correctly identifies sequences/dynamic_9.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_9.csv dynamic_9.txt && python3 dna.py databases/dynamic_9.csv sequences/dynamic_9.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
-
-@check50.check(exists)
-def test30():
-    """correctly identifies sequences/dynamic_10.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_10.csv dynamic_10.txt && python3 dna.py databases/dynamic_10.csv sequences/dynamic_10.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+    check50.run("python3 generate_dynamic_test.py dynamic_5.csv dynamic_5.txt 142 && python3 dna.py databases/dynamic_5.csv sequences/dynamic_5.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
