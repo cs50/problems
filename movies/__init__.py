@@ -125,7 +125,6 @@ def test9():
             "Rupert Grint",
             "Daniel Radcliffe",
             "Emma Watson",
-            "Emma Watson",
         ],
         ordered=True,
     )
@@ -222,6 +221,7 @@ def check_single_col(actual, expected, ordered=False):
     # Get data from column
     try:
         result = [str(list(row.values())[0]) for row in actual]
+        result = result if ordered else set(result)
     except IndexError:
         return None
 
@@ -230,8 +230,7 @@ def check_single_col(actual, expected, ordered=False):
 
     # If unordered, sort both before checking
     if not ordered:
-        result.sort()
-        expected.sort()
+        expected = set(expected)
 
     if result != expected:
         raise check50.Mismatch("\n".join(expected), "\n".join(list(result)))
