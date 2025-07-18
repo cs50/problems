@@ -131,7 +131,7 @@ def test24():
 @check50.check(exists)
 def test25():
     """correctly identifies sequences/dynamic_5.txt"""
-    check50.run("python3 generate_dynamic_test.py dynamic_5.csv dynamic_5.txt 142 && python3 dna.py databases/dynamic_5.csv sequences/dynamic_5.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
+    check50.run("python3 generate_dynamic_test.py dynamic_5.csv dynamic_5.txt 141 && python3 dna.py databases/dynamic_5.csv sequences/dynamic_5.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
 def test26():

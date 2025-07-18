@@ -2,6 +2,9 @@
 """
 Simple Dynamic DNA Test Generator
 Generates dynamic.csv and dynamic.txt with random STR sequences.
+Creates 2n-1 persons total (including Philosopher) where n = number of STRs.
+Pattern: Person1(1 match), Person2(2 matches), ..., Philosopher(n matches), ..., Person(2n-1)(1 match)
+Creates a symmetric pyramid pattern around the Philosopher.
 """
 
 import random
@@ -62,18 +65,45 @@ def generate_test_files(csv_filename, txt_filename):
     for str_seq in str_sequences:
         philosopher_counts[str_seq] = random.randint(15, 50)
     
-    # Create some other profiles with different counts
+    # Create profiles with symmetric pattern around Philosopher
     profiles = []
-    for i in range(3):
-        profile = {'name': f'Person{i+1}'}
-        for str_seq in str_sequences:
-            profile[str_seq] = random.randint(5, 30)
+    num_strs = len(str_sequences)
+    person_counter = 1
+    
+    # First: Create n-1 profiles with progressive matching (1,2,3,...,n-1)
+    for i in range(num_strs - 1):
+        profile = {'name': f'Person{person_counter}'}
+        matching_count = i + 1  # Person1 matches 1, Person2 matches 2, etc.
+        
+        for j, str_seq in enumerate(str_sequences):
+            if j < matching_count:
+                # Use the same value as philosopher for matching positions
+                profile[str_seq] = philosopher_counts[str_seq]
+            else:
+                # Use random value for non-matching positions
+                profile[str_seq] = random.randint(5, 30)
         profiles.append(profile)
+        person_counter += 1
     
     # Add Philosopher profile that matches the sequence exactly
     philosopher_profile = {'name': 'Philosopher'}
     philosopher_profile.update(philosopher_counts)
     profiles.append(philosopher_profile)
+    
+    # Second: Create n-1 more profiles with decreasing matching (n-1,n-2,n-3,...,1)
+    for i in range(num_strs - 1):
+        profile = {'name': f'Person{person_counter}'}
+        matching_count = (num_strs - 1) - i  # Decreasing: n-1, n-2, n-3, ..., 1
+        
+        for j, str_seq in enumerate(str_sequences):
+            if j < matching_count:
+                # Use the same value as philosopher for matching positions
+                profile[str_seq] = philosopher_counts[str_seq]
+            else:
+                # Use random value for non-matching positions
+                profile[str_seq] = random.randint(5, 30)
+        profiles.append(profile)
+        person_counter += 1
     
     # Generate CSV file
     with open(csv_output_path, 'w', newline='') as csvfile:
