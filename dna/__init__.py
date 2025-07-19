@@ -148,5 +148,5 @@ def test27():
 @check50.check(exists)
 def test28():
     """correctly identifies sequences/dynamic_8.txt"""
-    random_seed = random.randint(8,20)
+    random_seed = random.randint(200,225)
     check50.run(f"python3 generate_dynamic_test.py dynamic_8.csv dynamic_8.txt {random_seed} && python3 dna.py databases/dynamic_8.csv sequences/dynamic_8.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
