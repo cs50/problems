@@ -136,13 +136,13 @@ def test25():
 @check50.check(exists)
 def test26():
     """correctly identifies sequences/dynamic_6.txt"""
-    random_seed = random.randint(8,20)
+    random_seed = random.randint(8,12)
     check50.run(f"python3 generate_dynamic_test.py dynamic_6.csv dynamic_6.txt {random_seed} && python3 dna.py databases/dynamic_6.csv sequences/dynamic_6.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
 def test27():
     """correctly identifies sequences/dynamic_7.txt"""
-    random_seed = random.randint(8,20)
+    random_seed = random.randint(16,20)
     check50.run(f"python3 generate_dynamic_test.py dynamic_7.csv dynamic_7.txt {random_seed} && python3 dna.py databases/dynamic_7.csv sequences/dynamic_7.txt").stdout("^Philosopher", "Philosopher\n", timeout=5).exit()
 
 @check50.check(exists)
