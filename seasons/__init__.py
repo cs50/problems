@@ -85,13 +85,13 @@ def set_today(date):
 
 def test_valid_dates(date, today, output):
     set_today(today)
-    check50.run("python3 testing.py").stdin(date, prompt=True).stdout(regex(output), output, regex=True).exit(0)
+    check50.run("python3 testing.py").stdin(date, prompt=True, timeout=30).stdout(regex(output), output, regex=True).exit(0)
 
 
 def test_invalid_dates(date):
-    code = check50.run("python3 testing.py").stdin(date, prompt=True).exit()
+    code = check50.run("python3 testing.py").stdin(date, prompt=True, timeout=30).exit()
     if code == 0:
         raise check50.Failure("Expected non-zero exit code.")
-    out = check50.run("python3 testing.py").stdin(date, prompt=True).stdout()
+    out = check50.run("python3 testing.py").stdin(date, prompt=True, timeout=30).stdout()
     if search(r'(Traceback)', out):
         raise check50.Failure("Program exited with a traceback")

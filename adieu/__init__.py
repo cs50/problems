@@ -102,10 +102,10 @@ def multi_name_test(input, output):
     # Run program and supply names in input via stdin
     program = check50.run("python3 adieu.py")
     for name in input:
-        program.stdin(name, prompt=False)
+        program.stdin(name, prompt=False, timeout=30)
 
     # EOF halts program, output is as expected
-    program.stdin(EOF, prompt=False)
+    program.stdin(EOF, prompt=False, timeout=30)
     program.stdout(regex(output), output, regex=True)
 
     # Program exits gracefully
