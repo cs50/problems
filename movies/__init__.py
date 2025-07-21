@@ -114,18 +114,18 @@ def test8():
 @check50.check(exists)
 def test9():
     """9.sql produces correct result"""
-    check_single_col(
+    check_double_col(
         run_query("9.sql"),
         [
-            "Craig T. Nelson",
-            "Richard Griffifths",
-            "Samuel L. Jackson",
-            "Holly Hunter",
-            "Jason Lee",
-            "Rupert Grint",
-            "Daniel Radcliffe",
-            "Emma Watson",
-            "Emma Watson",
+            {"Craig T. Nelson", "33"},
+            {"Richard Griffifths", "34"},
+            {"Samuel L. Jackson", "30"},
+            {"Holly Hunter", "31"},
+            {"Jason Lee", "32"},
+            {"Rupert Grint", "35"},
+            {"Daniel Radcliffe", "36"},
+            {"Emma Watson", "38"},
+            {"Emma Watson", "11"},
         ],
         ordered=True,
     )
