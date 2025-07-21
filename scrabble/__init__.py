@@ -86,14 +86,14 @@ def complex_case():
 
 @check50.check(complex_case)
 def test_strict_order():
-    """implementation passes pairwise ordering tests"""
+    """correctly identifies winner between random words"""
     indices = random.sample(range(len(POINTS)-1), min(5, len(POINTS)-1))
     for i in indices:
         check50.run("./scrabble").stdin(chr(i + ord('a'))).stdin(chr(i + 1 + ord('a'))).stdout(*RESULTS[i]).exit(0)
 
 @check50.check(test_strict_order)
 def test_scoring_accuracy():
-    """implementation uses correct Scrabble point values"""
+    """implementation correctly calculates scores using the Scrabble points table"""
     letters = random.sample(list(POINTS_TABLE.items()), 5)
     for letter, points in letters:
         check50.run("./scrabble").stdin(letter).stdin(f'{random.choice(ONE_POINT_LETTERS) * points}').stdout(f"[Tt]ie!?", "Tie!").exit(0)
