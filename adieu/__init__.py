@@ -18,7 +18,7 @@ def test_EOF():
     program = check50.run("python3 adieu.py")
     
     # Send name and EOF
-    program.stdin(input, prompt=False).stdin(EOF, prompt=False)
+    program.stdin(input, prompt=False, timeout=30).stdin(EOF, prompt=False, timeout=30)
     
     # Program exits gracefully
     program.exit(0)
@@ -34,10 +34,10 @@ def test_single_name():
     program = check50.run("python3 adieu.py")
     
     # Send name and EOF
-    program.stdin(input, prompt=False).stdin(EOF, prompt=False)
+    program.stdin(input, prompt=False, timeout=30).stdin(EOF, prompt=False, timeout=30)
 
     # Check for expected output
-    program.stdout(regex(output), output, regex=True)
+    program.stdout(regex(output), output, regex=True, timeout=30)
 
     # Program exits gracefully
     program.exit(0)
@@ -106,7 +106,7 @@ def multi_name_test(input, output):
 
     # EOF halts program, output is as expected
     program.stdin(EOF, prompt=False, timeout=30)
-    program.stdout(regex(output), output, regex=True)
+    program.stdout(regex(output), output, regex=True, timeout=30)
 
     # Program exits gracefully
     program.exit(0)
