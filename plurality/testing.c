@@ -75,6 +75,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 8;
             candidates[1].votes = 2;
             candidates[2].votes = 0;
+            voter_count = 10;
             print_winner();
             break;
 
@@ -82,6 +83,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 1;
             candidates[1].votes = 8;
             candidates[2].votes = 1;
+            voter_count = 10;
             print_winner();
             break;
 
@@ -89,6 +91,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 1;
             candidates[1].votes = 8;
             candidates[2].votes = 9;
+            voter_count = 18;
             print_winner();
             break;
 
@@ -96,6 +99,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 8;
             candidates[1].votes = 8;
             candidates[2].votes = 5;
+            voter_count = 21;
             print_winner();
             break;
 
@@ -103,6 +107,7 @@ int main(int argc, string argv[])
             candidates[0].votes = 8;
             candidates[1].votes = 8;
             candidates[2].votes = 8;
+            voter_count = 24;
             print_winner();
             break;
     }
