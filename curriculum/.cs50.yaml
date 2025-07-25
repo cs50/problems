@@ -1,3 +1,10 @@
 check50:
   dependencies:
     - langdetect
+
+  files: &check50_files
+    - !exclude "*"
+    - !require curriculum.md
+
+submit50:
+  files: *check50_files
