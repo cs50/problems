@@ -1,6 +1,9 @@
 import check50
 import re
 
+# Fine Tuning
+KEYBOARD_MASHING_THRESHOLD = 0.2
+NO_VOWELS_THRESHOLD = 0.3
 
 # Reuse quality check functions from curriculum
 KEYBOARD_PATTERNS = [
@@ -9,7 +12,11 @@ KEYBOARD_PATTERNS = [
     'ujmi', 'iklo', 'olp;', 'plok', 'okij', 'jiuh',
     'uiop', 'iopa', 'opas', 'pasd', 'sdfg', 'dfgh',
     'fghj', 'ghjk', 'hjkl', 'jkl;', 'xcvb', 'cvbn',
-    'vbnm', 'bnm,', 'nm,.', 'wasd', 'awsd'
+    'vbnm', 'bnm,', 'nm,.', 'wasd', 'awsd', 'aaa',
+    'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg', 'hhh',
+    'iii', 'jjj', 'kkk', 'lll', 'mmm', 'nnn', 'ooo',
+    'ppp', 'qqq', 'rrr', 'sss', 'ttt', 'uuu', 'vvv',
+    'www', 'xxx', 'yyy', 'zzz'
 ]
 
 VOWELS = set('aeiouAEIOU')
@@ -33,7 +40,7 @@ def check_for_keyboard_mashing(words):
                 mashing_count += 1
                 break
     
-    return mashing_count > word_count * 0.4
+    return mashing_count > word_count * KEYBOARD_MASHING_THRESHOLD
 
 
 def check_for_vowelless_words(words):
@@ -47,7 +54,7 @@ def check_for_vowelless_words(words):
         if not any(char in VOWELS for char in word):
             nonsense_words += 1
     
-    return nonsense_words > word_count * 0.3
+    return nonsense_words > word_count * NO_VOWELS_THRESHOLD
 
 
 def check_language_detection(content):
