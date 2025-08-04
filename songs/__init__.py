@@ -7,7 +7,7 @@ import sqlparse
 @check50.check()
 def sql_exists():
     """SQL files exists"""
-    for i in range(1, 8):
+    for i in range(1, 9):
         check50.exists(f"{i}.sql")
     check50.include("songs.db")
 

@@ -1,6 +1,5 @@
 import check50
 from re import search
-from re import findall
 
 @check50.check()
 def exists():
