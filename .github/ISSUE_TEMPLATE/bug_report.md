@@ -7,9 +7,12 @@ assignees: ''
 
 ---
 
-**Note:** This repository and all other CS50 repositories **are not** the place to submit your completed problem sets or request help with assignments. If you’re stuck on a problem set, please consult one of our [many communities](https://cs50.harvard.edu/x/communities/).
+<!-- 
+Note: This repository and all other CS50 repositories **are not** the place to submit your completed problem sets or request help with assignments. 
+If you’re stuck on a problem set, please consult one of our [many communities](https://cs50.harvard.edu/x/communities/).
 
 Visit our [contribution guideline](https://github.com/cs50/problems/blob/2025/x/CONTRIBUTING.md) for more details.
+-->
 
 
 **Background**
@@ -17,10 +20,10 @@ A concise explanation of the problem encountered. Be specific about what bug you
 
 **Steps To Reproduce**
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+1. ...
+2. ...
+3. ...
+...
 
 Include code/screenshots that caused the error as long as it does not violate CS50's [Academic Honesty policy](https://cs50.harvard.edu/x/honesty/)
 
@@ -33,4 +36,4 @@ A clear and concise description of what you expected to happen.
  - Version [e.g. 22]
 
 **Additional context**
-Add any other context about the problem here.
+Add any other context that will help staff troubleshoot the issue, such as why you think it happened, troubleshooting you already tried, etc.)
