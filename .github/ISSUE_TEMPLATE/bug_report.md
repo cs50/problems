@@ -9,7 +9,7 @@ assignees: ''
 
 **Note:** This repository and all other CS50 repositories **are not** the place to submit your completed problem sets or request help with assignments. If you’re stuck on a problem set, please consult one of our [many communities](https://cs50.harvard.edu/x/communities/).
 
-Visit our [contribution guideline](https://github.com/cs50/problems/blob/2025/x/.gitignore) for more details.
+Visit our [contribution guideline](https://github.com/cs50/problems/blob/2025/x/CONTRIBUTING.md) for more details.
 
 
 **Background**
