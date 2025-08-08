@@ -31,7 +31,7 @@ Include code/screenshots that caused the error as long as it does not violate CS
 A clear and concise description of what you expected to happen.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
+ - OS: [e.g. macOS, Windows, Linux]
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
 
