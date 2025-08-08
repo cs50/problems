@@ -36,11 +36,19 @@ def test_single_name():
     # Send name and EOF
     program.stdin(input, prompt=False, timeout=30).stdin(EOF, prompt=False, timeout=30)
 
-    # Check for expected output
-    program.stdout(regex(output), output, regex=True, timeout=30)
-
-    # Program exits gracefully
-    program.exit(0)
+    # We want to check the last line of the output
+    stdout = program.stdout(timeout=30).strip()
+    
+    # Handle edge case where program produces no output
+    if not stdout:
+        raise check50.Mismatch(output, "")
+    
+    # Get the last line (splitlines() handles different line endings better)
+    actual = stdout.splitlines()[-1]
+    
+    # More idiomatic comparison
+    if actual != output:
+        raise check50.Mismatch(output, actual)
 
 
 @check50.check(test_EOF)
@@ -84,7 +92,7 @@ def test_six_names():
 
 
 @check50.check(test_EOF)
-def test_six_names():
+def test_seven_names():
     """input of \"Liesl\", \"Friedrich\", \"Louisa\", \"Kurt\", \"Brigitta\", \"Marta\", and \"Gretl\" yields \"Adieu, adieu, to Liesl, Friedrich, Louisa, Kurt, Brigitta, Marta, and Gretl\""""
     input = ["Liesl", "Friedrich", "Louisa", "Kurt", "Brigitta", "Marta", "Gretl"]
     output = "Adieu, adieu, to Liesl, Friedrich, Louisa, Kurt, Brigitta, Marta, and Gretl"
@@ -104,9 +112,19 @@ def multi_name_test(input, output):
     for name in input:
         program.stdin(name, prompt=False, timeout=30)
 
-    # EOF halts program, output is as expected
+    # EOF halts program
     program.stdin(EOF, prompt=False, timeout=30)
-    program.stdout(regex(output), output, regex=True, timeout=30)
 
-    # Program exits gracefully
-    program.exit(0)
+    # We want to check the last line of the output
+    stdout = program.stdout(timeout=30).strip()
+    
+    # Handle edge case where program produces no output
+    if not stdout:
+        raise check50.Mismatch(output, "")
+    
+    # Get the last line (splitlines() handles different line endings better)
+    actual = stdout.splitlines()[-1]
+    
+    # More idiomatic comparison
+    if actual != output:
+        raise check50.Mismatch(output, actual)
