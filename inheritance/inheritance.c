@@ -18,8 +18,7 @@ char random_allele();
 
 int main(void)
 {
-    // Seed random number generator
-    srand(time(0));
+    // Seed generation is in testing.c
 
     // Create a new family with three generations
     person *p = create_family(3);
