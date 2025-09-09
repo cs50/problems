@@ -1,6 +1,10 @@
 check50: 
   files: &check50_files
+    - !exclude "*"
     - !require index.html
+    - !include "*.html"
+    - !include "*.css"
+    - !include "*.js"
 
 submit50: 
   files: *check50_files
