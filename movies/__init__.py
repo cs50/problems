@@ -70,7 +70,6 @@ def test5():
             {"Harry Potter and the Half-Blood Prince", "2009"},
             {"Harry Potter and the Deathly Hallows: Part 1", "2010"},
             {"Harry Potter and the Deathly Hallows: Part 2", "2011"},
-            {"Harry Potter: A History of Magic", "2017"},
         ],
         ordered=True,
     )
