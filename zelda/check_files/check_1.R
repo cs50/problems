@@ -61,3 +61,23 @@ if (any(duplicated(zelda[, c("title", "year", "system")]))) {
   cat("tibble in zelda.RData contains duplicate combinations of title, year, and system")
   quit(status = 1)
 }
+
+# All columns are properly trimmed (no leading or trailing whitespace)
+has_untrimmed_data <- FALSE
+untrimmed_columns <- c()
+
+for (col in colnames(zelda)) {
+  # Get non-NA values from the column
+  values <- zelda[[col]][!is.na(zelda[[col]])]
+  
+  # Check if any values have leading or trailing whitespace
+  if (length(values) > 0 && any(values != trimws(values))) {
+    has_untrimmed_data <- TRUE
+    untrimmed_columns <- c(untrimmed_columns, col)
+  }
+}
+
+if (has_untrimmed_data) {
+  cat("tibble in zelda.RData contains untrimmed data (leading or trailing whitespace) in column(s):", paste(untrimmed_columns, collapse = ", "))
+  quit(status = 1)
+}
