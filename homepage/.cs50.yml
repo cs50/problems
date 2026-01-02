@@ -3,6 +3,7 @@ check50:
     - !exclude "*"
     - !require index.html
     - !require specification.txt
+    - !require styles.css
     - !include "*.css"
     - !include "*.html"
     - !include "*.js"
