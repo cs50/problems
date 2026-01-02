@@ -2,6 +2,7 @@ check50:
   files: &check50_files
     - !exclude "*"
     - !require index.html
+    - !require specification.txt
     - !include "*.css"
     - !include "*.html"
     - !include "*.js"
