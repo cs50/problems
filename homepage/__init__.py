@@ -32,7 +32,8 @@ def navigation():
     href_re = re.compile(r"""href\s*=\s*["']([^"']+)["']""", re.I)
 
     for p in pages:
-        html = open(p).read()
+        with open(p) as f:
+            html = f.read()
         for m in href_re.finditer(html):
             href = m.group(1).split("#", 1)[0].split("?", 1)[0]
             if href in pages and href != p:
@@ -48,7 +49,8 @@ def ten_distinct_tags():
     used = set()
 
     for p in html_pages():
-        page = open(p).read()
+        with open(p) as f:
+            page = f.read()
         for m in tag_re.finditer(page):
             used.add(m.group(1).lower())
     excluded_tags = {"html", "head", "body", "title"}
@@ -61,8 +63,9 @@ def ten_distinct_tags():
 def bootstrap():
     """Bootstrap is used"""
     for p in html_pages():
-        if "bootstrap" in open(p).read().lower():
-            return
+        with open(p) as f:
+            if "bootstrap" in f.read().lower():
+                return
 
     raise check50.Failure(
         "Bootstrap not detected",
@@ -74,8 +77,9 @@ def bootstrap():
 def stylesheet():
     """styles.css is linked"""
     for p in html_pages():
-        if "styles.css" in open(p).read().lower():
-            return
+        with open(p) as f:
+            if "styles.css" in f.read().lower():
+                return
 
     raise check50.Failure(
         "styles.css not linked",
@@ -86,7 +90,8 @@ def stylesheet():
 @check50.check(four_pages)
 def css_rules():
     """styles.css uses at least 5 selectors and 5 distinct properties"""
-    css = open("styles.css").read()
+    with open("styles.css") as f:
+        css = f.read()
 
     # Count number of rule blocks
     selector_count = css.count("{")
@@ -105,8 +110,9 @@ def css_rules():
 def javascript():
     """JavaScript is used"""
     for p in html_pages():
-        if "<script" in open(p).read().lower():
-            return
+        with open(p) as f:
+            if "<script" in f.read().lower():
+                return
 
     raise check50.Failure(
         "no scripts detected",
@@ -117,7 +123,8 @@ def javascript():
 @check50.check(required_files)
 def specification():
     """specification.txt contains required information"""
-    spec = open("specification.txt").read().lower()
+    with open("specification.txt") as f:
+        spec = f.read().lower()
 
     if "javascript" not in spec or "bootstrap" not in spec:
         raise check50.Failure(
