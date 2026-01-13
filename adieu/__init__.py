@@ -18,7 +18,7 @@ def test_EOF():
     program = check50.run("python3 adieu.py")
     
     # Send name and EOF
-    program.stdin(input, prompt=False, timeout=30).stdin(EOF, prompt=False, timeout=30)
+    program.stdin(input, prompt=True, timeout=30).stdin(EOF, prompt=False, timeout=30)
     
     # Program exits gracefully
     program.exit(0)
@@ -34,7 +34,7 @@ def test_single_name():
     program = check50.run("python3 adieu.py")
     
     # Send name and EOF
-    program.stdin(input, prompt=False, timeout=30).stdin(EOF, prompt=False, timeout=30)
+    program.stdin(input, prompt=True, timeout=30).stdin(EOF, prompt=False, timeout=30)
 
     # We want to check the last line of the output
     stdout = program.stdout(timeout=30).strip()
@@ -110,7 +110,7 @@ def multi_name_test(input, output):
     # Run program and supply names in input via stdin
     program = check50.run("python3 adieu.py")
     for name in input:
-        program.stdin(name, prompt=False, timeout=30)
+        program.stdin(name, prompt=True, timeout=30)
 
     # EOF halts program
     program.stdin(EOF, prompt=False, timeout=30)
