@@ -5,7 +5,7 @@ check50:
     - !require birthdays.db
     - !require static/styles.css
     - !require templates/index.html
-  style: false
 
 submit50:
   files: *check50_files
+  style: false
