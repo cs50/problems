@@ -31,15 +31,15 @@ def register_page():
 @check50.check(register_page)
 def simple_register():
     """registering user succeeds (and login or portfolio page is displayed)"""
-    Finance().register("_cs50", "ohHai28!", "ohHai28!").status(200)
+    Finance().register("cs-50", "ohHai28!", "ohHai28!").status(200)
 
 
 @check50.check(register_page)
 def register_empty_field_fails():
     """registration with an empty field fails"""
     for user in [
-        ("", "crimson", "crimson"),
-        ("jharvard", "crimson", ""),
+        ("", "Cr1mson!", "Cr1mson!"),
+        ("jharvard", "Cr1mson!", ""),
         ("jharvard", "", ""),
     ]:
         Finance().register(*user).status(400)
@@ -49,6 +49,32 @@ def register_empty_field_fails():
 def register_password_mismatch_fails():
     """registration with password mismatch fails"""
     Finance().register("check50user1", "thisiscs50", "crimson").status(400)
+
+
+@check50.check(register_page)
+def register_password_validation_fails():
+    """registration with invalid passwords fail"""
+    for user in [
+        ("jharvard", "cr1mson!", "cr1mson!"),   # no uppercase letters
+        ("jharvard", "CR1MSON!", "CR1MSON!"),   # no lowercase letters
+        ("jharvard", "Crimson!", "Crimson!"),   # no digits
+        ("jharvard", "Cr1mson1", "Cr1mson1"),   # no special char
+        ("jharvard", "Cr1m!", "Cr!m!"),         # len(password) < 8
+        ("jharvard", "Cr1m!"*10, "Cr1m!"*10)    # len(password) > 32
+    ]:
+        Finance().register(*user).status(400)
+
+
+@check50.check(register_page)
+def register_username_validation_fails():
+    """registration with invalid usernames fail"""
+    for user in [
+        ("-jharvard", "Cr1mson!", "Cr1mson!"),  # starts with dash
+        (";.,~",      "Cr1mson!", "Cr1mson!"),  # non-alphanumeric
+        ("jh",        "Cr1mson!", "Cr1mson!"),  # len(username) < 3
+        ("j" * 40,    "Cr1mson!", "Cr1mson!")   # len(username) > 39
+    ]:
+        Finance().register(*user).status(400)
 
 
 @check50.check(register_page)
@@ -67,7 +93,7 @@ def login_page():
 @check50.check(simple_register)
 def can_login():
     """logging in as registered user succceeds"""
-    Finance().login("_cs50", "ohHai28!").status(200).get(
+    Finance().login("cs-50", "ohHai28!").status(200).get(
         "/", follow_redirects=False
     ).status(200)
 
@@ -75,19 +101,19 @@ def can_login():
 @check50.check(can_login)
 def quote_page():
     """quote page has all required elements"""
-    Finance().login("_cs50", "ohHai28!").validate_form("/quote", "symbol")
+    Finance().login("cs-50", "ohHai28!").validate_form("/quote", "symbol")
 
 
 @check50.check(quote_page)
 def quote_handles_invalid():
     """quote handles invalid ticker symbol"""
-    Finance().login("_cs50", "ohHai28!").quote("ZZZ").status(400)
+    Finance().login("cs-50", "ohHai28!").quote("ZZZ").status(400)
 
 
 @check50.check(quote_page)
 def quote_handles_blank():
     """quote handles blank ticker symbol"""
-    Finance().login("_cs50", "ohHai28!").quote("").status(400)
+    Finance().login("cs-50", "ohHai28!").quote("").status(400)
 
 
 @check50.check(quote_page)
@@ -95,7 +121,7 @@ def quote_handles_valid():
     """quote handles valid ticker symbol"""
     (
         Finance()
-        .login("_cs50", "ohHai28!")
+        .login("cs-50", "ohHai28!")
         .quote("AAAA")
         .status(200)
         .content(r"28\.00", "28.00", name="body")
@@ -105,13 +131,13 @@ def quote_handles_valid():
 @check50.check(can_login)
 def buy_page():
     """buy page has all required elements"""
-    Finance().login("_cs50", "ohHai28!").validate_form("/buy", ["shares", "symbol"])
+    Finance().login("cs-50", "ohHai28!").validate_form("/buy", ["shares", "symbol"])
 
 
 @check50.check(buy_page)
 def buy_handles_invalid():
     """buy handles invalid ticker symbol"""
-    Finance().login("_cs50", "ohHai28!").transaction("/buy", "ZZZZ", "2").status(400)
+    Finance().login("cs-50", "ohHai28!").transaction("/buy", "ZZZZ", "2").status(400)
 
 
 @check50.check(buy_page)
@@ -119,7 +145,7 @@ def buy_handles_incorrect_shares():
     """buy handles fractional, negative, and non-numeric shares"""
     (
         Finance()
-        .login("_cs50", "ohHai28!")
+        .login("cs-50", "ohHai28!")
         .transaction("/buy", "AAAA", "-1")
         .status(400)
         .transaction("/buy", "AAAA", "1.5")
@@ -134,7 +160,7 @@ def buy_handles_valid():
     """buy handles valid purchase"""
     (
         Finance()
-        .login("_cs50", "ohHai28!")
+        .login("cs-50", "ohHai28!")
         .transaction("/buy", "AAAA", "1")
         .transaction("/buy", "AAAA", "3")
         .content(r"112\.00", "112.00")
@@ -147,7 +173,7 @@ def sell_page():
     """sell page has all required elements"""
     (
         Finance()
-        .login("_cs50", "ohHai28!")
+        .login("cs-50", "ohHai28!")
         .validate_form("/sell", ["shares"])
         .validate_form("/sell", ["symbol"], field_tag="select")
     )
@@ -156,7 +182,7 @@ def sell_page():
 @check50.check(buy_handles_valid)
 def sell_handles_invalid():
     """sell handles invalid number of shares"""
-    Finance().login("_cs50", "ohHai28!").transaction("/sell", "AAAA", "8").status(400)
+    Finance().login("cs-50", "ohHai28!").transaction("/sell", "AAAA", "8").status(400)
 
 
 @check50.check(buy_handles_valid)
@@ -164,7 +190,7 @@ def sell_handles_valid():
     """sell handles valid sale"""
     (
         Finance()
-        .login("_cs50", "ohHai28!")
+        .login("cs-50", "ohHai28!")
         .transaction("/sell", "AAAA", "2")
         .content(r"56\.00", "56.00")
         .content(r"9,?944\.00", "9,944.00")
@@ -176,7 +202,7 @@ def history_page():
     """history page shows transactions"""
     (
         Finance()
-        .login("_cs50", "ohHai28!")
+        .login("cs-50", "ohHai28!")
         .get("/history")
         .content(r"28\.00", "28.00")
         .content("AAAA")
