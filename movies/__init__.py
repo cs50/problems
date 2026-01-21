@@ -113,17 +113,18 @@ def test8():
 @check50.check(exists)
 def test9():
     """9.sql produces correct result"""
-    check_single_col(
+    check_double_col(
         run_query("9.sql"),
         [
-            "Craig T. Nelson",
-            "Richard Griffifths",
-            "Samuel L. Jackson",
-            "Holly Hunter",
-            "Jason Lee",
-            "Rupert Grint",
-            "Daniel Radcliffe",
-            "Emma Watson",
+            {"Craig T. Nelson", "33"},
+            {"Richard Griffifths", "34"},
+            {"Samuel L. Jackson", "30"},
+            {"Holly Hunter", "31"},
+            {"Jason Lee", "32"},
+            {"Rupert Grint", "35"},
+            {"Daniel Radcliffe", "36"},
+            {"Emma Watson", "38"},
+            {"Emma Watson", "11"},
         ],
         ordered=True,
     )
@@ -220,7 +221,6 @@ def check_single_col(actual, expected, ordered=False):
     # Get data from column
     try:
         result = [str(list(row.values())[0]) for row in actual]
-        result = result if ordered else set(result)
     except IndexError:
         return None
 
@@ -229,7 +229,8 @@ def check_single_col(actual, expected, ordered=False):
 
     # If unordered, sort both before checking
     if not ordered:
-        expected = set(expected)
+        result.sort()
+        expected.sort()
 
     if result != expected:
         raise check50.Mismatch("\n".join(expected), "\n".join(list(result)))
