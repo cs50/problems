@@ -1,10 +1,9 @@
+import check50
+
 import os
 import re
 
-import check50
 
-
-# helper
 def html_pages():
     return sorted(f for f in os.listdir(".") if f.endswith(".html"))
 
@@ -27,7 +26,7 @@ def four_pages():
 
 @check50.check(four_pages)
 def navigation():
-    """pages link to each other"""
+    """each page links to at least one other page"""
     pages = html_pages()
     href_re = re.compile(r"""href\s*=\s*["']([^"']+)["']""", re.I)
 
@@ -93,13 +92,12 @@ def css_rules():
     with open("styles.css") as f:
         css = f.read()
 
-    # Count number of rule blocks
-    selector_count = css.count("{")
+    rule_count = css.count("{")
 
-    # Set of any "name:" occurrences
+    # Loose match: may also count pseudo-selectors or URL schemes, but sufficient for typical student CSS
     props_count = len(set(re.findall(r"([a-zA-Z-]+)\s*:", css)))
 
-    if selector_count < 5:
+    if rule_count < 5:
         raise check50.Failure("styles.css does not appear to use at least 5 selectors")
 
     if props_count < 5:
@@ -109,14 +107,21 @@ def css_rules():
 @check50.check(four_pages)
 def javascript():
     """JavaScript is used"""
+    script_re = re.compile(r"<script\b([^>]*)>", re.I)
+    src_re = re.compile(r"""src\s*=\s*["']([^"']*)["']""", re.I)
+
     for p in html_pages():
         with open(p) as f:
-            if "<script" in f.read().lower():
+            html = f.read()
+        for m in script_re.finditer(html):
+            attrs = m.group(1)
+            src_match = src_re.search(attrs)
+            if not src_match or "://" not in src_match.group(1):
                 return
 
     raise check50.Failure(
-        "no scripts detected",
-        help="Have you included some javascript via a script tag?"
+        "no custom JavaScript detected",
+        help="Have you included some JavaScript via an inline <script> tag or a local .js file?"
     )
 
 
@@ -133,6 +138,6 @@ def specification():
         )
     if len(spec.split()) < 25:
         raise check50.Failure(
-            "specification.txt seems incomplete ",
+            "specification.txt seems incomplete",
             help="Have you listed the 10 HTML tags and 5 CSS properties you’ve used?"
         )
