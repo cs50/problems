@@ -3,6 +3,27 @@ submit50:
     - !exclude "*"
     - !require shirt.py
   style: false
-  
+
 check50:
   files: *submit50_files
+
+  checks:
+    - name: "rejects missing output argument"
+      run: python shirt.py input.png
+      exit: 1
+
+    - name: "rejects extra arguments"
+      run: python shirt.py a.png b.png c.png
+      exit: 1
+
+    - name: "rejects non-image input"
+      run: python shirt.py input.txt output.png
+      exit: 1
+
+    - name: "rejects non-image output"
+      run: python shirt.py input.png output.txt
+      exit: 1
+
+    - name: "rejects mismatched extensions"
+      run: python shirt.py input.jpg output.png
+      exit: 1
