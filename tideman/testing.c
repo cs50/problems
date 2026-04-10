@@ -230,6 +230,12 @@ int main(int argc, string argv[])
 
         case 12:
             pair_count = 6;
+            pairs[0].winner = 1; pairs[0].loser = 2;
+            pairs[1].winner = 0; pairs[1].loser = 1;
+            pairs[2].winner = 1; pairs[2].loser = 3;
+            pairs[3].winner = 2; pairs[3].loser = 3;
+            pairs[4].winner = 0; pairs[4].loser = 2;
+            pairs[5].winner = 0; pairs[5].loser = 3;
             locked[0][0] = false;
             locked[0][1] = locked[0][2] = locked[0][3] = true;
             locked[1][0] = locked[1][1] = false;
@@ -245,6 +251,11 @@ int main(int argc, string argv[])
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
                     locked[i][j] = false;
+
+            pairs[0].winner = 0; pairs[0].loser = 1;
+            pairs[1].winner = 1; pairs[1].loser = 3;
+            pairs[2].winner = 2; pairs[2].loser = 0;
+            pairs[3].winner = 0; pairs[3].loser = 3;
             locked[2][0] = true;
             locked[0][1] = true;
             locked[0][3] = true;
