@@ -47,8 +47,8 @@ def three_backdrops(project):
 
     num_backdrops = parse_blocks(project)["backdrops"]
 
-    if num_backdrops < 3:
-        raise check50.Failure(f"only {num_backdrops} backdrop{'' if num_backdrops == 1 else 's'} found, at least 2 required")
+    if num_backdrops < 2:
+        raise check50.Failure(f"only {num_backdrops + 1} additional backdrop{'' if num_backdrops == 1 else 's'} found, at least 2 required")
 
 
 @check50.check(valid)
