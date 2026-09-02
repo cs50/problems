@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require sixSquares.sb3
+    - !require sixTriangles.sb3
+    - !require sixOtherShapes.sb3
+
+submit50:
+  files: *check50_files
