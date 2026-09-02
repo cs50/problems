@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+}
+
+#footer {
+    background-color: #222;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+ul {
+    list-style-type: square;
+}

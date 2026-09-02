@@ -1,0 +1,5 @@
+HTML tags used (10): meta, link, script, nav, a, h1, h2, p, ul, li, div, footer, img, section, form, label, input, button
+
+CSS properties used (5): font-family, margin, padding, color, max-width, background-color, text-align, list-style-type
+
+I used Bootstrap for the responsive navbar component and the grid container layout. I used JavaScript to add an interactive click event on the homepage heading that displays an alert.
