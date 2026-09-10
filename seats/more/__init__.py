@@ -16,11 +16,11 @@ def compiles():
 @check50.check(compiles)
 def test_3x6_x3():
     """prints a 3x6 seating chart with aisle seats omitted"""
-    out = check50.run("./seats").stdin("3\n6\n3\n").stdout()
-    check_chart(out, """Enter number of rows: 3
-Enter number of seats per row: 6
-Enter aisle spacing: 3
-
+    process = check50.run("./seats")
+    process.stdout("Enter number of rows:", regex=False).stdin("3", prompt=False)
+    process.stdout("Enter number of seats per row:", regex=False).stdin("6", prompt=False)
+    process.stdout("Enter aisle spacing:", regex=False).stdin("3", prompt=False)
+    check_chart(process.stdout(), """
 Row  1:   1   2       4   5
 Row  2:   7   8      10  11
 Row  3:  13  14      16  17
@@ -30,11 +30,11 @@ Row  3:  13  14      16  17
 @check50.check(compiles)
 def test_10x8_x4():
     """prints a 10x8 seating chart with blank columns for aisle seats"""
-    out = check50.run("./seats").stdin("10\n8\n4\n").stdout()
-    check_chart(out, """Enter number of rows: 10
-Enter number of seats per row: 8
-Enter aisle spacing: 4
-
+    process = check50.run("./seats")
+    process.stdout("Enter number of rows:", regex=False).stdin("10", prompt=False)
+    process.stdout("Enter number of seats per row:", regex=False).stdin("8", prompt=False)
+    process.stdout("Enter aisle spacing:", regex=False).stdin("4", prompt=False)
+    check_chart(process.stdout(), """
 Row  1:   1   2   3       5   6   7
 Row  2:   9  10  11      13  14  15
 Row  3:  17  18  19      21  22  23
@@ -51,7 +51,7 @@ Row 10:  73  74  75      77  78  79
 @check50.check(compiles)
 def test_rejects_non_divisible_spacing():
     """rejects aisle spacing that does not evenly divide the row width"""
-    out = check50.run("./seats").stdin("4\n5\n3\n").stdout()
+    out = check50.run("./seats").stdin("4\n5\n3\n", prompt=False).stdout()
 
     if "error" not in out.lower() or any(line.startswith("Row ") for line in out.splitlines()):
         raise check50.Failure(
@@ -62,28 +62,32 @@ def test_rejects_non_divisible_spacing():
 @check50.check(compiles)
 def test_rejects_invalid_dimensions():
     """rejects non-positive rows and seats before drawing the chart"""
-    out = check50.run("./seats").stdin("-1\n0\n2\n0\n-3\n3\n3\n").stdout()
+    out = check50.run("./seats").stdin("-1\n0\n2\n0\n-3\n3\n3\n", prompt=False).stdout()
 
-    if not contains_chart(out, """Row  1:   1   2   3
-Row  2:   4   5   6
+    # spacing (3) evenly divides seats (3), so the last seat in each row is
+    # itself an aisle column, per test_3x6_x3 / test_10x8_x4
+    if not contains_chart(out, """Row  1:   1   2
+Row  2:   4   5
 """):
         raise check50.Failure(
             "program should keep re-prompting until given positive rows/seats, "
-            "then print a 2x3 chart with no aisles"
+            "then print a 2x3 chart"
         )
 
 
 @check50.check(compiles)
 def test_rejects_invalid_spacing():
     """rejects non-positive aisle spacing before drawing the chart"""
-    out = check50.run("./seats").stdin("2\n4\n0\n-2\n4\n").stdout()
+    out = check50.run("./seats").stdin("2\n4\n0\n-2\n4\n", prompt=False).stdout()
 
-    if not contains_chart(out, """Row  1:   1   2   3   4
-Row  2:   5   6   7   8
+    # spacing (4) evenly divides seats (4), so the last seat in each row is
+    # itself an aisle column, per test_3x6_x3 / test_10x8_x4
+    if not contains_chart(out, """Row  1:   1   2   3
+Row  2:   5   6   7
 """):
         raise check50.Failure(
             "program should keep re-prompting until given a positive aisle spacing, "
-            "then print a 2x4 chart with no aisles"
+            "then print a 2x4 chart"
         )
 
 
@@ -107,11 +111,21 @@ def check_chart(output, correct):
 
 
 def contains_chart(output, correct):
-    """Check whether `correct`'s lines appear, in order, anywhere in `output`."""
+    """Check whether `correct`'s lines appear, in order, anywhere in `output`.
+
+    The chart's first line may be preceded on the same physical output line
+    by leftover text (e.g. a prompt printed with no trailing newline right
+    before the chart begins, or the tail end of a reprompt loop); every
+    other chart line must match exactly.
+    """
     output_lines = normalize(output)
     correct_lines = normalize(correct)
     span = len(correct_lines)
-    return any(
-        output_lines[start:start + span] == correct_lines
-        for start in range(len(output_lines) - span + 1)
-    )
+    first = correct_lines[0]
+    for start in range(len(output_lines) - span + 1):
+        candidate = output_lines[start]
+        if (len(candidate) >= len(first)
+                and candidate[len(candidate) - len(first):] == first
+                and output_lines[start + 1:start + span] == correct_lines[1:]):
+            return True
+    return False

@@ -17,10 +17,10 @@ def compiles():
 @check50.check(compiles)
 def test_1x1():
     """prints a 1x1 seating chart"""
-    out = check50.run("./seats").stdin("1\n1\n").stdout()
-    check_chart(out, """Enter number of rows: 1
-Enter number of seats per row: 1
-
+    process = check50.run("./seats")
+    process.stdout("Enter number of rows:", regex=False).stdin("1", prompt=False)
+    process.stdout("Enter number of seats per row:", regex=False).stdin("1", prompt=False)
+    check_chart(process.stdout(), """
 Row  1:   1
 """)
 
@@ -28,10 +28,10 @@ Row  1:   1
 @check50.check(compiles)
 def test_3x5():
     """prints a 3x5 seating chart"""
-    out = check50.run("./seats").stdin("3\n5\n").stdout()
-    check_chart(out, """Enter number of rows: 3
-Enter number of seats per row: 5
-
+    process = check50.run("./seats")
+    process.stdout("Enter number of rows:", regex=False).stdin("3", prompt=False)
+    process.stdout("Enter number of seats per row:", regex=False).stdin("5", prompt=False)
+    check_chart(process.stdout(), """
 Row  1:   1   2   3   4   5
 Row  2:   6   7   8   9  10
 Row  3:  11  12  13  14  15
@@ -41,10 +41,10 @@ Row  3:  11  12  13  14  15
 @check50.check(compiles)
 def test_10x8():
     """prints a 10x8 seating chart using a single seat counter"""
-    out = check50.run("./seats").stdin("10\n8\n").stdout()
-    check_chart(out, """Enter number of rows: 10
-Enter number of seats per row: 8
-
+    process = check50.run("./seats")
+    process.stdout("Enter number of rows:", regex=False).stdin("10", prompt=False)
+    process.stdout("Enter number of seats per row:", regex=False).stdin("8", prompt=False)
+    check_chart(process.stdout(), """
 Row  1:   1   2   3   4   5   6   7   8
 Row  2:   9  10  11  12  13  14  15  16
 Row  3:  17  18  19  20  21  22  23  24
@@ -61,7 +61,7 @@ Row 10:  73  74  75  76  77  78  79  80
 @check50.check(compiles)
 def test_rejects_invalid_dimensions():
     """rejects non-positive rows and seats before drawing the chart"""
-    out = check50.run("./seats").stdin("-1\n0\n2\n0\n-3\n3\n").stdout()
+    out = check50.run("./seats").stdin("-1\n0\n2\n0\n-3\n3\n", prompt=False).stdout()
 
     if not contains_chart(out, """Row  1:   1   2   3
 Row  2:   4   5   6
@@ -90,11 +90,21 @@ def check_chart(output, correct):
 
 
 def contains_chart(output, correct):
-    """Check whether `correct`'s lines appear, in order, anywhere in `output`."""
+    """Check whether `correct`'s lines appear, in order, anywhere in `output`.
+
+    The chart's first line may be preceded on the same physical output line
+    by leftover text (e.g. a prompt printed with no trailing newline right
+    before the chart begins, or the tail end of a reprompt loop); every
+    other chart line must match exactly.
+    """
     output_lines = normalize(output)
     correct_lines = normalize(correct)
     span = len(correct_lines)
-    return any(
-        output_lines[start:start + span] == correct_lines
-        for start in range(len(output_lines) - span + 1)
-    )
+    first = correct_lines[0]
+    for start in range(len(output_lines) - span + 1):
+        candidate = output_lines[start]
+        if (len(candidate) >= len(first)
+                and candidate[len(candidate) - len(first):] == first
+                and output_lines[start + 1:start + span] == correct_lines[1:]):
+            return True
+    return False
