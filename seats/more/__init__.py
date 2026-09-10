@@ -50,12 +50,17 @@ Row 10:  73  74  75      77  78  79
 
 @check50.check(compiles)
 def test_rejects_non_divisible_spacing():
-    """rejects aisle spacing that does not evenly divide the row width"""
-    out = check50.run("./seats").stdin("4\n5\n3\n", prompt=False).stdout()
+    """re-prompts for aisle spacing until it evenly divides the row width"""
+    out = check50.run("./seats").stdin("2\n6\n4\n3\n", prompt=False).stdout()
 
-    if "error" not in out.lower() or any(line.startswith("Row ") for line in out.splitlines()):
+    # spacing (4) does not divide seats (6), so the program should re-prompt;
+    # spacing (3) does, giving a 2x6 chart with aisles per test_3x6_x3
+    if not contains_chart(out, """Row  1:   1   2       4   5
+Row  2:   7   8      10  11
+"""):
         raise check50.Failure(
-            "program should print an error and halt when aisle spacing does not evenly divide the row width"
+            "program should keep re-prompting until given an aisle spacing that "
+            "evenly divides the number of seats per row, then print a 2x6 chart"
         )
 
 
