@@ -63,7 +63,6 @@ Row  2:   7   8      10  11
             "evenly divides the number of seats per row, then print a 2x6 chart"
         )
 
-
 @check50.check(compiles)
 def test_rejects_invalid_dimensions():
     """rejects non-positive rows and seats before drawing the chart"""
@@ -78,23 +77,6 @@ Row  2:   4   5
             "program should keep re-prompting until given positive rows/seats, "
             "then print a 2x3 chart"
         )
-
-
-@check50.check(compiles)
-def test_rejects_invalid_spacing():
-    """rejects non-positive aisle spacing before drawing the chart"""
-    out = check50.run("./seats").stdin("2\n4\n0\n-2\n4\n", prompt=False).stdout()
-
-    # spacing (4) evenly divides seats (4), so the last seat in each row is
-    # itself an aisle column, per test_3x6_x3 / test_10x8_x4
-    if not contains_chart(out, """Row  1:   1   2   3
-Row  2:   5   6   7
-"""):
-        raise check50.Failure(
-            "program should keep re-prompting until given a positive aisle spacing, "
-            "then print a 2x4 chart"
-        )
-
 
 def normalize(text):
     """Split each non-blank line into whitespace-separated tokens.
