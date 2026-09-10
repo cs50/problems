@@ -1,9 +1,19 @@
 import json
 import os
 import shlex
-import itertools
 
 import check50
+
+
+# Opcodes that start a script; a top-level block with any other opcode is
+# a fragment left disconnected in the editor.
+HAT_OPCODES = {"event_whenflagclicked",
+               "event_whenkeypressed",
+               "event_whenbroadcastreceived",
+               "event_whenbackdropswitchesto",
+               "event_whenthisspriteclicked",
+               "control_start_as_clone",
+               "procedures_definition"}
 
 
 @check50.check()
@@ -46,16 +56,18 @@ def non_cat(project):
     cat_sprite_ids = {"bcf454acf82e4504149f7ffe07081dbc",
                       "0fb9be3e8397c983338cb71dc84d0b25"}
 
-    if all(target["isStage"] or {costume["assetId"] for costume in target["costumes"]} == cat_sprite_ids for target in project):
+    # A subset, not an exact match: a cat whose costume2 has been deleted is
+    # still a cat.
+    if all(target["isStage"] or {costume["assetId"] for costume in target["costumes"]} <= cat_sprite_ids for target in project):
         raise check50.Failure("no non-cat sprite found")
 
 @check50.check(valid)
 def three_blocks(project):
     """project contains at least three scripts"""
 
-    num_blocks = sum(len(target["blocks"]) for target in project)
-    if num_blocks < 3:
-        raise check50.Failure(f"only {num_blocks} script{'' if num_blocks == 1 else 's'} found, 3 required")
+    num_scripts = sum(len(scripts(target)) for target in project)
+    if num_scripts < 3:
+        raise check50.Failure(f"only {num_scripts} script{'' if num_scripts == 1 else 's'} found, 3 required")
 
 @check50.check(valid)
 def uses_condition(project):
@@ -76,17 +88,79 @@ def uses_loop(project):
 def uses_variable(project):
     """project uses at least one variable"""
 
-    if not any(target["variables"] for target in project):
-        raise check50.Failure("no variables found, 1 required")
+    # Declaring isn't using: Scratch declares "my variable" in every project.
+    declared = {variable_id for target in project for variable_id in target["variables"]}
+
+    if not declared & used_variables(project):
+        raise check50.Failure("no variables used, 1 required")
 
 @check50.check(valid)
 def uses_custom_block(project):
-    """project uses at least one custom block"""
+    """project uses at least one custom block that takes an input"""
 
-    if "custom_block" not in json.dumps(project):
-        raise check50.Failure("no custom blocks found, 1 required")
+    for target in project:
+        for block in target["blocks"].values():
+            if isinstance(block, dict) and block["opcode"] == "procedures_definition":
+                # A definition points at a prototype block, whose mutation lists
+                # the inputs the block takes as a JSON-encoded string.
+                prototype = target["blocks"][block["inputs"]["custom_block"][1]]
+                if len(json.loads(prototype["mutation"]["argumentids"])) >= 1:
+                    return
+
+    raise check50.Failure("no custom block taking at least one input found, 1 required")
+
+def scripts(target):
+    """Return the ids of the blocks that start a real script in target"""
+    return [block_id for block_id, block in target["blocks"].items()
+            if isinstance(block, dict) and block.get("topLevel") and block["opcode"] in HAT_OPCODES]
+
+def reachable_blocks(target):
+    """Yield the blocks reachable from a hat block, following next and inputs"""
+    blocks = target["blocks"]
+    visited = set()
+    pending = scripts(target)
+
+    while pending:
+        block_id = pending.pop()
+        if block_id in visited:
+            continue
+        visited.add(block_id)
+
+        block = blocks.get(block_id)
+        if not isinstance(block, dict):
+            continue
+
+        yield block
+
+        if block.get("next") is not None:
+            pending.append(block["next"])
+
+        # Within an input, a string member is the id of a nested block.
+        for value in block.get("inputs", {}).values():
+            if isinstance(value, list):
+                pending.extend(item for item in value if isinstance(item, str))
+
+def used_variables(project):
+    """Return the ids of the variables that project's scripts reference"""
+    used = set()
+
+    for target in project:
+        for block in reachable_blocks(target):
+            # Set, change, show and hide name their variable in a field.
+            field = block.get("fields", {}).get("VARIABLE")
+            if field:
+                used.add(field[1])
+
+            # A variable read inside an input is inlined as [12, name, id].
+            for value in block.get("inputs", {}).values():
+                if isinstance(value, list):
+                    used.update(item[2] for item in value
+                                if isinstance(item, list) and len(item) > 2 and item[0] == 12)
+
+    return used
 
 def contains_blocks(project, opcodes):
-    """Return whether project contains any blocks with their names in opcodes"""
-    return any(any((isinstance(block, dict) and block["opcode"] in opcodes) for block in target["blocks"].values())
-               for target in project)
+    """Return whether project's scripts contain any blocks with their names in opcodes"""
+    return any(block["opcode"] in opcodes
+               for target in project
+               for block in reachable_blocks(target))
