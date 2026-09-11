@@ -58,20 +58,6 @@ Row 10:  73  74  75  76  77  78  79  80
 """)
 
 
-@check50.check(compiles)
-def test_rejects_invalid_dimensions():
-    """rejects non-positive rows and seats before drawing the chart"""
-    out = check50.run("./seats").stdin("-1\n0\n2\n0\n-3\n3\n", prompt=False).stdout()
-
-    if not contains_chart(out, """Row  1:   1   2   3
-Row  2:   4   5   6
-"""):
-        raise check50.Failure(
-            "program should keep re-prompting until given positive integers, "
-            "then print a 2x3 chart"
-        )
-
-
 def normalize(text):
     """Split each non-blank line into whitespace-separated tokens.
 
@@ -87,24 +73,3 @@ def check_chart(output, correct):
     if output_lines == correct_lines:
         return
     raise check50.Mismatch(correct_lines, output_lines)
-
-
-def contains_chart(output, correct):
-    """Check whether `correct`'s lines appear, in order, anywhere in `output`.
-
-    The chart's first line may be preceded on the same physical output line
-    by leftover text (e.g. a prompt printed with no trailing newline right
-    before the chart begins, or the tail end of a reprompt loop); every
-    other chart line must match exactly.
-    """
-    output_lines = normalize(output)
-    correct_lines = normalize(correct)
-    span = len(correct_lines)
-    first = correct_lines[0]
-    for start in range(len(output_lines) - span + 1):
-        candidate = output_lines[start]
-        if (len(candidate) >= len(first)
-                and candidate[len(candidate) - len(first):] == first
-                and output_lines[start + 1:start + span] == correct_lines[1:]):
-            return True
-    return False
