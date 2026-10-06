@@ -20,7 +20,7 @@ def sorts():
 
     check50.log("checking that sorts are classified correctly...")
 
-    expected = ["sort1 uses:\s*[Bb][Uu][Bb][Bb][Ll][Ee]", "sort2 uses:\s*[Mm][Ee][Rr][Gg][Ee]", "sort3 uses:\s*[Ss][Ee][Ll][Ee][Cc][Tt][Ii][Oo][Nn]"]
+    expected = ["sort1 uses:\\s*[Bb][Uu][Bb][Bb][Ll][Ee]", "sort2 uses:\\s*[Mm][Ee][Rr][Gg][Ee]", "sort3 uses:\\s*[Ss][Ee][Ll][Ee][Cc][Tt][Ii][Oo][Nn]"]
     actual = open("answers.txt", "r").read()
 
     for e in expected:
