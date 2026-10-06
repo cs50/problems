@@ -96,7 +96,7 @@ def sim_tournament_16():
 def counts():
     """correctly keeps track of wins"""
     actual = check50.run("python3 tournament.py 2018m.csv").stdout()
-    percents = re.findall("[0-9]*\.[0-9]", actual)
+    percents = re.findall("[0-9]*\\.[0-9]", actual)
     percents = [float(x) for x in percents]
     if sum(percents) < 99 or sum(percents) > 101:
         raise check50.Failure("fails to keep track of wins")
@@ -129,7 +129,7 @@ def correct_teams2():
         if team in actual:
             raise check50.Failure(f"incorrectly found team {team}")
 
-    percents = re.findall("[0-9]*\.[0-9]", actual)
+    percents = re.findall("[0-9]*\\.[0-9]", actual)
     percents = [float(x) for x in percents]
     if sum(percents) < 99 or sum(percents) > 101:
         raise check50.Failure("fails to keep track of wins")

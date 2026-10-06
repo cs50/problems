@@ -18,7 +18,7 @@ def compiles():
 def encrypt1():
     """encrypts "A" as "Z" using ZYXWVUTSRQPONMLKJIHGFEDCBA as key"""
     check50.run("./substitution ZYXWVUTSRQPONMLKJIHGFEDCBA").stdin("A").stdout(
-        "ciphertext:\s*Z\n", "ciphertext: Z\n"
+        "ciphertext:\\s*Z\n", "ciphertext: Z\n"
     ).exit(0)
 
 
@@ -26,7 +26,7 @@ def encrypt1():
 def encrypt2():
     """encrypts "a" as "z" using ZYXWVUTSRQPONMLKJIHGFEDCBA as key"""
     check50.run("./substitution ZYXWVUTSRQPONMLKJIHGFEDCBA").stdin("a").stdout(
-        "ciphertext:\s*z\n", "ciphertext: z\n"
+        "ciphertext:\\s*z\n", "ciphertext: z\n"
     ).exit(0)
 
 
@@ -34,7 +34,7 @@ def encrypt2():
 def encrypt3():
     """encrypts "ABC" as "NJQ" using NJQSUYBRXMOPFTHZVAWCGILKED as key"""
     check50.run("./substitution NJQSUYBRXMOPFTHZVAWCGILKED").stdin("ABC").stdout(
-        "ciphertext:\s*NJQ\n", "ciphertext: NJQ\n"
+        "ciphertext:\\s*NJQ\n", "ciphertext: NJQ\n"
     ).exit(0)
 
 
@@ -42,7 +42,7 @@ def encrypt3():
 def encrypt4():
     """encrypts "XyZ" as "KeD" using NJQSUYBRXMOPFTHZVAWCGILKED as key"""
     check50.run("./substitution NJQSUYBRXMOPFTHZVAWCGILKED").stdin("XyZ").stdout(
-        "ciphertext:\s*KeD\n", "ciphertext: KeD\n"
+        "ciphertext:\\s*KeD\n", "ciphertext: KeD\n"
     ).exit(0)
 
 
@@ -51,7 +51,7 @@ def encrypt5():
     """encrypts "This is CS50" as "Cbah ah KH50" using YUKFRNLBAVMWZTEOGXHCIPJSQD as key"""
     check50.run("./substitution YUKFRNLBAVMWZTEOGXHCIPJSQD").stdin(
         "This is CS50"
-    ).stdout("ciphertext:\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
+    ).stdout("ciphertext:\\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
 
 
 @check50.check(compiles)
@@ -59,7 +59,7 @@ def encrypt6():
     """encrypts "This is CS50" as "Cbah ah KH50" using yukfrnlbavmwzteogxhcipjsqd as key"""
     check50.run("./substitution yukfrnlbavmwzteogxhcipjsqd").stdin(
         "This is CS50"
-    ).stdout("ciphertext:\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
+    ).stdout("ciphertext:\\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
 
 
 @check50.check(compiles)
@@ -67,7 +67,7 @@ def encrypt7():
     """encrypts "This is CS50" as "Cbah ah KH50" using YUKFRNLBAVMWZteogxhcipjsqd as key"""
     check50.run("./substitution YUKFRNLBAVMWZteogxhcipjsqd").stdin(
         "This is CS50"
-    ).stdout("ciphertext:\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
+    ).stdout("ciphertext:\\s*Cbah ah KH50\n", "ciphertext: Cbah ah KH50\n").exit(0)
 
 
 @check50.check(compiles)
@@ -76,7 +76,7 @@ def encrypt8():
     check50.run("./substitution DWUSXNPQKEGCZFJBTLYROHIAVM").stdin(
         "The quick brown fox jumps over the lazy dog"
     ).stdout(
-        "ciphertext:\s*Rqx tokug wljif nja eozby jhxl rqx cdmv sjp\n",
+        "ciphertext:\\s*Rqx tokug wljif nja eozby jhxl rqx cdmv sjp\n",
         "ciphertext: Rqx tokug wljif nja eozby jhxl rqx cdmv sjp\n",
     ).exit(0)
 
@@ -87,7 +87,7 @@ def encrypt9():
     check50.run("./substitution DWUSXNPQKEGCZFJBTLYROHIAVM").stdin(
         "Shh... Don't tell!"
     ).stdout(
-        "ciphertext:\s*Yqq... Sjf'r rxcc!\n", "ciphertext: Yqq... Sjf'r rxcc!\n"
+        "ciphertext:\\s*Yqq... Sjf'r rxcc!\n", "ciphertext: Yqq... Sjf'r rxcc!\n"
     ).exit(0)
 
 
