@@ -30,8 +30,8 @@ def solved():
         if answers.count(q) > 1:
             raise check50.Failure("invalid answers.txt formatting")
 
-    identify_thief = re.search(f"thief\s*is\s*:?\s*{bytes.fromhex(thief).decode('utf-8')}", answers)
-    identify_city = re.search(f"escaped\s*to\s*:?\s*{bytes.fromhex(city).decode('utf-8')}", answers)
-    identify_accomplice = re.search(f"accomplice\s*is\s*:?\s*{bytes.fromhex(accomplice).decode('utf-8')}", answers)
+    identify_thief = re.search(f"thief\\s*is\\s*:?\\s*{bytes.fromhex(thief).decode('utf-8')}", answers)
+    identify_city = re.search(f"escaped\\s*to\\s*:?\\s*{bytes.fromhex(city).decode('utf-8')}", answers)
+    identify_accomplice = re.search(f"accomplice\\s*is\\s*:?\\s*{bytes.fromhex(accomplice).decode('utf-8')}", answers)
     if not identify_thief or not identify_city or not identify_accomplice:
         raise check50.Failure(f"answers.txt does not correctly solve mystery")
