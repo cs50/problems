@@ -16,12 +16,12 @@ def test1():
 @check50.check(exists)
 def test2():
     """correctly identifies sequences/2.txt"""
-    check50.run("python3 dna.py databases/small.csv sequences/2.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
+    check50.run("python3 dna.py databases/small.csv sequences/2.txt").stdout("^[Nn]o [Mm]atch\\.?\n", "No match\n", timeout=5).exit()
 
 @check50.check(exists)
 def test3():
     """correctly identifies sequences/3.txt"""
-    check50.run("python3 dna.py databases/small.csv sequences/3.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
+    check50.run("python3 dna.py databases/small.csv sequences/3.txt").stdout("^[Nn]o [Mm]atch\\.?\n", "No match\n", timeout=5).exit()
 
 @check50.check(exists)
 def test4():
@@ -71,7 +71,7 @@ def test12():
 @check50.check(exists)
 def test13():
     """correctly identifies sequences/13.txt"""
-    check50.run("python3 dna.py databases/large.csv sequences/13.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
+    check50.run("python3 dna.py databases/large.csv sequences/13.txt").stdout("^[Nn]o [Mm]atch\\.?\n", "No match\n", timeout=5).exit()
 
 @check50.check(exists)
 def test14():
@@ -86,7 +86,7 @@ def test15():
 @check50.check(exists)
 def test16():
     """correctly identifies sequences/16.txt"""
-    check50.run("python3 dna.py databases/large.csv sequences/16.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
+    check50.run("python3 dna.py databases/large.csv sequences/16.txt").stdout("^[Nn]o [Mm]atch\\.?\n", "No match\n", timeout=5).exit()
 
 @check50.check(exists)
 def test17():
@@ -96,7 +96,7 @@ def test17():
 @check50.check(exists)
 def test18():
     """correctly identifies sequences/18.txt"""
-    check50.run("python3 dna.py databases/large.csv sequences/18.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
+    check50.run("python3 dna.py databases/large.csv sequences/18.txt").stdout("^[Nn]o [Mm]atch\\.?\n", "No match\n", timeout=5).exit()
 
 @check50.check(exists)
 def test19():
@@ -106,7 +106,7 @@ def test19():
 @check50.check(exists)
 def test20():
     """correctly identifies sequences/20.txt"""
-    check50.run("python3 dna.py databases/large.csv sequences/20.txt").stdout("^[Nn]o [Mm]atch\.?\n", "No match\n", timeout=5).exit()
+    check50.run("python3 dna.py databases/large.csv sequences/20.txt").stdout("^[Nn]o [Mm]atch\\.?\n", "No match\n", timeout=5).exit()
 
 @check50.check(exists)
 def test21():

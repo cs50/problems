@@ -87,8 +87,8 @@ def benchmark():
     memory = Memory()
     check50.run("valgrind --tool=massif --heap=yes --stacks=yes --massif-out-file=massif.out ./speller dictionaries/large texts/holmes.txt 1").stdout(timeout=20)
 
-    re_heap = re.compile("mem_heap_B=(\d+)")
-    re_stack = re.compile("mem_stacks_B=(\d+)")
+    re_heap = re.compile("mem_heap_B=(\\d+)")
+    re_stack = re.compile("mem_stacks_B=(\\d+)")
     with open("massif.out") as f:
         for line in f:
             heap_match = re_heap.match(line)
