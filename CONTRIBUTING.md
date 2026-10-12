@@ -8,17 +8,17 @@ Thank you for your interest in helping improve CS50's problem sets and checks! P
 
 ## What lives here
 
-This repository contains the `check50` checks, `submit50` configuration, and problem specifications for **every** CS50 course. There is no single `main` branch: each course offering has its own branch, named `<year>/<course>`, and most branches stop changing once that offering ends.
+This repository contains the `check50` checks, `submit50` configuration, and problem specifications for CS50's online courses. There is no single `main` branch: each course offering has its own branch, named `<year>/<course>`, and most branches stop changing once that offering ends. Pull requests should target the **current** branch for the course:
 
-| Course | Example branches |
-|--------|------------------|
-| CS50x | `2026/x`, `2025/x`, ... |
-| CS50 at Harvard | `2026/fall`, `2026/spring`, `2026/summer`, ... |
+| Course | Current branch |
+|--------|----------------|
+| CS50x | `2026/x` |
 | CS50's Introduction to Programming with Python (CS50P) | `2022/python` |
-| CS50's Introduction to Databases with SQL | `2024/sql`, `2023/sql` |
-| CS50's Introduction to Programming with R | `2025/r`, `2024/r` |
+| CS50's Introduction to Databases with SQL | `2024/sql` |
+| CS50's Introduction to Programming with R | `2025/r` |
 | CS50's Introduction to Programming with Scratch | `2024/scratch` |
-| Teach CS50 / workshops | `2025/workshop` |
+
+Branches named `<year>/fall`, `<year>/spring`, and `<year>/summer` belong to on-campus offerings and are not open to outside contribution.
 
 The `check50` or `submit50` slug for a problem tells you exactly where it lives. For example, in
 
@@ -51,10 +51,10 @@ When describing a bug, include the exact command you ran and its full output, as
 
 ## Opening a pull request
 
-1. **Find the right branch.** Take the branch name from the problem's slug (e.g. `2026/x` from `cs50/problems/2026/x/mario/less`). Changes are normally accepted only on branches for **current** offerings; branches for past offerings are kept stable so that students' results remain reproducible. If you believe a past branch needs a fix, open an issue first.
+1. **Find the right branch.** Take the branch name from the problem's slug (e.g. `2026/x` from `cs50/problems/2026/x/mario/less`) and confirm it is the current branch for that course in the table above. Changes are normally accepted only on current branches; branches for past offerings are kept stable so that students' results remain reproducible. If you believe a past branch needs a fix, open an issue first.
 2. **Fork** this repository and create your branch **from that course branch**, not from the default branch, unless the default branch is the one you are changing.
 3. Make your change. Keep it focused on a single problem or issue.
 4. **Open the pull request against the same course branch** you started from. GitHub pre-selects the default branch as the base, so double-check the **base** dropdown before you submit.
-5. In the description, link the issue your pull request addresses (`Fixes #123`) and state the slug(s) affected. If the same fix applies to other current offerings (e.g. both `2026/x` and `2026/fall`), say so; staff will cherry-pick rather than asking you to open several pull requests.
+5. In the description, link the issue your pull request addresses (`Fixes #123`) and state the slug(s) affected. If the same fix applies to another course's branch as well, say so; staff will cherry-pick rather than asking you to open several pull requests.
 
 A member of the CS50 staff will review your issue or pull request and follow up as needed. If a pull request was opened against the wrong branch, staff will usually retarget it, but telling us the slug up front saves everyone time.
