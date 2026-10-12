@@ -28,7 +28,7 @@ check50 cs50/problems/2026/x/mario/less
 
 `2026/x` is the branch and `mario/less` is the folder within it. **Whenever you open an issue or pull request, start from the slug.** It is the fastest way for staff to identify the right branch.
 
-Bugs in the `check50` or `submit50` tools themselves (as opposed to a particular problem's checks) belong in [cs50/check50](https://github.com/cs50/check50) or [cs50/submit50](https://github.com/cs50/submit50) respectively.
+Bugs in the `check50` or `submit50` tools themselves (as opposed to a particular problem's checks) belong in [cs50/check50](https://github.com/cs50/check50) or [cs50/submit50](https://github.com/cs50/submit50) respectively. The projects for CS50's Introduction to Artificial Intelligence with Python (CS50 AI) live in [ai50/projects](https://github.com/ai50/projects), not here.
 
 ---
 
