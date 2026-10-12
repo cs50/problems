@@ -26,7 +26,6 @@ body:
         - CS50's Introduction to Databases with SQL (CS50 SQL)
         - CS50's Introduction to Programming with R (CS50 R)
         - CS50's Introduction to Programming with Scratch (CS50S)
-        - CS50's Introduction to Artificial Intelligence with Python (CS50 AI)
         - Other (please specify below)
     validations:
       required: true
