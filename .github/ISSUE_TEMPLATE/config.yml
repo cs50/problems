@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Help with a problem set
+    url: https://cs50.harvard.edu/x/communities/
+    about: Stuck on an assignment? Ask in one of CS50's communities. Issues here are for bugs in the checks and specifications themselves.
+  - name: Bug in check50 or submit50 (the tools)
+    url: https://github.com/cs50/check50/issues
+    about: If the tool itself crashes or misbehaves regardless of which problem you run it on, report it in the tool's own repository (cs50/check50 or cs50/submit50).
+  - name: CS50's Introduction to Artificial Intelligence with Python (CS50 AI)
+    url: https://github.com/ai50/projects/issues
+    about: CS50 AI's projects and checks live in the ai50/projects repository, not here. Please report CS50 AI issues there.

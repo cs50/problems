@@ -1,0 +1,94 @@
+name: Bug report
+description: Report a problem with a check50 check, a problem specification, or other content in this repository.
+title: "[<course>/<problem>] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > This repository and all other CS50 repositories **are not** the place to submit your completed problem sets or to request help with assignments.
+        > If you're stuck on a problem set, please consult one of our [many communities](https://cs50.harvard.edu/x/communities/).
+
+        Before you file, please read the [contribution guidelines](https://github.com/cs50/problems/blob/HEAD/CONTRIBUTING.md).
+
+        This repository hosts the checks for **every** CS50 course, one branch per course offering (e.g. `2026/x`, `2022/python`, `2024/sql`, `2025/r`).
+        The questions below tell staff which branch your report is about, so please answer them first.
+
+  - type: dropdown
+    id: course
+    attributes:
+      label: Course
+      description: Which CS50 course are you taking?
+      options:
+        - CS50x (edX / OpenCourseWare)
+        - CS50's Introduction to Programming with Python (CS50P)
+        - CS50's Introduction to Databases with SQL (CS50 SQL)
+        - CS50's Introduction to Programming with R (CS50 R)
+        - CS50's Introduction to Programming with Scratch (CS50S)
+        - Other (please specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: check50 / submit50 slug
+      description: >-
+        Copy the slug exactly as it appears in the problem's "How to Test" or "How to Submit" section.
+        It identifies the course offering, year, and problem, and maps directly to a branch and folder in this repository.
+      placeholder: "cs50/problems/2026/x/mario/less"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where were you running the command?
+      options:
+        - CS50 Codespace (cs50.dev)
+        - Local machine (please give OS and versions below)
+        - Other (please specify below)
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: Background
+      description: >-
+        A concise explanation of the problem encountered. Be specific about what is wrong
+        (a check, the problem specification, the distribution code, etc.) and the context in which it occurred.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: >-
+        The exact command(s) you ran and their full output. Include code or screenshots only insofar as doing so does
+        not violate CS50's [Academic Honesty policy](https://cs50.harvard.edu/x/honesty/).
+      placeholder: |
+        1. check50 cs50/problems/2026/x/mario/less
+        2. ...
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. actual behavior
+      description: What you expected to happen, and what actually happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: >-
+        Anything else that will help staff troubleshoot, such as why you think it happened or what you have already tried
+        (e.g. the output of `check50 --version` or `submit50 --version` when running locally).
