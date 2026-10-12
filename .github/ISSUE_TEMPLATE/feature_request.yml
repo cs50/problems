@@ -1,0 +1,66 @@
+name: Feature request
+description: Suggest an improvement to a check, a problem specification, or other content in this repository.
+title: "[<course>/<problem>] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > This repository and all other CS50 repositories **are not** the place to submit your completed problem sets or to request help with assignments.
+        > If you're stuck on a problem set, please consult one of our [many communities](https://cs50.harvard.edu/x/communities/).
+
+        Before you file, please read the [contribution guidelines](https://github.com/cs50/problems/blob/HEAD/CONTRIBUTING.md).
+
+        This repository hosts the checks for **every** CS50 course, one branch per course offering.
+        The questions below tell staff which branch your suggestion is about, so please answer them first.
+
+  - type: dropdown
+    id: course
+    attributes:
+      label: Course
+      description: Which CS50 course does this suggestion concern?
+      options:
+        - CS50x (edX / OpenCourseWare)
+        - CS50 at Harvard (fall / spring / summer)
+        - CS50's Introduction to Programming with Python (CS50P)
+        - CS50's Introduction to Databases with SQL (CS50 SQL)
+        - CS50's Introduction to Programming with R (CS50 R)
+        - CS50's Introduction to Programming with Scratch (CS50S)
+        - CS50's Introduction to Artificial Intelligence with Python (CS50 AI)
+        - Teach CS50 / workshop
+        - All courses / repository-wide
+        - Other (please specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: check50 / submit50 slug (if applicable)
+      description: The slug of the problem this concerns, e.g. as it appears in the problem's "How to Submit" section.
+      placeholder: "cs50/problems/2026/x/mario/less"
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem?
+      description: What is unclear, missing, or could work better today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: >-
+        What you would like to see instead. If you intend to open a pull request yourself, say so here, and see the
+        contribution guidelines for which branch to target.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else that would help staff evaluate the suggestion.
