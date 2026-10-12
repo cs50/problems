@@ -12,7 +12,7 @@ body:
 
         Before you file, please read the [contribution guidelines](https://github.com/cs50/problems/blob/HEAD/CONTRIBUTING.md).
 
-        This repository hosts the checks for **every** CS50 course, one branch per course offering (e.g. `2026/x`, `2026/fall`, `2022/python`, `2024/sql`, `2025/r`).
+        This repository hosts the checks for **every** CS50 course, one branch per course offering (e.g. `2026/x`, `2022/python`, `2024/sql`, `2025/r`).
         The questions below tell staff which branch your report is about, so please answer them first.
 
   - type: dropdown
@@ -22,13 +22,11 @@ body:
       description: Which CS50 course are you taking?
       options:
         - CS50x (edX / OpenCourseWare)
-        - CS50 at Harvard (fall / spring / summer)
         - CS50's Introduction to Programming with Python (CS50P)
         - CS50's Introduction to Databases with SQL (CS50 SQL)
         - CS50's Introduction to Programming with R (CS50 R)
         - CS50's Introduction to Programming with Scratch (CS50S)
         - CS50's Introduction to Artificial Intelligence with Python (CS50 AI)
-        - Teach CS50 / workshop
         - Other (please specify below)
     validations:
       required: true
