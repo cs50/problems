@@ -7,9 +7,4 @@ check50:
     - !require oecd.py
 
 submit50:
-  files:
-    - !exclude "*"
-    - !require oecd.py
-    - !require health.png
-    - !require income.png
-    - !require area.png
+  files: *check50_files

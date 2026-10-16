@@ -1,5 +1,6 @@
-"""Runs oecd.py, recording what each saved figure contains in plots.json."""
+"""Runs oecd.py, recording what each figure it saves or shows contains in plots.json."""
 
+import builtins
 import json
 import os
 import runpy
@@ -10,14 +11,38 @@ import matplotlib
 matplotlib.use("Agg")
 
 import matplotlib.figure
+import matplotlib.pyplot
 
-plots = {}
+DATA = {"oecd.csv", "worldpop.txt", "worldarea.txt"}
+
+plots = []
 savefig = matplotlib.figure.Figure.savefig
+show = matplotlib.pyplot.show
+open_ = builtins.open
 
 
-def record(figure, fname, *args, **kwargs):
-    plots[os.path.basename(str(fname))] = describe(figure)
-    return savefig(figure, fname, *args, **kwargs)
+def record_savefig(figure, *args, **kwargs):
+    plots.append(describe(figure))
+    return savefig(figure, *args, **kwargs)
+
+
+def record_show(*args, **kwargs):
+    record_open_figures()
+    return show(*args, **kwargs)
+
+
+def record_open_figures():
+    for number in matplotlib.pyplot.get_fignums():
+        plots.append(describe(matplotlib.pyplot.figure(number)))
+
+
+def open_data(file, *args, **kwargs):
+    """Open the check's copy of a data file, even if oecd.py names it with a path from elsewhere."""
+    if isinstance(file, (str, os.PathLike)):
+        name = os.path.basename(os.fspath(file))
+        if name in DATA and not os.path.exists(file):
+            file = name
+    return open_(file, *args, **kwargs)
 
 
 def describe(figure):
@@ -42,14 +67,21 @@ def describe(figure):
     return {"points": points, "lines": lines, "texts": texts}
 
 
-matplotlib.figure.Figure.savefig = record
+matplotlib.figure.Figure.savefig = record_savefig
+matplotlib.pyplot.show = record_show
+builtins.open = open_data
 sys.argv = ["oecd.py"]
 try:
-    runpy.run_path("oecd.py", run_name="__main__")
+    namespace = runpy.run_path("oecd.py", run_name="__main__")
+
+    # Call main ourselves if oecd.py defines it but never calls it
+    if not plots and not matplotlib.pyplot.get_fignums() and callable(namespace.get("main")):
+        namespace["main"]()
+    record_open_figures()
 except BaseException as e:
-    with open("error.txt", "w") as f:
+    with open_("error.txt", "w") as f:
         f.write(f"{type(e).__name__}: {e}")
     raise
 finally:
-    with open("plots.json", "w") as f:
+    with open_("plots.json", "w") as f:
         json.dump(plots, f)
