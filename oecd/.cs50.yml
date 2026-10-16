@@ -1,0 +1,15 @@
+check50:
+  dependencies:
+    - matplotlib
+    - scipy
+  files: &check50_files
+    - !exclude "*"
+    - !require oecd.py
+
+submit50:
+  files:
+    - !exclude "*"
+    - !require oecd.py
+    - !require health.png
+    - !require income.png
+    - !require area.png
