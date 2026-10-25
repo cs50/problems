@@ -1,4 +1,5 @@
 import check50
+from shutil import rmtree
 from re import sub
 
 
@@ -58,7 +59,7 @@ def patch_file(import_file):
 
     # Update import statement with new filename
     with open("twttr.py", "r") as f:
-        twttr = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
+        twttr = sub(r"with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{import_file}.pyc\", \"rb\") as test_file:", f.read())
 
     # Write new import statement to twttr.py
     with open("twttr.py", "w") as f:
@@ -73,6 +74,10 @@ def test_implementation(filename, code=0):
 
     # Patch is_valid function from new test file
     patch_file(f"{filename}")
+
+    # Remove cached bytecode so pytest imports the newly patched file, not a
+    # stale __pycache__ entry (possible when the file's size and mtime are unchanged)
+    rmtree("__pycache__", ignore_errors=True)
 
     # Expect that pytest will exit with given status code
     return check50.run("pytest test_twttr.py").exit(code=code)
