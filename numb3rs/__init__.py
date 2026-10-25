@@ -1,4 +1,5 @@
 import check50
+from shutil import rmtree
 from re import escape, sub
 
 """
@@ -148,10 +149,14 @@ def test_implementation(base_filename, implementation_filename, test_filename, c
         pytest_helper_text = pytest_helper.read()
 
         # Replace open statement with implementation_file
-        pytest_helper_text = sub("with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{implementation_filename}\", \"rb\") as test_file:", pytest_helper_text)
+        pytest_helper_text = sub(r"with open\(\".*\", \"rb\"\) as test_file:", f"with open(\"{implementation_filename}\", \"rb\") as test_file:", pytest_helper_text)
 
         # Write helper file text to base_file
         base_file.writelines(pytest_helper_text)
+
+    # Remove cached bytecode so pytest imports the newly patched file, not a
+    # stale __pycache__ entry (possible when the file's size and mtime are unchanged)
+    rmtree("__pycache__", ignore_errors=True)
 
     # Expect that pytest will exit with given status code
     return check50.run(f"pytest {test_filename}").exit(code=code)
