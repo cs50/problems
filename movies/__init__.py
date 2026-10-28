@@ -113,20 +113,19 @@ def test8():
 @check50.check(exists)
 def test9():
     """9.sql produces correct result"""
-    check_double_col(
+    # One group per birth year; the spec allows ties in any order
+    check_double_col_with_ties(
         run_query("9.sql"),
         [
-            {"Craig T. Nelson", "33"},
-            {"Richard Griffifths", "34"},
-            {"Samuel L. Jackson", "30"},
-            {"Holly Hunter", "31"},
-            {"Jason Lee", "32"},
-            {"Rupert Grint", "35"},
-            {"Daniel Radcliffe", "36"},
-            {"Emma Watson", "38"},
-            {"Emma Watson", "11"},
+            [{"Craig T. Nelson", "33"}],
+            [{"Richard Griffifths", "34"}],
+            [{"Samuel L. Jackson", "30"}],
+            [{"Holly Hunter", "31"}],
+            [{"Jason Lee", "32"}],
+            [{"Rupert Grint", "35"}],
+            [{"Daniel Radcliffe", "36"}, {"Emma Watson", "38"}],
+            [{"Emma Watson", "11"}],
         ],
-        ordered=True,
     )
 
 
@@ -270,3 +269,26 @@ def check_double_col(actual, expected, ordered=False):
             "\n".join([str(entry) for entry in list(expected)]),
             "\n".join([str(entry) for entry in list(result)]),
         )
+
+
+def check_double_col_with_ties(actual, groups):
+    """
+    Like check_double_col with ordered=True, except that rows within the same
+    group (e.g., people born in the same year) may appear in any order.
+    """
+
+    def row_key(row):
+        return sorted(str(value) for value in row)
+
+    # Sort the rows inside each group, in both results, so ties compare equal
+    if actual:
+        reordered = []
+        start = 0
+        for group in groups:
+            span = actual[start : start + len(group)]
+            reordered += sorted(span, key=lambda row: row_key(row.values()))
+            start += len(group)
+        actual = reordered + actual[start:]
+
+    expected = [row for group in groups for row in sorted(group, key=row_key)]
+    check_double_col(actual, expected, ordered=True)
