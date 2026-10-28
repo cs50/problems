@@ -280,15 +280,19 @@ def check_double_col_with_ties(actual, groups):
     def row_key(row):
         return sorted(str(value) for value in row)
 
-    # Sort the rows inside each group, in both results, so ties compare equal
-    if actual:
+    # Sort the rows inside each group, in both results, so ties compare equal.
+    # Only reorder when the row count matches: otherwise the group windows
+    # would not line up with the student's rows, and the Mismatch message
+    # would show rows in an order the student never produced. A result with
+    # the wrong number of rows still fails via the ordered comparison below.
+    if actual and len(actual) == sum(len(group) for group in groups):
         reordered = []
         start = 0
         for group in groups:
             span = actual[start : start + len(group)]
             reordered += sorted(span, key=lambda row: row_key(row.values()))
             start += len(group)
-        actual = reordered + actual[start:]
+        actual = reordered
 
     expected = [row for group in groups for row in sorted(group, key=row_key)]
     check_double_col(actual, expected, ordered=True)
