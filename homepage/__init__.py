@@ -1,11 +1,26 @@
 import check50
 
-import os
+import glob
+import posixpath
 import re
 
 
 def html_pages():
-    return sorted(f for f in os.listdir(".") if f.endswith(".html"))
+    """Return all .html files, including those in subdirectories."""
+    return sorted(
+        p.replace("\\", "/")
+        for p in glob.glob("**/*.html", recursive=True)
+    )
+
+
+def resolve_href(href, page):
+    """Resolve an href in `page` to a site-relative path, or None if external."""
+    href = href.split("#", 1)[0].split("?", 1)[0].strip()
+    if not href or "://" in href or href.startswith(("//", "mailto:", "tel:", "javascript:", "data:")):
+        return None
+    if href.startswith("/"):
+        return posixpath.normpath(href.lstrip("/"))
+    return posixpath.normpath(posixpath.join(posixpath.dirname(page), href))
 
 
 @check50.check()
@@ -28,14 +43,20 @@ def four_pages():
 def navigation():
     """each page links to at least one other page"""
     pages = html_pages()
+    page_set = set(pages)
     href_re = re.compile(r"""href\s*=\s*["']([^"']+)["']""", re.I)
 
     for p in pages:
         with open(p) as f:
             html = f.read()
         for m in href_re.finditer(html):
-            href = m.group(1).split("#", 1)[0].split("?", 1)[0]
-            if href in pages and href != p:
+            target = resolve_href(m.group(1), p)
+            if target is None:
+                continue
+            # "pages/" is shorthand for "pages/index.html"
+            if target not in page_set:
+                target = posixpath.join(target, "index.html") if target != "." else "index.html"
+            if target in page_set and target != p:
                 break
         else:
             raise check50.Failure("one or more pages do not link to another page")
@@ -131,7 +152,10 @@ def specification():
     with open("specification.txt") as f:
         spec = f.read().lower()
 
-    if "javascript" not in spec or "bootstrap" not in spec:
+    # Accept "JavaScript" or the abbreviation "JS" as a whole word
+    mentions_javascript = re.search(r"\bjava\s*script\b|\bjs\b", spec)
+
+    if not mentions_javascript or "bootstrap" not in spec:
         raise check50.Failure(
             "specification.txt does not describe JavaScript and/or Bootstrap",
             help="Have you included a one-sentence description of how you used JavaScript and Bootstrap?"
