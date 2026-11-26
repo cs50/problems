@@ -1,4 +1,6 @@
 import check50
+import sys
+from os import rename
 from shutil import rmtree
 from re import escape, sub
 
@@ -140,7 +142,7 @@ def test_implementation(base_filename, implementation_filename, test_filename, c
     """Test implementation_file, an implementation of base_file, against student's checks in test_file. Expect a given exit status"""
 
     check50.include("pytest_helper.py")
-    check50.include(implementation_filename)
+    include_pyc(implementation_filename.removesuffix(".pyc"))
 
     # Overwrite base_file with code to run implementation_file
     with open(base_filename, "w") as base_file, open("pytest_helper.py", "r") as pytest_helper:
@@ -160,3 +162,15 @@ def test_implementation(base_filename, implementation_filename, test_filename, c
 
     # Expect that pytest will exit with given status code
     return check50.run(f"pytest {test_filename}").exit(code=code)
+
+
+def include_pyc(name):
+    """Include name.pyc compiled for the running Python.
+
+    Bytecode is specific to a Python minor version: executing a mismatch crashes the
+    interpreter. The checks ship name.cpython-<major><minor>.pyc for each supported
+    version (from cs50/cs50p-pytest-tests); include the right one under the plain name.
+    """
+    tag = f"cpython-{sys.version_info.major}{sys.version_info.minor}"
+    check50.include(f"{name}.{tag}.pyc")
+    rename(f"{name}.{tag}.pyc", f"{name}.pyc")
