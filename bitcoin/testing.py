@@ -1,52 +1,92 @@
-import requests
-import sys
-import importlib.util
+"""
+Runs bitcoin.py with a simulated CoinCap API.
+
+Usage: python3 testing.py PRICE [ARGS...]
+
+PRICE is the value of "priceUsd" in the simulated API response. Any remaining
+ARGS are passed through to bitcoin.py as its command-line arguments, so from
+bitcoin.py's perspective it was run as: python3 bitcoin.py [ARGS...]
+"""
+
 import ast
-import types
+import importlib.util
+import json
+import sys
+
+import requests
+from requests.structures import CaseInsensitiveDict
+
+# Pull the simulated price off the command line so bitcoin.py never sees it
+price = sys.argv.pop(1)
+sys.argv[0] = "bitcoin.py"
+
+DATA = {
+    "data": {
+        "id": "bitcoin",
+        "rank": "1",
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "supply": "19823321.0000000000000000",
+        "maxSupply": "21000000.0000000000000000",
+        "marketCapUsd": "1939613325892.4607145113457500",
+        "volumeUsd24Hr": "12341417371.3505338276601668",
+        "priceUsd": price,
+        "changePercent24Hr": "1.4324165997531723",
+        "vwap24Hr": "96203.8859537212418977",
+        "explorer": "https://blockchain.info/",
+    },
+    "timestamp": 1739399343596,
+}
 
 
 class FakeResponse:
+    """Mimics the parts of requests.Response that bitcoin.py might use"""
+
     def __init__(self):
         self.status_code = 200
-        self.text = '{"data":{"id":"bitcoin","rank":"1","symbol":"BTC","name":"Bitcoin","supply":"19823321.0000000000000000","maxSupply":"21000000.0000000000000000","marketCapUsd":"1942459024350.7046787559053215","volumeUsd24Hr":"12485110012.7294932098393723","priceUsd":"97988.5774109547375415","changePercent24Hr":"2.0282219564598007","vwap24Hr":"96203.8859537212418977","explorer":"https://blockchain.info/"},"timestamp":1739400157767}'
+        self.ok = True
+        self.headers = CaseInsensitiveDict({"Content-Type": "application/json"})
+        self.text = json.dumps(DATA)
+        self.content = self.text.encode()
 
-    def json(*args):
-        return {
-            "data": {
-                "id": "bitcoin",
-                "rank": "1",
-                "symbol": "BTC",
-                "name": "Bitcoin",
-                "supply": "19823321.0000000000000000",
-                "maxSupply": "21000000.0000000000000000",
-                "marketCapUsd": "1939613325892.4607145113457500",
-                "volumeUsd24Hr": "12341417371.3505338276601668",
-                "priceUsd": "97845.0243",
-                "changePercent24Hr": "1.4324165997531723",
-                "vwap24Hr": "96203.8859537212418977",
-                "explorer": "https://blockchain.info/"
-            },
-            "timestamp": 1739399343596
-        }
+    def json(self, *args, **kwargs):
+        return json.loads(self.text)
 
-    # Mock raise_for_status
     def raise_for_status(self):
         pass
 
 
-def fake_request(method, url, **kwargs):
-    if method == "GET":
+def fake_get(*args, **kwargs):
+    return FakeResponse()
+
+
+def fake_request(method, *args, **kwargs):
+    """Stand-in for requests.request: simulate GETs, pass anything else through"""
+    if method.upper() == "GET":
         return FakeResponse()
-    else:
-        return requests.request(method, url, **kwargs)
+    return real_request(method, *args, **kwargs)
 
 
-requests.get = lambda *args, **kwargs: FakeResponse()
+def fake_session_request(self, method, *args, **kwargs):
+    """Stand-in for requests.Session.request: simulate GETs, pass anything else through"""
+    if method.upper() == "GET":
+        return FakeResponse()
+    # Delegate to the original Session.request, not requests.request, since the
+    # latter calls Session.request internally and would loop back here forever
+    return real_session_request(self, method, *args, **kwargs)
+
+
+# Intercept GET requests made via requests.get, requests.request, or a Session
+real_request = requests.request
+real_session_request = requests.Session.request
+requests.get = fake_get
 requests.request = fake_request
+requests.Session.get = lambda self, *args, **kwargs: FakeResponse()
+requests.Session.request = fake_session_request
 
 with open("bitcoin.py", "r") as f:
     source = f.read()
-    tree = ast.parse(source)
+tree = ast.parse(source)
 
 # Find the if __name__ == "__main__" block
 main_guard_node = None
@@ -67,7 +107,7 @@ for node in ast.walk(tree):
 # Load and execute the module
 spec = importlib.util.spec_from_file_location("bitcoin", "bitcoin.py")
 bitcoin = importlib.util.module_from_spec(spec)
-sys.modules['bitcoin'] = bitcoin
+sys.modules["bitcoin"] = bitcoin
 
 # If there's a main guard, we need to handle it specially
 if main_guard_node:
